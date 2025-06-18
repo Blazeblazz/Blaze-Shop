@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Dashboard
     function loadDashboard() {
-        // Get data from localStorage and sessionStorage
+        // Get data from all storage methods
         const orders = getAllOrders();
         const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
         
@@ -134,8 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const itemsCount = order.items.reduce((total, item) => total + item.quantity, 0);
                 
+                // Add mobile indicator if order is from mobile
+                const mobileIndicator = order.isMobile ? 
+                    '<span style="color: #ff3c00; margin-left: 5px;">📱</span>' : '';
+                
                 row.innerHTML = `
-                    <td>${order.orderNumber}</td>
+                    <td>${order.orderNumber}${mobileIndicator}</td>
                     <td>${order.customer.fullname}</td>
                     <td>${formattedDate}</td>
                     <td>${itemsCount} article(s)</td>
@@ -426,21 +430,121 @@ document.addEventListener('DOMContentLoaded', function() {
         return categoryLabels[category] || category;
     }
     
-    // Get all orders from both localStorage and sessionStorage
+    // Get all orders from all storage methods
     function getAllOrders() {
+        // Method 1: localStorage
         const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
-        const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
         
-        // Combine orders, avoiding duplicates by orderNumber
+        // Method 2: sessionStorage
+        const sessionOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+        
+        // Method 3: cookies
+        const cookieOrders = getCookieOrders();
+        
+        // Method 4: IndexedDB
+        const indexedDBOrders = [];
+        loadOrdersFromIndexedDB().then(orders => {
+            orders.forEach(order => {
+                if (!indexedDBOrders.some(o => o.orderNumber === order.orderNumber)) {
+                    indexedDBOrders.push(order);
+                }
+            });
+        });
+        
+        // Combine all orders, avoiding duplicates by orderNumber
         const allOrders = [...localOrders];
         
-        serverOrders.forEach(serverOrder => {
-            if (!allOrders.some(order => order.orderNumber === serverOrder.orderNumber)) {
-                allOrders.push(serverOrder);
+        // Add session orders
+        sessionOrders.forEach(order => {
+            if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
+                allOrders.push(order);
+            }
+        });
+        
+        // Add cookie orders
+        cookieOrders.forEach(order => {
+            if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
+                allOrders.push(order);
+            }
+        });
+        
+        // Add IndexedDB orders
+        indexedDBOrders.forEach(order => {
+            if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
+                allOrders.push(order);
             }
         });
         
         return allOrders;
+    }
+    
+    // Cookie helpers
+    function getCookie(name) {
+        const nameEQ = name + '=';
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+    
+    function getCookieOrders() {
+        const cookieData = getCookie('blazeOrders');
+        if (cookieData) {
+            try {
+                return JSON.parse(cookieData);
+            } catch (e) {
+                return [];
+            }
+        }
+        return [];
+    }
+    
+    // IndexedDB helper
+    function loadOrdersFromIndexedDB() {
+        return new Promise((resolve, reject) => {
+            if (!window.indexedDB) {
+                resolve([]);
+                return;
+            }
+            
+            const request = indexedDB.open('BlazeDB', 1);
+            
+            request.onerror = function() {
+                resolve([]);
+            };
+            
+            request.onsuccess = function(event) {
+                const db = event.target.result;
+                
+                if (!db.objectStoreNames.contains('orders')) {
+                    resolve([]);
+                    return;
+                }
+                
+                const transaction = db.transaction(['orders'], 'readonly');
+                const store = transaction.objectStore('orders');
+                const getAllRequest = store.getAll();
+                
+                getAllRequest.onsuccess = function() {
+                    resolve(getAllRequest.result);
+                };
+                
+                getAllRequest.onerror = function() {
+                    resolve([]);
+                };
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains('orders')) {
+                    db.createObjectStore('orders', { keyPath: 'orderNumber' });
+                }
+                resolve([]);
+            };
+        });
     }
     
     function getDefaultProducts() {
@@ -586,5 +690,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
     }
     
-    // Functions are now exported from their respective files
+    // Make functions available globally
+    window.getAllOrders = getAllOrders;
 });

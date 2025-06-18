@@ -237,17 +237,15 @@ document.addEventListener('DOMContentLoaded', function() {
             shipping: 0,
             total: subtotal,
             paymentMethod: 'cod',
-            status: 'pending'
+            status: 'pending',
+            isMobile: isMobileDevice()
         };
         
-        // Save order to localStorage
-        saveOrder(order);
+        // Save order using multiple methods
+        saveOrderMultipleWays(order);
         
         // Clear direct order
         sessionStorage.removeItem('directOrder');
-        
-        // Also save to server-side storage (simulated with localStorage)
-        saveOrderToServer(order);
     }
     
     // Generate order number
@@ -261,60 +259,108 @@ document.addEventListener('DOMContentLoaded', function() {
         return `BLZ-${year}${month}${day}-${random}`;
     }
     
-    // Save order to localStorage
-    function saveOrder(order) {
+    // Check if device is mobile
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // Save order using multiple storage methods for redundancy
+    function saveOrderMultipleWays(order) {
+        // Method 1: localStorage
         try {
-            // Get existing orders
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            
-            // Add new order
-            orders.push(order);
-            
-            // Save updated orders
-            localStorage.setItem('orders', JSON.stringify(orders));
-            console.log('Order saved to localStorage successfully');
+            const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+            localOrders.push(order);
+            localStorage.setItem('orders', JSON.stringify(localOrders));
+            console.log('Order saved to localStorage');
         } catch (error) {
             console.error('Error saving to localStorage:', error);
-            // Try alternative storage method
-            saveOrderToServer(order);
+        }
+        
+        // Method 2: sessionStorage
+        try {
+            const sessionOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+            sessionOrders.push(order);
+            sessionStorage.setItem('serverOrders', JSON.stringify(sessionOrders));
+            console.log('Order saved to sessionStorage');
+        } catch (error) {
+            console.error('Error saving to sessionStorage:', error);
+        }
+        
+        // Method 3: cookies (30-day expiration)
+        try {
+            const cookieOrders = getCookieOrders();
+            cookieOrders.push(order);
+            setCookie('blazeOrders', JSON.stringify(cookieOrders), 30);
+            console.log('Order saved to cookies');
+        } catch (error) {
+            console.error('Error saving to cookies:', error);
+        }
+        
+        // Method 4: IndexedDB (if available)
+        if (window.indexedDB) {
+            saveToIndexedDB(order);
         }
     }
     
-    // Save order to server-side storage (simulated with sessionStorage for mobile)
-    function saveOrderToServer(order) {
-        try {
-            // Get existing server orders
-            const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
-            
-            // Add new order
-            serverOrders.push(order);
-            
-            // Save updated orders
-            sessionStorage.setItem('serverOrders', JSON.stringify(serverOrders));
-            
-            // Create a hidden form to submit the order data
-            const form = document.createElement('form');
-            form.style.display = 'none';
-            form.method = 'POST';
-            form.action = 'save-order.php'; // This would be your server endpoint
-            
-            // Add order data as a hidden field
-            const orderData = document.createElement('input');
-            orderData.type = 'hidden';
-            orderData.name = 'orderData';
-            orderData.value = JSON.stringify(order);
-            form.appendChild(orderData);
-            
-            // Add form to body and submit
-            document.body.appendChild(form);
-            
-            // For now, we'll just log instead of actually submitting
-            console.log('Order would be sent to server:', order);
-            
-            // Remove form
-            document.body.removeChild(form);
-        } catch (error) {
-            console.error('Error in backup storage method:', error);
+    // Cookie helpers
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+        document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/';
+    }
+    
+    function getCookie(name) {
+        const nameEQ = name + '=';
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
         }
+        return null;
+    }
+    
+    function getCookieOrders() {
+        const cookieData = getCookie('blazeOrders');
+        if (cookieData) {
+            try {
+                return JSON.parse(cookieData);
+            } catch (e) {
+                return [];
+            }
+        }
+        return [];
+    }
+    
+    // IndexedDB helper
+    function saveToIndexedDB(order) {
+        const request = indexedDB.open('BlazeDB', 1);
+        
+        request.onupgradeneeded = function(event) {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('orders')) {
+                db.createObjectStore('orders', { keyPath: 'orderNumber' });
+            }
+        };
+        
+        request.onsuccess = function(event) {
+            const db = event.target.result;
+            const transaction = db.transaction(['orders'], 'readwrite');
+            const store = transaction.objectStore('orders');
+            
+            store.add(order);
+            
+            transaction.oncomplete = function() {
+                console.log('Order saved to IndexedDB');
+            };
+            
+            transaction.onerror = function(event) {
+                console.error('IndexedDB transaction error:', event.target.error);
+            };
+        };
+        
+        request.onerror = function(event) {
+            console.error('Error opening IndexedDB:', event.target.error);
+        };
     }
 });

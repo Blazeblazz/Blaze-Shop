@@ -1,6 +1,6 @@
 // Update order status functionality
 function updateOrderStatus(orderNumber) {
-    // Get orders from both localStorage and sessionStorage
+    // Get orders from all storage methods
     const orders = getAllOrders();
     const order = orders.find(o => o.orderNumber === orderNumber);
     
@@ -14,7 +14,7 @@ function updateOrderStatus(orderNumber) {
                         <span class="close-modal" onclick="closeStatusModal()">&times;</span>
                     </div>
                     <div class="modal-body">
-                        <p>Commande: ${order.orderNumber}</p>
+                        <p>Commande: ${order.orderNumber} ${order.isMobile ? '<span style="color: #ff3c00;">📱</span>' : ''}</p>
                         <p>Statut actuel: <span class="status-badge status-${order.status}">${getStatusLabel(order.status)}</span></p>
                         
                         <div class="form-group">
@@ -53,22 +53,46 @@ function saveOrderStatus(orderNumber) {
     const newStatus = document.getElementById('new-status').value;
     
     // Update in localStorage
-    const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
-    const localOrderIndex = localOrders.findIndex(o => o.orderNumber === orderNumber);
-    
-    if (localOrderIndex !== -1) {
-        localOrders[localOrderIndex].status = newStatus;
-        localStorage.setItem('orders', JSON.stringify(localOrders));
+    try {
+        const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+        const localOrderIndex = localOrders.findIndex(o => o.orderNumber === orderNumber);
+        
+        if (localOrderIndex !== -1) {
+            localOrders[localOrderIndex].status = newStatus;
+            localStorage.setItem('orders', JSON.stringify(localOrders));
+        }
+    } catch (error) {
+        console.error('Error updating localStorage:', error);
     }
     
     // Update in sessionStorage
-    const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
-    const serverOrderIndex = serverOrders.findIndex(o => o.orderNumber === orderNumber);
-    
-    if (serverOrderIndex !== -1) {
-        serverOrders[serverOrderIndex].status = newStatus;
-        sessionStorage.setItem('serverOrders', JSON.stringify(serverOrders));
+    try {
+        const sessionOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+        const sessionOrderIndex = sessionOrders.findIndex(o => o.orderNumber === orderNumber);
+        
+        if (sessionOrderIndex !== -1) {
+            sessionOrders[sessionOrderIndex].status = newStatus;
+            sessionStorage.setItem('serverOrders', JSON.stringify(sessionOrders));
+        }
+    } catch (error) {
+        console.error('Error updating sessionStorage:', error);
     }
+    
+    // Update in cookies
+    try {
+        const cookieOrders = getCookieOrders();
+        const cookieOrderIndex = cookieOrders.findIndex(o => o.orderNumber === orderNumber);
+        
+        if (cookieOrderIndex !== -1) {
+            cookieOrders[cookieOrderIndex].status = newStatus;
+            setCookie('blazeOrders', JSON.stringify(cookieOrders), 30);
+        }
+    } catch (error) {
+        console.error('Error updating cookies:', error);
+    }
+    
+    // Update in IndexedDB
+    updateOrderInIndexedDB(orderNumber, newStatus);
     
     // Close modal
     closeStatusModal();
@@ -88,6 +112,66 @@ function getStatusLabel(status) {
     };
     
     return statusLabels[status] || status;
+}
+
+// Cookie helpers
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/';
+}
+
+function getCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function getCookieOrders() {
+    const cookieData = getCookie('blazeOrders');
+    if (cookieData) {
+        try {
+            return JSON.parse(cookieData);
+        } catch (e) {
+            return [];
+        }
+    }
+    return [];
+}
+
+// IndexedDB helper
+function updateOrderInIndexedDB(orderNumber, newStatus) {
+    if (!window.indexedDB) return;
+    
+    const request = indexedDB.open('BlazeDB', 1);
+    
+    request.onsuccess = function(event) {
+        const db = event.target.result;
+        
+        if (!db.objectStoreNames.contains('orders')) return;
+        
+        const transaction = db.transaction(['orders'], 'readwrite');
+        const store = transaction.objectStore('orders');
+        
+        // Get the order
+        const getRequest = store.get(orderNumber);
+        
+        getRequest.onsuccess = function() {
+            const order = getRequest.result;
+            if (order) {
+                // Update status
+                order.status = newStatus;
+                
+                // Put back the updated order
+                store.put(order);
+            }
+        };
+    };
 }
 
 // Add to window object
