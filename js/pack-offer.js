@@ -6,42 +6,42 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 1,
             name: "Lost-in-Casablanca",
             price: 129,
-            image: "images/products/Lost-in-Casablanca.webp",
+            image: "images/Products/Lost-in-Casablanca.webp",
             variants: ["White", "Beige"]
         },
         {
             id: 2,
             name: "Red Rug",
             price: 129,
-            image: "images/products/Red-Rug.webp",
+            image: "images/Products/Red-Rug.webp",
             variants: ["White", "Black", "Beige"]
         },
         {
             id: 3,
             name: "Turtle Rush",
             price: 129,
-            image: "images/products/Turtle-Rush-White.webp",
+            image: "images/Products/Turtle-Rush-White.webp",
             variants: ["Black", "White", "Beige"]
         },
         {
             id: 4,
             name: "Whispering Wildflowers",
             price: 129,
-            image: "images/products/Whispering-Wildflowers.webp",
+            image: "images/Products/Whispering-Wildflowers.webp",
             variants: ["Black", "White"]
         },
         {
             id: 5,
             name: "Rise",
             price: 129,
-            image: "images/products/Rise.webp",
+            image: "images/Products/RISE.webp",
             variants: ["White"]
         },
         {
             id: 6,
             name: "Rush",
             price: 129,
-            image: "images/products/Rush.webp",
+            image: "images/Products/Rush.webp",
             variants: ["White", "Black"]
         }
     ];

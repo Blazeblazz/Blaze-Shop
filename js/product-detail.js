@@ -166,7 +166,7 @@ const products = [
         name: "Lost-in-Casablanca",
         price: 129,
         category: "casual",
-        image: "images/products/Lost-in-Casablanca.webp",
+        image: "images/Products/Lost-in-Casablanca.webp",
         rating: 5,
         description: "T-shirt inspiré par les rues animées de Casablanca, avec un design urbain unique.",
         inStock: true,
@@ -179,9 +179,9 @@ const products = [
             "Design exclusif"
         ],
         images: [
-            "images/products/Lost-in-Casablanca.webp",
-            "images/products/Lost-in-Casablanca-2.webp",
-            "images/products/Lost-in-Casablanca-3.webp"
+            "images/Products/Lost-in-Casablanca.webp",
+            "images/Products/Lost-in-Casablanca.webp",
+            "images/Products/Lost-in-Casablanca.webp"
         ]
     },
     {
@@ -189,7 +189,7 @@ const products = [
         name: "Red Rug",
         price: 129,
         category: "traditionnel",
-        image: "images/products/Red-Rug.webp",
+        image: "images/Products/Red-Rug.webp",
         rating: 5,
         description: "T-shirt avec motif inspiré des tapis traditionnels marocains, alliant tradition et modernité.",
         inStock: true,
@@ -202,9 +202,9 @@ const products = [
             "Motifs traditionnels"
         ],
         images: [
-            "images/products/Red-Rug.webp",
-            "images/products/Red-Rug-2.webp",
-            "images/products/Red-Rug-3.webp"
+            "images/Products/Red-Rug.webp",
+            "images/Products/Red-Rug.webp",
+            "images/Products/Red-Rug.webp"
         ]
     },
     {
@@ -212,7 +212,7 @@ const products = [
         name: "Turtle Rush",
         price: 129,
         category: "sportif",
-        image: "images/products/Turtle-Rush-White.webp",
+        image: "images/Products/Turtle-Rush-White.webp",
         rating: 5,
         description: "T-shirt sportif avec design de tortue, parfait pour les activités de plein air et le sport.",
         inStock: true,
@@ -225,9 +225,9 @@ const products = [
             "Design exclusif"
         ],
         images: [
-            "images/products/Turtle-Rush-White.webp",
-            "images/products/Turtle-Rush-White-2.webp",
-            "images/products/Turtle-Rush-White-3.webp"
+            "images/Products/Turtle-Rush-White.webp",
+            "images/Products/Turtle-Rush-White.webp",
+            "images/Products/Turtle-Rush-White.webp"
         ]
     },
     {
@@ -235,7 +235,7 @@ const products = [
         name: "Whispering Wildflowers",
         price: 129,
         category: "casual",
-        image: "images/products/Whispering-Wildflowers.webp",
+        image: "images/Products/Whispering-Wildflowers.webp",
         rating: 5,
         description: "T-shirt avec motif floral élégant, idéal pour un look décontracté et stylé.",
         inStock: true,
@@ -248,9 +248,9 @@ const products = [
             "Motif floral exclusif"
         ],
         images: [
-            "images/products/Whispering-Wildflowers.webp",
-            "images/products/Whispering-Wildflowers-2.webp",
-            "images/products/Whispering-Wildflowers-3.webp"
+            "images/Products/Whispering-Wildflowers.webp",
+            "images/Products/Whispering-Wildflowers.webp",
+            "images/Products/Whispering-Wildflowers.webp"
         ]
     },
     {
@@ -258,7 +258,7 @@ const products = [
         name: "Rise",
         price: 129,
         category: "traditionnel",
-        image: "images/products/Rise.webp",
+        image: "images/Products/RISE.webp",
         rating: 5,
         description: "T-shirt avec un design inspirant et élégant, parfait pour toutes les occasions.",
         inStock: true,
@@ -271,9 +271,9 @@ const products = [
             "Design exclusif"
         ],
         images: [
-            "images/products/Rise.webp",
-            "images/products/Rise-2.webp",
-            "images/products/Rise-3.webp"
+            "images/Products/RISE.webp",
+            "images/Products/RISE.webp",
+            "images/Products/RISE.webp"
         ]
     },
     {
@@ -281,7 +281,7 @@ const products = [
         name: "Rush",
         price: 129,
         category: "sportif",
-        image: "images/products/Rush.webp",
+        image: "images/Products/Rush.webp",
         rating: 5,
         description: "T-shirt sportif dynamique, idéal pour les activités physiques et le quotidien.",
         inStock: true,
@@ -294,9 +294,9 @@ const products = [
             "Design sportif"
         ],
         images: [
-            "images/products/Rush.webp",
-            "images/products/Rush-2.webp",
-            "images/products/Rush-3.webp"
+            "images/Products/Rush.webp",
+            "images/Products/Rush.webp",
+            "images/Products/Rush.webp"
         ]
     }
 ];
