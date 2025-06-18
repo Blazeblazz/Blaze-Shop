@@ -1,0 +1,61 @@
+/* Mobile layout fixes */
+@media (max-width: 768px) {
+    /* Fix for black space not covering elements */
+    body {
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+    }
+    
+    .hero {
+        width: 100vw;
+        overflow: hidden;
+    }
+    
+    .hero-visual {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+    /* Fix for product grid */
+    .work-grid, .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .work-item, .product-item {
+        height: auto;
+    }
+    
+    /* Fix for about section */
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image {
+        height: 250px;
+        margin-top: 30px;
+    }
+    
+    /* Fix for approach grid */
+    .approach-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Fix for contact form */
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Fix for footer */
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .footer-column {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
