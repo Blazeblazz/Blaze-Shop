@@ -1,0 +1,21 @@
+DNS SETUP FOR BLAZEBLAZZ.STORE
+============================
+
+After uploading your project to GitHub, you need to configure your domain's DNS settings.
+Go to your domain registrar (where you purchased blazeblazz.store) and add these records:
+
+A RECORDS:
+----------
+@    185.199.108.153
+@    185.199.109.153
+@    185.199.110.153
+@    185.199.111.153
+
+CNAME RECORD:
+------------
+www    YOUR_USERNAME.github.io    (replace YOUR_USERNAME with your GitHub username)
+
+IMPORTANT:
+- DNS changes can take up to 24 hours to propagate
+- After DNS propagation, enable HTTPS in GitHub Pages settings
+- Your website will be available at https://blazeblazz.store

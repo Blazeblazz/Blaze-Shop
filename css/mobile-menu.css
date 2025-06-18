@@ -1,0 +1,79 @@
+/* Mobile menu styles */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95) !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.4s ease;
+        z-index: 100;
+        opacity: 0;
+    }
+    
+    body.nav-active .nav-menu {
+        right: 0;
+        opacity: 1;
+    }
+    
+    .nav-menu-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    
+    .nav-menu-links li {
+        margin: 15px 0;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        transition-delay: 0.1s;
+    }
+    
+    .nav-menu-links li:nth-child(2) { transition-delay: 0.2s; }
+    .nav-menu-links li:nth-child(3) { transition-delay: 0.3s; }
+    .nav-menu-links li:nth-child(4) { transition-delay: 0.4s; }
+    .nav-menu-links li:nth-child(5) { transition-delay: 0.5s; }
+    .nav-menu-links li:nth-child(6) { transition-delay: 0.6s; }
+    
+    body.nav-active .nav-menu-links li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .nav-menu-links a {
+        font-size: 1.5rem;
+        padding: 10px 0;
+        display: block;
+        color: white;
+        text-decoration: none;
+    }
+    
+    /* Hamburger animation */
+    .nav-toggle {
+        position: relative;
+        z-index: 200;
+    }
+    
+    .nav-toggle-bar {
+        transition: all 0.3s ease;
+    }
+    
+    body.nav-active .nav-toggle-bar:first-child {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    body.nav-active .nav-toggle-bar:last-child {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}

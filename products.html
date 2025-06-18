@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAZE | Catalogue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-override.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">
+            <a href="index-award.html">BLAZE</a>
+        </div>
+        <div class="nav-toggle">
+            <div class="nav-toggle-bar"></div>
+            <div class="nav-toggle-bar"></div>
+        </div>
+        <div class="nav-menu">
+            <ul class="nav-menu-links">
+                <li><a href="products.html">Produits</a></li>
+                <li><a href="#offres">Offres</a></li>
+                <li><a href="#apropos">À Propos</a></li>
+                <li><a href="#livraison">Livraison</a></li>
+                <li><a href="#temoignages">Témoignages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Products Catalog Section -->
+    <section id="catalogue" style="padding-top: 150px;">
+        <h2 class="section-title">Catalogue de Produits</h2>
+        
+        <div class="product-filters">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="casual">Casual</button>
+            <button class="filter-btn" data-filter="traditionnel">Traditionnel</button>
+            <button class="filter-btn" data-filter="sportif">Sportif</button>
+        </div>
+        
+        <div class="work-grid product-grid">
+            <div class="work-item product-item" data-category="casual" data-id="1">
+                <img src="images/products/Lost-in-Casablanca.webp" alt="Lost-in-Casablanca" class="product-image">
+                <div class="work-info product-info">
+                    <h3 class="work-title">Lost-in-Casablanca</h3>
+                    <div class="work-category">129 MAD</div>
+                    <div class="product-details">
+                        <span class="product-size">Taille unique</span>
+                        <span class="product-rating">★★★★★</span>
+                    </div>
+                    <a href="product-detail.html?id=1" class="btn-small">Voir détails</a>
+                </div>
+            </div>
+            <div class="work-item product-item" data-category="traditionnel" data-id="2">
+                <img src="images/products/Red-Rug.webp" alt="Red Rug" class="product-image">
+                <div class="work-info product-info">
+                    <h3 class="work-title">Red Rug</h3>
+                    <div class="work-category">129 MAD</div>
+                    <div class="product-details">
+                        <span class="product-size">Taille unique</span>
+                        <span class="product-rating">★★★★★</span>
+                    </div>
+                    <a href="product-detail.html?id=2" class="btn-small">Voir détails</a>
+                </div>
+            </div>
+            <div class="work-item product-item" data-category="sportif" data-id="3">
+                <img src="images/products/Turtle-Rush-White.webp" alt="Turtle Rush" class="product-image">
+                <div class="work-info product-info">
+                    <h3 class="work-title">Turtle Rush</h3>
+                    <div class="work-category">129 MAD</div>
+                    <div class="product-details">
+                        <span class="product-size">Taille unique</span>
+                        <span class="product-rating">★★★★★</span>
+                    </div>
+                    <a href="product-detail.html?id=3" class="btn-small">Voir détails</a>
+                </div>
+            </div>
+            <div class="work-item product-item" data-category="casual" data-id="4">
+                <img src="images/products/Whispering-Wildflowers.webp" alt="Whispering Wildflowers" class="product-image">
+                <div class="work-info product-info">
+                    <h3 class="work-title">Whispering Wildflowers</h3>
+                    <div class="work-category">129 MAD</div>
+                    <div class="product-details">
+                        <span class="product-size">Taille unique</span>
+                        <span class="product-rating">★★★★★</span>
+                    </div>
+                    <a href="product-detail.html?id=4" class="btn-small">Voir détails</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-logo">BLAZE</div>
+                <p class="footer-description">Votre boutique en ligne de t-shirts de qualité au Maroc.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Liens Rapides</h4>
+                <ul class="footer-menu">
+                    <li><a href="products.html">Produits</a></li>
+                    <li><a href="#offres">Offres Spéciales</a></li>
+                    <li><a href="#apropos">À Propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Informations</h4>
+                <ul class="footer-menu">
+                    <li><a href="#">Conditions Générales</a></li>
+                    <li><a href="#">Politique de Confidentialité</a></li>
+                    <li><a href="#">Livraison et Retours</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Suivez-nous</h4>
+                <div class="footer-social">
+                    <a href="#" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">© 2023 BLAZE. Tous droits réservés.</div>
+    </footer>
+
+    <script src="js/main-no-cart.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

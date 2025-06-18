@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erreur serveur | BLAZE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-override.css">
+    <style>
+        .error-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: #ff3c00;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .error-description {
+            max-width: 600px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">500</div>
+        <h1 class="error-message">Erreur serveur</h1>
+        <p class="error-description">Une erreur est survenue sur notre serveur. Veuillez réessayer plus tard ou contacter notre support si le problème persiste.</p>
+        <a href="index.html" class="btn">Retour à l'accueil</a>
+    </div>
+</body>
+</html>

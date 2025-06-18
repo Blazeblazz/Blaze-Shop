@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAZE | Paiement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-override.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
+    <link rel="stylesheet" href="css/checkout-variants.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">
+            <a href="index-award.html">BLAZE</a>
+        </div>
+        <div class="nav-toggle">
+            <div class="nav-toggle-bar"></div>
+            <div class="nav-toggle-bar"></div>
+        </div>
+        <div class="nav-menu">
+            <ul class="nav-menu-links">
+                <li><a href="index-award.html#produits">Produits</a></li>
+                <li><a href="index-award.html#offres">Offres</a></li>
+                <li><a href="index-award.html#apropos">À Propos</a></li>
+                <li><a href="index-award.html#livraison">Livraison</a></li>
+                <li><a href="index-award.html#temoignages">Témoignages</a></li>
+                <li><a href="index-award.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Checkout Section -->
+    <section id="checkout" style="padding-top: 150px;">
+        <h2 class="section-title">Paiement</h2>
+        
+        <div class="checkout-container">
+            <!-- Checkout Steps -->
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Informations</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Récapitulatif</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Confirmation</div>
+                </div>
+            </div>
+            
+            <!-- Checkout Forms -->
+            <div class="checkout-forms">
+                <!-- Step 1: Customer Information -->
+                <div class="checkout-form active" id="step-1-form">
+                    <h3>Informations personnelles</h3>
+                    <form id="customer-info-form">
+                        <div class="form-group">
+                            <label for="fullname">Nom complet*</label>
+                            <input type="text" id="fullname" name="fullname" required>
+                            <div class="error-message" id="fullname-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Numéro de téléphone*</label>
+                            <input type="tel" id="phone" name="phone" placeholder="0612345678" required>
+                            <div class="error-message" id="phone-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">Ville*</label>
+                            <textarea id="city" name="city" rows="2" required></textarea>
+                            <div class="error-message" id="city-error"></div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" id="to-step-2" class="btn btn-primary">Continuer</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Step 2: Order Summary -->
+                <div class="checkout-form" id="step-2-form">
+                    <h3>Récapitulatif de la commande</h3>
+                    
+                    <div class="order-summary">
+                        <div class="order-items">
+                            <!-- Order items will be added dynamically -->
+                        </div>
+                        
+                        <div class="order-totals">
+                            <div class="order-subtotal">
+                                <span>Sous-total:</span>
+                                <span id="subtotal-amount">0 MAD</span>
+                            </div>
+                            <div class="order-shipping">
+                                <span>Livraison:</span>
+                                <span id="shipping-amount">Gratuite</span>
+                            </div>
+                            <div class="order-total">
+                                <span>Total:</span>
+                                <span id="total-amount">0 MAD</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <h4>Mode de paiement</h4>
+                        <div class="payment-option">
+                            <input type="radio" id="cod" name="payment" value="cod" checked>
+                            <label for="cod">Paiement à la livraison</label>
+                        </div>
+                    </div>
+                    
+                    <div class="customer-info-summary">
+                        <h4>Informations de livraison</h4>
+                        <div id="summary-customer-info">
+                            <!-- Customer info will be added dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="back-to-step-1" class="btn btn-secondary">Retour</button>
+                        <button type="button" id="to-step-3" class="btn btn-primary">Confirmer la commande</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Order Confirmation -->
+                <div class="checkout-form" id="step-3-form">
+                    <div class="order-confirmation">
+                        <div class="confirmation-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ff3c00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <h3>Commande confirmée!</h3>
+                        <p>Votre commande a été placée avec succès.</p>
+                        <div class="order-number">
+                            <span>Numéro de commande:</span>
+                            <span id="order-number"></span>
+                        </div>
+                        <p>Un récapitulatif de votre commande a été envoyé à votre adresse email (si fournie).</p>
+                        <p>Nous vous contacterons bientôt pour confirmer votre commande et organiser la livraison.</p>
+                        <div class="confirmation-actions">
+                            <a href="index-award.html" class="btn">Continuer vos achats</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary Sidebar -->
+            <div class="order-sidebar">
+                <h3>Votre commande</h3>
+                <div class="sidebar-items">
+                    <!-- Order items will be added dynamically -->
+                </div>
+                <div class="sidebar-totals">
+                    <div class="sidebar-subtotal">
+                        <span>Sous-total:</span>
+                        <span id="sidebar-subtotal">0 MAD</span>
+                    </div>
+                    <div class="sidebar-shipping">
+                        <span>Livraison:</span>
+                        <span>Gratuite</span>
+                    </div>
+                    <div class="sidebar-total">
+                        <span>Total:</span>
+                        <span id="sidebar-total">0 MAD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-logo">BLAZE</div>
+                <p class="footer-description">Votre boutique en ligne de t-shirts de qualité au Maroc.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Liens Rapides</h4>
+                <ul class="footer-menu">
+                    <li><a href="index-award.html#produits">Produits</a></li>
+                    <li><a href="index-award.html#offres">Offres Spéciales</a></li>
+                    <li><a href="index-award.html#apropos">À Propos</a></li>
+                    <li><a href="index-award.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Informations</h4>
+                <ul class="footer-menu">
+                    <li><a href="#">Conditions Générales</a></li>
+                    <li><a href="#">Politique de Confidentialité</a></li>
+                    <li><a href="#">Livraison et Retours</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Suivez-nous</h4>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/blazeblazz/" target="_blank" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61568534665188" target="_blank" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">© 2023 BLAZE. Tous droits réservés.</div>
+    </footer>
+
+    <script src="js/main-no-cart.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

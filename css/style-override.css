@@ -1,0 +1,50 @@
+/* Hide cart functionality */
+.nav-cart,
+.cart-icon,
+.cart-count,
+.mini-cart,
+.mini-cart-header,
+.mini-cart-items,
+.mini-cart-footer,
+.cart-item,
+.cart-item-details,
+.cart-item-image,
+.cart-item-title,
+.cart-item-price,
+.cart-item-remove,
+.cart-total,
+.cart-total-price,
+.checkout-btn,
+.cart-delivery-info,
+.cart-payment-info,
+.empty-cart-message {
+    display: none !important;
+}
+
+/* Convert cart buttons to contact links */
+.btn-small {
+    background-color: #ff3c00;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Menu layout - 3 items per line */
+.nav-menu-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.nav-menu-links li {
+    width: 33.33%;
+    text-align: center;
+    padding: 20px;
+}
+
+.nav-menu-links a {
+    font-size: 3rem;
+}

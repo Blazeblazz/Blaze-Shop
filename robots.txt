@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /contacts/
+
+Sitemap: https://www.blazeshop.ma/sitemap.xml
