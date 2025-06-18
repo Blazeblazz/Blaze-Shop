@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Dashboard
     function loadDashboard() {
-        // Get data from all storage methods
-        const orders = getAllOrders();
+        // Get data from OrdersAPI
+        const orders = getOrders();
         const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
         
         // Calculate stats
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Orders
     function loadOrders() {
-        const orders = getAllOrders();
+        const orders = getOrders();
         const ordersTable = document.getElementById('orders-table');
         ordersTable.innerHTML = '';
         
@@ -403,10 +403,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Update order status functionality is now in update-status.js
-    
-    // closeStatusModal and saveOrderStatus are now in update-status.js
-    
     // Helper functions
     function getStatusLabel(status) {
         const statusLabels = {
@@ -430,121 +426,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return categoryLabels[category] || category;
     }
     
-    // Get all orders from all storage methods
-    function getAllOrders() {
-        // Method 1: localStorage
-        const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
-        
-        // Method 2: sessionStorage
-        const sessionOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
-        
-        // Method 3: cookies
-        const cookieOrders = getCookieOrders();
-        
-        // Method 4: IndexedDB
-        const indexedDBOrders = [];
-        loadOrdersFromIndexedDB().then(orders => {
-            orders.forEach(order => {
-                if (!indexedDBOrders.some(o => o.orderNumber === order.orderNumber)) {
-                    indexedDBOrders.push(order);
-                }
-            });
-        });
-        
-        // Combine all orders, avoiding duplicates by orderNumber
-        const allOrders = [...localOrders];
-        
-        // Add session orders
-        sessionOrders.forEach(order => {
-            if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
-                allOrders.push(order);
-            }
-        });
-        
-        // Add cookie orders
-        cookieOrders.forEach(order => {
-            if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
-                allOrders.push(order);
-            }
-        });
-        
-        // Add IndexedDB orders
-        indexedDBOrders.forEach(order => {
-            if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
-                allOrders.push(order);
-            }
-        });
-        
-        return allOrders;
-    }
-    
-    // Cookie helpers
-    function getCookie(name) {
-        const nameEQ = name + '=';
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    // Get orders using OrdersAPI if available
+    function getOrders() {
+        if (window.OrdersAPI) {
+            return OrdersAPI.getOrders();
+        } else {
+            console.error('OrdersAPI not found, falling back to localStorage');
+            return JSON.parse(localStorage.getItem('orders')) || [];
         }
-        return null;
-    }
-    
-    function getCookieOrders() {
-        const cookieData = getCookie('blazeOrders');
-        if (cookieData) {
-            try {
-                return JSON.parse(cookieData);
-            } catch (e) {
-                return [];
-            }
-        }
-        return [];
-    }
-    
-    // IndexedDB helper
-    function loadOrdersFromIndexedDB() {
-        return new Promise((resolve, reject) => {
-            if (!window.indexedDB) {
-                resolve([]);
-                return;
-            }
-            
-            const request = indexedDB.open('BlazeDB', 1);
-            
-            request.onerror = function() {
-                resolve([]);
-            };
-            
-            request.onsuccess = function(event) {
-                const db = event.target.result;
-                
-                if (!db.objectStoreNames.contains('orders')) {
-                    resolve([]);
-                    return;
-                }
-                
-                const transaction = db.transaction(['orders'], 'readonly');
-                const store = transaction.objectStore('orders');
-                const getAllRequest = store.getAll();
-                
-                getAllRequest.onsuccess = function() {
-                    resolve(getAllRequest.result);
-                };
-                
-                getAllRequest.onerror = function() {
-                    resolve([]);
-                };
-            };
-            
-            request.onupgradeneeded = function(event) {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains('orders')) {
-                    db.createObjectStore('orders', { keyPath: 'orderNumber' });
-                }
-                resolve([]);
-            };
-        });
     }
     
     function getDefaultProducts() {
@@ -567,8 +456,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design exclusif"
                 ],
                 images: [
-                    "../images/Products/Lost-in-Casablanca.webp",
-                    "../images/Products/Lost-in-Casablanca.webp",
                     "../images/Products/Lost-in-Casablanca.webp"
                 ]
             },
@@ -590,8 +477,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Motifs traditionnels"
                 ],
                 images: [
-                    "../images/Products/Red-Rug.webp",
-                    "../images/Products/Red-Rug.webp",
                     "../images/Products/Red-Rug.webp"
                 ]
             },
@@ -613,8 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design exclusif"
                 ],
                 images: [
-                    "../images/Products/Turtle-Rush-White.webp",
-                    "../images/Products/Turtle-Rush-White.webp",
                     "../images/Products/Turtle-Rush-White.webp"
                 ]
             },
@@ -636,8 +519,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Motif floral exclusif"
                 ],
                 images: [
-                    "../images/Products/Whispering-Wildflowers.webp",
-                    "../images/Products/Whispering-Wildflowers.webp",
                     "../images/Products/Whispering-Wildflowers.webp"
                 ]
             },
@@ -659,8 +540,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design exclusif"
                 ],
                 images: [
-                    "../images/Products/RISE.webp",
-                    "../images/Products/RISE.webp",
                     "../images/Products/RISE.webp"
                 ]
             },
@@ -682,14 +561,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design sportif"
                 ],
                 images: [
-                    "../images/Products/Rush.webp",
-                    "../images/Products/Rush.webp",
                     "../images/Products/Rush.webp"
                 ]
             }
         ];
     }
-    
-    // Make functions available globally
-    window.getAllOrders = getAllOrders;
 });

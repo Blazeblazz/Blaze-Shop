@@ -1,7 +1,7 @@
 // View order functionality
 function viewOrder(orderNumber) {
-    // Get orders from all storage methods
-    const orders = getAllOrders();
+    // Get orders using OrdersAPI if available
+    const orders = window.OrdersAPI ? OrdersAPI.getOrders() : (JSON.parse(localStorage.getItem('orders')) || []);
     const order = orders.find(o => o.orderNumber === orderNumber);
     
     if (order) {

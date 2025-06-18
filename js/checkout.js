@@ -237,12 +237,19 @@ document.addEventListener('DOMContentLoaded', function() {
             shipping: 0,
             total: subtotal,
             paymentMethod: 'cod',
-            status: 'pending',
-            isMobile: isMobileDevice()
+            status: 'pending'
         };
         
-        // Save order using multiple methods
-        saveOrderMultipleWays(order);
+        // Save order using OrdersAPI
+        if (window.OrdersAPI) {
+            OrdersAPI.saveOrder(order);
+        } else {
+            console.error('OrdersAPI not found, falling back to localStorage');
+            // Fallback to direct localStorage
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
         
         // Clear direct order
         sessionStorage.removeItem('directOrder');
@@ -257,110 +264,5 @@ document.addEventListener('DOMContentLoaded', function() {
         const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
         
         return `BLZ-${year}${month}${day}-${random}`;
-    }
-    
-    // Check if device is mobile
-    function isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
-    
-    // Save order using multiple storage methods for redundancy
-    function saveOrderMultipleWays(order) {
-        // Method 1: localStorage
-        try {
-            const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
-            localOrders.push(order);
-            localStorage.setItem('orders', JSON.stringify(localOrders));
-            console.log('Order saved to localStorage');
-        } catch (error) {
-            console.error('Error saving to localStorage:', error);
-        }
-        
-        // Method 2: sessionStorage
-        try {
-            const sessionOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
-            sessionOrders.push(order);
-            sessionStorage.setItem('serverOrders', JSON.stringify(sessionOrders));
-            console.log('Order saved to sessionStorage');
-        } catch (error) {
-            console.error('Error saving to sessionStorage:', error);
-        }
-        
-        // Method 3: cookies (30-day expiration)
-        try {
-            const cookieOrders = getCookieOrders();
-            cookieOrders.push(order);
-            setCookie('blazeOrders', JSON.stringify(cookieOrders), 30);
-            console.log('Order saved to cookies');
-        } catch (error) {
-            console.error('Error saving to cookies:', error);
-        }
-        
-        // Method 4: IndexedDB (if available)
-        if (window.indexedDB) {
-            saveToIndexedDB(order);
-        }
-    }
-    
-    // Cookie helpers
-    function setCookie(name, value, days) {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-        document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/';
-    }
-    
-    function getCookie(name) {
-        const nameEQ = name + '=';
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-        }
-        return null;
-    }
-    
-    function getCookieOrders() {
-        const cookieData = getCookie('blazeOrders');
-        if (cookieData) {
-            try {
-                return JSON.parse(cookieData);
-            } catch (e) {
-                return [];
-            }
-        }
-        return [];
-    }
-    
-    // IndexedDB helper
-    function saveToIndexedDB(order) {
-        const request = indexedDB.open('BlazeDB', 1);
-        
-        request.onupgradeneeded = function(event) {
-            const db = event.target.result;
-            if (!db.objectStoreNames.contains('orders')) {
-                db.createObjectStore('orders', { keyPath: 'orderNumber' });
-            }
-        };
-        
-        request.onsuccess = function(event) {
-            const db = event.target.result;
-            const transaction = db.transaction(['orders'], 'readwrite');
-            const store = transaction.objectStore('orders');
-            
-            store.add(order);
-            
-            transaction.oncomplete = function() {
-                console.log('Order saved to IndexedDB');
-            };
-            
-            transaction.onerror = function(event) {
-                console.error('IndexedDB transaction error:', event.target.error);
-            };
-        };
-        
-        request.onerror = function(event) {
-            console.error('Error opening IndexedDB:', event.target.error);
-        };
     }
 });

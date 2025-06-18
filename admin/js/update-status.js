@@ -1,7 +1,7 @@
 // Update order status functionality
 function updateOrderStatus(orderNumber) {
-    // Get orders from all storage methods
-    const orders = getAllOrders();
+    // Get orders using OrdersAPI if available
+    const orders = window.OrdersAPI ? OrdersAPI.getOrders() : (JSON.parse(localStorage.getItem('orders')) || []);
     const order = orders.find(o => o.orderNumber === orderNumber);
     
     if (order) {
@@ -52,47 +52,19 @@ function saveOrderStatus(orderNumber) {
     // Get new status
     const newStatus = document.getElementById('new-status').value;
     
-    // Update in localStorage
-    try {
-        const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
-        const localOrderIndex = localOrders.findIndex(o => o.orderNumber === orderNumber);
+    // Update using OrdersAPI if available
+    if (window.OrdersAPI) {
+        OrdersAPI.updateOrderStatus(orderNumber, newStatus);
+    } else {
+        // Fallback to direct localStorage update
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const orderIndex = orders.findIndex(o => o.orderNumber === orderNumber);
         
-        if (localOrderIndex !== -1) {
-            localOrders[localOrderIndex].status = newStatus;
-            localStorage.setItem('orders', JSON.stringify(localOrders));
+        if (orderIndex !== -1) {
+            orders[orderIndex].status = newStatus;
+            localStorage.setItem('orders', JSON.stringify(orders));
         }
-    } catch (error) {
-        console.error('Error updating localStorage:', error);
     }
-    
-    // Update in sessionStorage
-    try {
-        const sessionOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
-        const sessionOrderIndex = sessionOrders.findIndex(o => o.orderNumber === orderNumber);
-        
-        if (sessionOrderIndex !== -1) {
-            sessionOrders[sessionOrderIndex].status = newStatus;
-            sessionStorage.setItem('serverOrders', JSON.stringify(sessionOrders));
-        }
-    } catch (error) {
-        console.error('Error updating sessionStorage:', error);
-    }
-    
-    // Update in cookies
-    try {
-        const cookieOrders = getCookieOrders();
-        const cookieOrderIndex = cookieOrders.findIndex(o => o.orderNumber === orderNumber);
-        
-        if (cookieOrderIndex !== -1) {
-            cookieOrders[cookieOrderIndex].status = newStatus;
-            setCookie('blazeOrders', JSON.stringify(cookieOrders), 30);
-        }
-    } catch (error) {
-        console.error('Error updating cookies:', error);
-    }
-    
-    // Update in IndexedDB
-    updateOrderInIndexedDB(orderNumber, newStatus);
     
     // Close modal
     closeStatusModal();
@@ -112,66 +84,6 @@ function getStatusLabel(status) {
     };
     
     return statusLabels[status] || status;
-}
-
-// Cookie helpers
-function setCookie(name, value, days) {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/';
-}
-
-function getCookie(name) {
-    const nameEQ = name + '=';
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-    }
-    return null;
-}
-
-function getCookieOrders() {
-    const cookieData = getCookie('blazeOrders');
-    if (cookieData) {
-        try {
-            return JSON.parse(cookieData);
-        } catch (e) {
-            return [];
-        }
-    }
-    return [];
-}
-
-// IndexedDB helper
-function updateOrderInIndexedDB(orderNumber, newStatus) {
-    if (!window.indexedDB) return;
-    
-    const request = indexedDB.open('BlazeDB', 1);
-    
-    request.onsuccess = function(event) {
-        const db = event.target.result;
-        
-        if (!db.objectStoreNames.contains('orders')) return;
-        
-        const transaction = db.transaction(['orders'], 'readwrite');
-        const store = transaction.objectStore('orders');
-        
-        // Get the order
-        const getRequest = store.get(orderNumber);
-        
-        getRequest.onsuccess = function() {
-            const order = getRequest.result;
-            if (order) {
-                // Update status
-                order.status = newStatus;
-                
-                // Put back the updated order
-                store.put(order);
-            }
-        };
-    };
 }
 
 // Add to window object
