@@ -35,6 +35,7 @@ function viewOrder(orderNumber) {
                                 <thead>
                                     <tr>
                                         <th>Produit</th>
+                                        <th>Couleur</th>
                                         <th>Prix</th>
                                         <th>Quantité</th>
                                         <th>Total</th>
@@ -50,6 +51,12 @@ function viewOrder(orderNumber) {
                         <div style="display: flex; align-items: center;">
                             <img src="../${item.image}" alt="${item.name}" width="40" height="40" style="object-fit: contain; background-color: white; margin-right: 10px;">
                             <span>${item.name}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <span class="color-dot" style="width: 15px; height: 15px; border-radius: 50%; display: inline-block; background-color: ${getColorCode(item.variant)}; border: 1px solid #ddd;"></span>
+                            <span>${item.variant || 'N/A'}</span>
                         </div>
                     </td>
                     <td>${item.price} MAD</td>
@@ -79,6 +86,16 @@ function closeOrderModal() {
     if (modal) {
         modal.remove();
     }
+}
+
+// Helper function to convert color names to color codes
+function getColorCode(colorName) {
+    const colorMap = {
+        'White': '#ffffff',
+        'Black': '#000000',
+        'Beige': '#f5f5dc'
+    };
+    return colorMap[colorName] || '#cccccc';
 }
 
 // Add to window object

@@ -69,9 +69,21 @@ function saveOrderStatus(orderNumber) {
         closeStatusModal();
         
         // Reload orders
-        loadOrders();
-        loadDashboard();
+        location.reload();
     }
+}
+
+// Helper function
+function getStatusLabel(status) {
+    const statusLabels = {
+        'pending': 'En attente',
+        'processing': 'En traitement',
+        'shipped': 'Expédié',
+        'delivered': 'Livré',
+        'cancelled': 'Annulé'
+    };
+    
+    return statusLabels[status] || status;
 }
 
 // Add to window object
