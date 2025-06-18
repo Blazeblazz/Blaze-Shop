@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Dashboard
     function loadDashboard() {
-        // Get data from localStorage
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        // Get data from localStorage and sessionStorage
+        const orders = getAllOrders();
         const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
         
         // Calculate stats
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Orders
     function loadOrders() {
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const orders = getAllOrders();
         const ordersTable = document.getElementById('orders-table');
         ordersTable.innerHTML = '';
         
@@ -399,11 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // View order functionality is now in view-order.js
-    
     // Update order status functionality is now in update-status.js
-    
-    // closeOrderModal is now in view-order.js
     
     // closeStatusModal and saveOrderStatus are now in update-status.js
     
@@ -430,6 +426,23 @@ document.addEventListener('DOMContentLoaded', function() {
         return categoryLabels[category] || category;
     }
     
+    // Get all orders from both localStorage and sessionStorage
+    function getAllOrders() {
+        const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+        const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+        
+        // Combine orders, avoiding duplicates by orderNumber
+        const allOrders = [...localOrders];
+        
+        serverOrders.forEach(serverOrder => {
+            if (!allOrders.some(order => order.orderNumber === serverOrder.orderNumber)) {
+                allOrders.push(serverOrder);
+            }
+        });
+        
+        return allOrders;
+    }
+    
     function getDefaultProducts() {
         return [
             {
@@ -437,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: "Lost-in-Casablanca",
                 price: 129,
                 category: "casual",
-                image: "../images/products/Lost-in-Casablanca.webp",
+                image: "../images/Products/Lost-in-Casablanca.webp",
                 rating: 5,
                 description: "T-shirt inspiré par les rues animées de Casablanca, avec un design urbain unique.",
                 inStock: true,
@@ -450,9 +463,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design exclusif"
                 ],
                 images: [
-                    "../images/products/Lost-in-Casablanca.webp",
-                    "../images/products/Lost-in-Casablanca-2.webp",
-                    "../images/products/Lost-in-Casablanca-3.webp"
+                    "../images/Products/Lost-in-Casablanca.webp",
+                    "../images/Products/Lost-in-Casablanca.webp",
+                    "../images/Products/Lost-in-Casablanca.webp"
                 ]
             },
             {
@@ -460,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: "Red Rug",
                 price: 129,
                 category: "traditionnel",
-                image: "../images/products/Red-Rug.webp",
+                image: "../images/Products/Red-Rug.webp",
                 rating: 5,
                 description: "T-shirt avec motif inspiré des tapis traditionnels marocains, alliant tradition et modernité.",
                 inStock: true,
@@ -473,9 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Motifs traditionnels"
                 ],
                 images: [
-                    "../images/products/Red-Rug.webp",
-                    "../images/products/Red-Rug-2.webp",
-                    "../images/products/Red-Rug-3.webp"
+                    "../images/Products/Red-Rug.webp",
+                    "../images/Products/Red-Rug.webp",
+                    "../images/Products/Red-Rug.webp"
                 ]
             },
             {
@@ -483,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: "Turtle Rush",
                 price: 129,
                 category: "sportif",
-                image: "../images/products/Turtle-Rush-White.webp",
+                image: "../images/Products/Turtle-Rush-White.webp",
                 rating: 5,
                 description: "T-shirt sportif avec design de tortue, parfait pour les activités de plein air et le sport.",
                 inStock: true,
@@ -496,9 +509,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design exclusif"
                 ],
                 images: [
-                    "../images/products/Turtle-Rush-White.webp",
-                    "../images/products/Turtle-Rush-White-2.webp",
-                    "../images/products/Turtle-Rush-White-3.webp"
+                    "../images/Products/Turtle-Rush-White.webp",
+                    "../images/Products/Turtle-Rush-White.webp",
+                    "../images/Products/Turtle-Rush-White.webp"
                 ]
             },
             {
@@ -506,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: "Whispering Wildflowers",
                 price: 129,
                 category: "casual",
-                image: "../images/products/Whispering-Wildflowers.webp",
+                image: "../images/Products/Whispering-Wildflowers.webp",
                 rating: 5,
                 description: "T-shirt avec motif floral élégant, idéal pour un look décontracté et stylé.",
                 inStock: true,
@@ -519,9 +532,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Motif floral exclusif"
                 ],
                 images: [
-                    "../images/products/Whispering-Wildflowers.webp",
-                    "../images/products/Whispering-Wildflowers-2.webp",
-                    "../images/products/Whispering-Wildflowers-3.webp"
+                    "../images/Products/Whispering-Wildflowers.webp",
+                    "../images/Products/Whispering-Wildflowers.webp",
+                    "../images/Products/Whispering-Wildflowers.webp"
                 ]
             },
             {
@@ -529,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: "Rise",
                 price: 129,
                 category: "traditionnel",
-                image: "../images/products/Rise.webp",
+                image: "../images/Products/RISE.webp",
                 rating: 5,
                 description: "T-shirt avec un design inspirant et élégant, parfait pour toutes les occasions.",
                 inStock: true,
@@ -542,9 +555,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design exclusif"
                 ],
                 images: [
-                    "../images/products/Rise.webp",
-                    "../images/products/Rise-2.webp",
-                    "../images/products/Rise-3.webp"
+                    "../images/Products/RISE.webp",
+                    "../images/Products/RISE.webp",
+                    "../images/Products/RISE.webp"
                 ]
             },
             {
@@ -552,7 +565,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: "Rush",
                 price: 129,
                 category: "sportif",
-                image: "../images/products/Rush.webp",
+                image: "../images/Products/Rush.webp",
                 rating: 5,
                 description: "T-shirt sportif dynamique, idéal pour les activités physiques et le quotidien.",
                 inStock: true,
@@ -565,9 +578,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Design sportif"
                 ],
                 images: [
-                    "../images/products/Rush.webp",
-                    "../images/products/Rush-2.webp",
-                    "../images/products/Rush-3.webp"
+                    "../images/Products/Rush.webp",
+                    "../images/Products/Rush.webp",
+                    "../images/Products/Rush.webp"
                 ]
             }
         ];

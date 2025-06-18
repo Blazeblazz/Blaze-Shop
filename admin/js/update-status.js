@@ -1,12 +1,10 @@
 // Update order status functionality
 function updateOrderStatus(orderNumber) {
-    // Get orders from localStorage
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const orderIndex = orders.findIndex(o => o.orderNumber === orderNumber);
+    // Get orders from both localStorage and sessionStorage
+    const orders = getAllOrders();
+    const order = orders.find(o => o.orderNumber === orderNumber);
     
-    if (orderIndex !== -1) {
-        const order = orders[orderIndex];
-        
+    if (order) {
         // Create modal content
         let modalContent = `
             <div class="modal active" id="status-modal">
@@ -54,26 +52,32 @@ function saveOrderStatus(orderNumber) {
     // Get new status
     const newStatus = document.getElementById('new-status').value;
     
-    // Get orders from localStorage
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const orderIndex = orders.findIndex(o => o.orderNumber === orderNumber);
+    // Update in localStorage
+    const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    const localOrderIndex = localOrders.findIndex(o => o.orderNumber === orderNumber);
     
-    if (orderIndex !== -1) {
-        // Update order status
-        orders[orderIndex].status = newStatus;
-        
-        // Save orders
-        localStorage.setItem('orders', JSON.stringify(orders));
-        
-        // Close modal
-        closeStatusModal();
-        
-        // Reload orders
-        location.reload();
+    if (localOrderIndex !== -1) {
+        localOrders[localOrderIndex].status = newStatus;
+        localStorage.setItem('orders', JSON.stringify(localOrders));
     }
+    
+    // Update in sessionStorage
+    const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+    const serverOrderIndex = serverOrders.findIndex(o => o.orderNumber === orderNumber);
+    
+    if (serverOrderIndex !== -1) {
+        serverOrders[serverOrderIndex].status = newStatus;
+        sessionStorage.setItem('serverOrders', JSON.stringify(serverOrders));
+    }
+    
+    // Close modal
+    closeStatusModal();
+    
+    // Reload page to refresh data
+    location.reload();
 }
 
-// Helper function
+// Helper function to get status label
 function getStatusLabel(status) {
     const statusLabels = {
         'pending': 'En attente',

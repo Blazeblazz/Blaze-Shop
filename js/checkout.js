@@ -245,6 +245,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Clear direct order
         sessionStorage.removeItem('directOrder');
+        
+        // Also save to server-side storage (simulated with localStorage)
+        saveOrderToServer(order);
     }
     
     // Generate order number
@@ -258,15 +261,60 @@ document.addEventListener('DOMContentLoaded', function() {
         return `BLZ-${year}${month}${day}-${random}`;
     }
     
-    // Save order
+    // Save order to localStorage
     function saveOrder(order) {
-        // Get existing orders
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        
-        // Add new order
-        orders.push(order);
-        
-        // Save updated orders
-        localStorage.setItem('orders', JSON.stringify(orders));
+        try {
+            // Get existing orders
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            
+            // Add new order
+            orders.push(order);
+            
+            // Save updated orders
+            localStorage.setItem('orders', JSON.stringify(orders));
+            console.log('Order saved to localStorage successfully');
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+            // Try alternative storage method
+            saveOrderToServer(order);
+        }
+    }
+    
+    // Save order to server-side storage (simulated with sessionStorage for mobile)
+    function saveOrderToServer(order) {
+        try {
+            // Get existing server orders
+            const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+            
+            // Add new order
+            serverOrders.push(order);
+            
+            // Save updated orders
+            sessionStorage.setItem('serverOrders', JSON.stringify(serverOrders));
+            
+            // Create a hidden form to submit the order data
+            const form = document.createElement('form');
+            form.style.display = 'none';
+            form.method = 'POST';
+            form.action = 'save-order.php'; // This would be your server endpoint
+            
+            // Add order data as a hidden field
+            const orderData = document.createElement('input');
+            orderData.type = 'hidden';
+            orderData.name = 'orderData';
+            orderData.value = JSON.stringify(order);
+            form.appendChild(orderData);
+            
+            // Add form to body and submit
+            document.body.appendChild(form);
+            
+            // For now, we'll just log instead of actually submitting
+            console.log('Order would be sent to server:', order);
+            
+            // Remove form
+            document.body.removeChild(form);
+        } catch (error) {
+            console.error('Error in backup storage method:', error);
+        }
     }
 });

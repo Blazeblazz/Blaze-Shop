@@ -1,7 +1,7 @@
 // View order functionality
 function viewOrder(orderNumber) {
-    // Get orders from localStorage
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    // Get orders from both localStorage and sessionStorage
+    const orders = getAllOrders();
     const order = orders.find(o => o.orderNumber === orderNumber);
     
     if (order) {
@@ -113,6 +113,24 @@ function getStatusLabel(status) {
     return statusLabels[status] || status;
 }
 
+// Get all orders from both localStorage and sessionStorage
+function getAllOrders() {
+    const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    const serverOrders = JSON.parse(sessionStorage.getItem('serverOrders')) || [];
+    
+    // Combine orders, avoiding duplicates by orderNumber
+    const allOrders = [...localOrders];
+    
+    serverOrders.forEach(serverOrder => {
+        if (!allOrders.some(order => order.orderNumber === serverOrder.orderNumber)) {
+            allOrders.push(serverOrder);
+        }
+    });
+    
+    return allOrders;
+}
+
 // Add to window object
 window.viewOrder = viewOrder;
 window.closeOrderModal = closeOrderModal;
+window.getAllOrders = getAllOrders;
