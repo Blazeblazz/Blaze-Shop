@@ -399,164 +399,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // View order functionality
-    function viewOrder(orderNumber) {
-        // Get orders from localStorage
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        const order = orders.find(o => o.orderNumber === orderNumber);
-        
-        if (order) {
-            // Create modal content
-            let modalContent = `
-                <div class="modal active" id="order-modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Commande ${order.orderNumber}</h3>
-                            <span class="close-modal" onclick="closeOrderModal()">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <div class="order-details">
-                                <h4>Détails de la commande</h4>
-                                <p><strong>Date:</strong> ${new Date(order.date).toLocaleDateString()}</p>
-                                <p><strong>Statut:</strong> <span class="status-badge status-${order.status}">${getStatusLabel(order.status)}</span></p>
-                                <p><strong>Total:</strong> ${order.total} MAD</p>
-                                <p><strong>Mode de paiement:</strong> Paiement à la livraison</p>
-                            </div>
-                            <div class="customer-details">
-                                <h4>Informations client</h4>
-                                <p><strong>Nom:</strong> ${order.customer.fullname}</p>
-                                <p><strong>Téléphone:</strong> ${order.customer.phone}</p>
-                                <p><strong>Ville:</strong> ${order.customer.city}</p>
-                                <p><strong>Adresse:</strong> ${order.customer.address}</p>
-                                ${order.customer.email ? `<p><strong>Email:</strong> ${order.customer.email}</p>` : ''}
-                            </div>
-                            <div class="order-items">
-                                <h4>Articles</h4>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Produit</th>
-                                            <th>Prix</th>
-                                            <th>Quantité</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-            
-            // Add order items
-            order.items.forEach(item => {
-                modalContent += `
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center;">
-                                <img src="../${item.image}" alt="${item.name}" width="40" height="40" style="object-fit: contain; background-color: white; margin-right: 10px;">
-                                <span>${item.name}</span>
-                            </div>
-                        </td>
-                        <td>${item.price} MAD</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.price * item.quantity} MAD</td>
-                    </tr>`;
-            });
-            
-            modalContent += `
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="form-actions" style="margin-top: 20px;">
-                                <button class="btn btn-primary" onclick="closeOrderModal()">Fermer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-            
-            // Add modal to body
-            document.body.insertAdjacentHTML('beforeend', modalContent);
-        }
-    }
+    // View order functionality is now in view-order.js
     
-    // Update order status functionality
-    function updateOrderStatus(orderNumber) {
-        // Get orders from localStorage
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        const orderIndex = orders.findIndex(o => o.orderNumber === orderNumber);
-        
-        if (orderIndex !== -1) {
-            const order = orders[orderIndex];
-            
-            // Create modal content
-            let modalContent = `
-                <div class="modal active" id="status-modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Mettre à jour le statut</h3>
-                            <span class="close-modal" onclick="closeStatusModal()">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <p>Commande: ${order.orderNumber}</p>
-                            <p>Statut actuel: <span class="status-badge status-${order.status}">${getStatusLabel(order.status)}</span></p>
-                            
-                            <div class="form-group">
-                                <label for="new-status">Nouveau statut:</label>
-                                <select id="new-status">
-                                    <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>En attente</option>
-                                    <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>En traitement</option>
-                                    <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>Expédié</option>
-                                    <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>Livré</option>
-                                    <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Annulé</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-actions">
-                                <button class="btn btn-secondary" onclick="closeStatusModal()">Annuler</button>
-                                <button class="btn btn-primary" onclick="saveOrderStatus('${order.orderNumber}')">Enregistrer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-            
-            // Add modal to body
-            document.body.insertAdjacentHTML('beforeend', modalContent);
-        }
-    }
+    // Update order status functionality is now in update-status.js
     
-    function closeOrderModal() {
-        const modal = document.getElementById('order-modal');
-        if (modal) {
-            modal.remove();
-        }
-    }
+    // closeOrderModal is now in view-order.js
     
-    function closeStatusModal() {
-        const modal = document.getElementById('status-modal');
-        if (modal) {
-            modal.remove();
-        }
-    }
-    
-    function saveOrderStatus(orderNumber) {
-        // Get new status
-        const newStatus = document.getElementById('new-status').value;
-        
-        // Get orders from localStorage
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        const orderIndex = orders.findIndex(o => o.orderNumber === orderNumber);
-        
-        if (orderIndex !== -1) {
-            // Update order status
-            orders[orderIndex].status = newStatus;
-            
-            // Save orders
-            localStorage.setItem('orders', JSON.stringify(orders));
-            
-            // Close modal
-            closeStatusModal();
-            
-            // Reload orders
-            loadOrders();
-            loadDashboard();
-        }
-    }
+    // closeStatusModal and saveOrderStatus are now in update-status.js
     
     // Helper functions
     function getStatusLabel(status) {
@@ -724,8 +573,5 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
     }
     
-    // Add functions to window object
-    window.closeOrderModal = closeOrderModal;
-    window.closeStatusModal = closeStatusModal;
-    window.saveOrderStatus = saveOrderStatus;
+    // Functions are now exported from their respective files
 });
