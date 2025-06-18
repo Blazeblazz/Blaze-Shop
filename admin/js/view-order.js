@@ -26,8 +26,6 @@ function viewOrder(orderNumber) {
                             <p><strong>Nom:</strong> ${order.customer.fullname}</p>
                             <p><strong>Téléphone:</strong> ${order.customer.phone}</p>
                             <p><strong>Ville:</strong> ${order.customer.city}</p>
-                            <p><strong>Adresse:</strong> ${order.customer.address}</p>
-                            ${order.customer.email ? `<p><strong>Email:</strong> ${order.customer.email}</p>` : ''}
                         </div>
                         <div class="order-items">
                             <h4>Articles</h4>
@@ -45,6 +43,10 @@ function viewOrder(orderNumber) {
         
         // Add order items
         order.items.forEach(item => {
+            const variant = item.variant || 'N/A';
+            const colorDot = variant !== 'N/A' ? 
+                `<span class="color-dot" style="width: 15px; height: 15px; border-radius: 50%; display: inline-block; background-color: ${getColorCode(variant)}; border: 1px solid #ddd;"></span>` : '';
+            
             modalContent += `
                 <tr>
                     <td>
@@ -55,8 +57,8 @@ function viewOrder(orderNumber) {
                     </td>
                     <td>
                         <div style="display: flex; align-items: center; gap: 5px;">
-                            <span class="color-dot" style="width: 15px; height: 15px; border-radius: 50%; display: inline-block; background-color: ${getColorCode(item.variant)}; border: 1px solid #ddd;"></span>
-                            <span>${item.variant || 'N/A'}</span>
+                            ${colorDot}
+                            <span>${variant}</span>
                         </div>
                     </td>
                     <td>${item.price} MAD</td>
@@ -96,6 +98,19 @@ function getColorCode(colorName) {
         'Beige': '#f5f5dc'
     };
     return colorMap[colorName] || '#cccccc';
+}
+
+// Helper function to get status label
+function getStatusLabel(status) {
+    const statusLabels = {
+        'pending': 'En attente',
+        'processing': 'En traitement',
+        'shipped': 'Expédié',
+        'delivered': 'Livré',
+        'cancelled': 'Annulé'
+    };
+    
+    return statusLabels[status] || status;
 }
 
 // Add to window object

@@ -50,15 +50,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const MAX_SELECTION = 3;
     const productGrid = document.getElementById('product-grid');
     
+    // Helper function for color codes
+    function getColorCode(color) {
+        return {White:'#ffffff', Black:'#000000', Beige:'#f5f5dc'}[color] || '#cccccc';
+    }
+    
     // Render products
     products.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.dataset.id = product.id;
         
-        // Create variant dropdown options
-        const variantOptions = product.variants.map(variant => 
-            `<option value="${variant}">${variant}</option>`
+        // Create variant options HTML
+        const variantOptions = product.variants.map((variant, i) => 
+            `<div class="variant-option ${i===0?'active':''}" 
+                  data-variant="${variant}" 
+                  style="background-color:${getColorCode(variant)}" 
+                  title="${variant}"></div>`
         ).join('');
         
         card.innerHTML = `
@@ -66,53 +74,50 @@ document.addEventListener('DOMContentLoaded', function() {
             <h3>${product.name}</h3>
             <div class="price">${product.price} MAD</div>
             <div class="variant-selector">
-                <label for="variant-${product.id}">Couleur:</label>
-                <select id="variant-${product.id}" class="variant-select">
-                    ${variantOptions}
-                </select>
+                <label>Couleur:</label>
+                <div class="variant-options" data-product-id="${product.id}">${variantOptions}</div>
             </div>
+            <button class="select-btn">Sélectionner</button>
         `;
         
         productGrid.appendChild(card);
         
-        // Add click event to the card
-        card.addEventListener('click', function() {
-            if (card.classList.contains('selected')) {
-                // Remove from selection
-                card.classList.remove('selected');
-                selectedProducts = selectedProducts.filter(p => p.id !== product.id);
-            } else {
-                // Add to selection if less than 3 products are selected
-                if (selectedProducts.length < MAX_SELECTION) {
-                    const selectedVariant = card.querySelector('.variant-select').value;
-                    card.classList.add('selected');
-                    selectedProducts.push({
-                        ...product,
-                        selectedVariant: selectedVariant
-                    });
-                } else {
-                    alert('Vous avez déjà sélectionné 3 t-shirts. Veuillez en désélectionner un avant d\'en ajouter un nouveau.');
-                    return;
-                }
-            }
-            
-            // Update selection display
-            updateSelectionDisplay();
+        // Add event listeners
+        card.querySelectorAll('.variant-option').forEach(opt => {
+            opt.addEventListener('click', e => {
+                e.stopPropagation();
+                card.querySelectorAll('.variant-option').forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+            });
         });
         
-        // Update selection when variant changes
-        const variantSelect = card.querySelector('.variant-select');
-        variantSelect.addEventListener('change', function(e) {
-            e.stopPropagation(); // Prevent triggering card click
-            
-            // If this product is already selected, update its variant
-            const selectedIndex = selectedProducts.findIndex(p => p.id === product.id);
-            if (selectedIndex !== -1) {
-                selectedProducts[selectedIndex].selectedVariant = this.value;
-                updateSelectionDisplay();
-            }
+        card.querySelector('.select-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            const variant = card.querySelector('.variant-option.active').dataset.variant;
+            toggleSelection({...product, selectedVariant: variant}, card);
         });
     });
+    
+    // Toggle product selection
+    function toggleSelection(product, card) {
+        const isSelected = card.classList.contains('selected');
+        const btn = card.querySelector('.select-btn');
+        
+        if (isSelected) {
+            card.classList.remove('selected');
+            selectedProducts = selectedProducts.filter(p => p.id !== product.id);
+            btn.textContent = 'Sélectionner';
+        } else if (selectedProducts.length < MAX_SELECTION) {
+            card.classList.add('selected');
+            selectedProducts.push(product);
+            btn.textContent = 'Désélectionner';
+        } else {
+            alert('Vous avez déjà sélectionné 3 t-shirts. Veuillez en désélectionner un avant d\'en ajouter un nouveau.');
+            return;
+        }
+        
+        updateSelectionDisplay();
+    }
     
     // Update selection display
     function updateSelectionDisplay() {
@@ -140,7 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h4>${product.name}</h4>
                         <div class="price">${product.price} MAD</div>
                         <div class="selected-variant">
-                            <span>Couleur: ${product.selectedVariant}</span>
+                            <span>Couleur: </span>
+                            <span class="variant-badge" style="background-color:${getColorCode(product.selectedVariant)}"></span>
+                            <span>${product.selectedVariant}</span>
                         </div>
                     </div>
                     <button class="remove-btn" data-id="${product.id}">×</button>
@@ -158,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Remove selected class from product card
                     document.querySelector(`.product-card[data-id="${productId}"]`).classList.remove('selected');
+                    document.querySelector(`.product-card[data-id="${productId}"] .select-btn`).textContent = 'Sélectionner';
                     
                     // Update display
                     updateSelectionDisplay();
