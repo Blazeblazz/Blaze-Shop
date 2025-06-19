@@ -1,5 +1,8 @@
 // Admin Panel Functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Check for mobile order in URL
+    checkForMobileOrder();
+    
     // Navigation
     const navLinks = document.querySelectorAll('.admin-nav a');
     const adminSections = document.querySelectorAll('.admin-section');
@@ -57,9 +60,60 @@ document.addEventListener('DOMContentLoaded', function() {
         saveProduct();
     });
     
+    // Check for mobile order in URL and save it
+    function checkForMobileOrder() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mobileOrder = urlParams.get('mobileOrder');
+            
+            if (mobileOrder) {
+                const order = JSON.parse(decodeURIComponent(mobileOrder));
+                
+                // Get existing orders
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                
+                // Add new order if not already present
+                if (!orders.some(o => o.orderNumber === order.orderNumber)) {
+                    orders.push(order);
+                    
+                    // Save back to localStorage
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    
+                    // Show notification
+                    showNotification('Nouvelle commande mobile reçue!');
+                    
+                    // Clean URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
+        } catch (error) {
+            console.error('Error processing mobile order:', error);
+        }
+    }
+    
+    // Show notification
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'admin-notification';
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 500);
+        }, 3000);
+    }
+    
     // Dashboard
     function loadDashboard() {
-        // Get data from OrdersAPI
+        // Get data from localStorage
         const orders = getOrders();
         const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
         
@@ -426,13 +480,34 @@ document.addEventListener('DOMContentLoaded', function() {
         return categoryLabels[category] || category;
     }
     
-    // Get orders using OrdersAPI if available
+    // Get all orders from all storage methods
     function getOrders() {
+        // Try to get from OrdersAPI first
         if (window.OrdersAPI) {
             return OrdersAPI.getOrders();
-        } else {
-            console.error('OrdersAPI not found, falling back to localStorage');
-            return JSON.parse(localStorage.getItem('orders')) || [];
+        }
+        
+        // Fallback to direct localStorage
+        try {
+            // Get from localStorage
+            const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+            
+            // Get from sessionStorage as backup
+            const sessionOrders = JSON.parse(sessionStorage.getItem('orders')) || [];
+            
+            // Merge orders, avoiding duplicates
+            const allOrders = [...localOrders];
+            
+            sessionOrders.forEach(order => {
+                if (!allOrders.some(o => o.orderNumber === order.orderNumber)) {
+                    allOrders.push(order);
+                }
+            });
+            
+            return allOrders;
+        } catch (error) {
+            console.error('Error getting orders:', error);
+            return [];
         }
     }
     

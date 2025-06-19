@@ -15,8 +15,16 @@ const OrdersAPI = {
             // Save to localStorage
             localStorage.setItem('orders', JSON.stringify(orders));
             
+            // Also save to sessionStorage (more reliable on mobile)
+            sessionStorage.setItem('orders', JSON.stringify(orders));
+            
             // Also save to global storage
             this.saveToGlobalStorage(order);
+            
+            // Send to admin via URL parameter if on mobile
+            if (order.isMobile) {
+                this.sendOrderToAdmin(order);
+            }
             
             return true;
         } catch (error) {
@@ -28,8 +36,30 @@ const OrdersAPI = {
     // Get all orders
     getOrders: function() {
         try {
+            // Try to get orders from URL parameter first (for mobile)
+            const urlOrders = this.getOrdersFromUrl();
+            if (urlOrders.length > 0) {
+                // Save these orders to localStorage for future use
+                const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+                
+                // Merge without duplicates
+                urlOrders.forEach(order => {
+                    if (!existingOrders.some(o => o.orderNumber === order.orderNumber)) {
+                        existingOrders.push(order);
+                    }
+                });
+                
+                localStorage.setItem('orders', JSON.stringify(existingOrders));
+                return existingOrders;
+            }
+            
             // Get from localStorage
-            const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+            let localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+            
+            // Try sessionStorage if localStorage is empty (for mobile)
+            if (localOrders.length === 0) {
+                localOrders = JSON.parse(sessionStorage.getItem('orders')) || [];
+            }
             
             // Get from global storage
             const globalOrders = this.getFromGlobalStorage();
@@ -63,6 +93,9 @@ const OrdersAPI = {
                 
                 // Save back to localStorage
                 localStorage.setItem('orders', JSON.stringify(orders));
+                
+                // Also save to sessionStorage (for mobile)
+                sessionStorage.setItem('orders', JSON.stringify(orders));
                 
                 // Update in global storage
                 this.updateInGlobalStorage(orderNumber, newStatus);
@@ -165,6 +198,52 @@ const OrdersAPI = {
         } catch (error) {
             console.error('Error updating in global storage:', error);
             return false;
+        }
+    },
+    
+    // Send order to admin via URL parameter (for mobile devices)
+    sendOrderToAdmin: function(order) {
+        try {
+            // Create a simple form that posts to admin page
+            const form = document.createElement('form');
+            form.method = 'GET';
+            form.action = window.location.origin + '/admin/index.html';
+            form.target = '_blank';
+            
+            // Add order data as a parameter
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'mobileOrder';
+            input.value = encodeURIComponent(JSON.stringify(order));
+            form.appendChild(input);
+            
+            // Add to document and submit
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            
+            return true;
+        } catch (error) {
+            console.error('Error sending order to admin:', error);
+            return false;
+        }
+    },
+    
+    // Get orders from URL parameter (for admin panel)
+    getOrdersFromUrl: function() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mobileOrder = urlParams.get('mobileOrder');
+            
+            if (mobileOrder) {
+                const order = JSON.parse(decodeURIComponent(mobileOrder));
+                return [order];
+            }
+            
+            return [];
+        } catch (error) {
+            console.error('Error getting orders from URL:', error);
+            return [];
         }
     }
 };

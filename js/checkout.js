@@ -237,18 +237,16 @@ document.addEventListener('DOMContentLoaded', function() {
             shipping: 0,
             total: subtotal,
             paymentMethod: 'cod',
-            status: 'pending'
+            status: 'pending',
+            isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
         };
         
-        // Save order using OrdersAPI
+        // Save order using OrdersAPI if available
         if (window.OrdersAPI) {
             OrdersAPI.saveOrder(order);
         } else {
-            console.error('OrdersAPI not found, falling back to localStorage');
             // Fallback to direct localStorage
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(orders));
+            saveOrderToLocalStorage(order);
         }
         
         // Clear direct order
@@ -264,5 +262,64 @@ document.addEventListener('DOMContentLoaded', function() {
         const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
         
         return `BLZ-${year}${month}${day}-${random}`;
+    }
+    
+    // Fallback: Save order to localStorage
+    function saveOrderToLocalStorage(order) {
+        try {
+            // Get existing orders
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            
+            // Add new order
+            orders.push(order);
+            
+            // Save to localStorage
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Also save to sessionStorage (more reliable on mobile)
+            sessionStorage.setItem('orders', JSON.stringify(orders));
+            
+            console.log('Order saved to localStorage');
+            
+            // If on mobile, try to send to admin
+            if (order.isMobile) {
+                sendOrderToAdmin(order);
+            }
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+            
+            // Last resort: try to send to admin
+            if (order.isMobile) {
+                sendOrderToAdmin(order);
+            }
+        }
+    }
+    
+    // Send order to admin via URL parameter (for mobile devices)
+    function sendOrderToAdmin(order) {
+        try {
+            // Create a simple form that posts to admin page
+            const form = document.createElement('form');
+            form.method = 'GET';
+            form.action = window.location.origin + '/admin/index.html';
+            form.target = '_blank';
+            
+            // Add order data as a parameter
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'mobileOrder';
+            input.value = encodeURIComponent(JSON.stringify(order));
+            form.appendChild(input);
+            
+            // Add to document and submit
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            
+            return true;
+        } catch (error) {
+            console.error('Error sending order to admin:', error);
+            return false;
+        }
     }
 });
