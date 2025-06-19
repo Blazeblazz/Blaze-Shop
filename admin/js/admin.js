@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for mobile order in URL
     checkForMobileOrder();
     
+    // Add manual sync button
+    addSyncButton();
+    
     // Navigation
     const navLinks = document.querySelectorAll('.admin-nav a');
     const adminSections = document.querySelectorAll('.admin-section');
@@ -60,11 +63,48 @@ document.addEventListener('DOMContentLoaded', function() {
         saveProduct();
     });
     
+    // Add sync button to header
+    function addSyncButton() {
+        const adminHeader = document.querySelector('.admin-header');
+        const syncButton = document.createElement('button');
+        syncButton.className = 'btn sync-btn';
+        syncButton.innerHTML = 'Sync Mobile Orders';
+        syncButton.addEventListener('click', function() {
+            syncMobileOrders();
+        });
+        
+        // Insert before the admin user div
+        const adminUser = document.querySelector('.admin-user');
+        adminHeader.insertBefore(syncButton, adminUser);
+    }
+    
+    // Sync mobile orders
+    function syncMobileOrders() {
+        // Create a form to open the sync page
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = window.location.href;
+        form.target = '_self';
+        
+        // Add sync parameter
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'syncMobile';
+        input.value = 'true';
+        form.appendChild(input);
+        
+        // Add to document and submit
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+    
     // Check for mobile order in URL and save it
     function checkForMobileOrder() {
         try {
             const urlParams = new URLSearchParams(window.location.search);
             const mobileOrder = urlParams.get('mobileOrder');
+            const syncMobile = urlParams.get('syncMobile');
             
             if (mobileOrder) {
                 const order = JSON.parse(decodeURIComponent(mobileOrder));
@@ -81,10 +121,47 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Show notification
                     showNotification('Nouvelle commande mobile reçue!');
-                    
-                    // Clean URL
-                    window.history.replaceState({}, document.title, window.location.pathname);
                 }
+                
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else if (syncMobile) {
+                // Try to get orders from sessionStorage
+                try {
+                    const sessionOrders = JSON.parse(sessionStorage.getItem('orders')) || [];
+                    const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+                    
+                    let newOrdersCount = 0;
+                    
+                    // Add session orders to local if not already present
+                    sessionOrders.forEach(order => {
+                        if (!localOrders.some(o => o.orderNumber === order.orderNumber)) {
+                            localOrders.push(order);
+                            newOrdersCount++;
+                        }
+                    });
+                    
+                    if (newOrdersCount > 0) {
+                        // Save back to localStorage
+                        localStorage.setItem('orders', JSON.stringify(localOrders));
+                        
+                        // Show notification
+                        showNotification(`${newOrdersCount} nouvelle(s) commande(s) synchronisée(s)!`);
+                        
+                        // Reload page to show new orders
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        showNotification('Aucune nouvelle commande trouvée');
+                    }
+                } catch (error) {
+                    console.error('Error syncing mobile orders:', error);
+                    showNotification('Erreur lors de la synchronisation');
+                }
+                
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
             }
         } catch (error) {
             console.error('Error processing mobile order:', error);

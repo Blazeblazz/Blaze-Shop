@@ -280,46 +280,18 @@ document.addEventListener('DOMContentLoaded', function() {
             sessionStorage.setItem('orders', JSON.stringify(orders));
             
             console.log('Order saved to localStorage');
-            
-            // If on mobile, try to send to admin
-            if (order.isMobile) {
-                sendOrderToAdmin(order);
-            }
         } catch (error) {
             console.error('Error saving to localStorage:', error);
             
-            // Last resort: try to send to admin
-            if (order.isMobile) {
-                sendOrderToAdmin(order);
+            // Try sessionStorage only
+            try {
+                const sessionOrders = JSON.parse(sessionStorage.getItem('orders')) || [];
+                sessionOrders.push(order);
+                sessionStorage.setItem('orders', JSON.stringify(sessionOrders));
+                console.log('Order saved to sessionStorage');
+            } catch (e) {
+                console.error('Error saving to sessionStorage:', e);
             }
-        }
-    }
-    
-    // Send order to admin via URL parameter (for mobile devices)
-    function sendOrderToAdmin(order) {
-        try {
-            // Create a simple form that posts to admin page
-            const form = document.createElement('form');
-            form.method = 'GET';
-            form.action = window.location.origin + '/admin/index.html';
-            form.target = '_blank';
-            
-            // Add order data as a parameter
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'mobileOrder';
-            input.value = encodeURIComponent(JSON.stringify(order));
-            form.appendChild(input);
-            
-            // Add to document and submit
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
-            
-            return true;
-        } catch (error) {
-            console.error('Error sending order to admin:', error);
-            return false;
         }
     }
 });

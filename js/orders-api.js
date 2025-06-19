@@ -21,10 +21,8 @@ const OrdersAPI = {
             // Also save to global storage
             this.saveToGlobalStorage(order);
             
-            // Send to admin via URL parameter if on mobile
-            if (order.isMobile) {
-                this.sendOrderToAdmin(order);
-            }
+            // Don't automatically redirect to admin page
+    // Mobile orders will be saved in localStorage and sessionStorage
             
             return true;
         } catch (error) {
