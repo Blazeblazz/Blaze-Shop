@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // State
     let currentSlide = 0;
     let selectedUpsellProduct = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
     
     // Initialize upsell slider
     function initUpsellSlider() {
@@ -46,6 +48,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedVariant: upsellProducts[0].variants[0]
             };
         }
+        
+        // Add touch events for mobile swipe
+        upsellItems.addEventListener('touchstart', handleTouchStart, false);
+        upsellItems.addEventListener('touchend', handleTouchEnd, false);
+    }
+    
+    // Touch handlers for swipe
+    function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }
+    
+    function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }
+    
+    function handleSwipe() {
+        // Minimum swipe distance (px)
+        const minSwipeDistance = 50;
+        
+        if (touchStartX - touchEndX > minSwipeDistance) {
+            // Swipe left - next slide
+            nextSlide();
+        } else if (touchEndX - touchStartX > minSwipeDistance) {
+            // Swipe right - previous slide
+            prevSlide();
+        }
     }
     
     // Update slider position
@@ -61,18 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Event listeners for slider controls
-    prevButton.addEventListener('click', function() {
-        if (currentSlide > 0) {
-            currentSlide--;
-        } else {
-            // Loop to the end
-            currentSlide = upsellProducts.length - 1;
-        }
-        updateSliderPosition();
-    });
-    
-    nextButton.addEventListener('click', function() {
+    // Next slide function
+    function nextSlide() {
         if (currentSlide < upsellProducts.length - 1) {
             currentSlide++;
         } else {
@@ -80,7 +99,43 @@ document.addEventListener('DOMContentLoaded', function() {
             currentSlide = 0;
         }
         updateSliderPosition();
-    });
+    }
+    
+    // Previous slide function
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+        } else {
+            // Loop to the end
+            currentSlide = upsellProducts.length - 1;
+        }
+        updateSliderPosition();
+    }
+    
+    // Event listeners for slider controls
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+    
+    // Auto-advance slider every 3 seconds for mobile
+    let autoSlideInterval;
+    
+    function startAutoSlide() {
+        if (window.innerWidth <= 768) {
+            autoSlideInterval = setInterval(nextSlide, 3000);
+        }
+    }
+    
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+    
+    // Start auto-slide on mobile
+    startAutoSlide();
+    
+    // Stop auto-slide when user interacts with slider
+    upsellItems.addEventListener('touchstart', stopAutoSlide);
+    prevButton.addEventListener('click', stopAutoSlide);
+    nextButton.addEventListener('click', stopAutoSlide);
     
     // Add upsell product to cart with discount
     addButton.addEventListener('click', function() {
@@ -118,12 +173,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         ];
         
+        // Show success message
+        showAddedMessage();
+        
         // Store in session storage
         sessionStorage.setItem('directOrder', JSON.stringify(orderItems));
         
-        // Redirect to checkout
-        window.location.href = 'checkout.html';
+        // Redirect to checkout after a short delay
+        setTimeout(() => {
+            window.location.href = 'checkout.html';
+        }, 1000);
     });
+    
+    // Show added to cart message
+    function showAddedMessage() {
+        // Create message element if it doesn't exist
+        let messageElement = document.getElementById('added-message');
+        if (!messageElement) {
+            messageElement = document.createElement('div');
+            messageElement.id = 'added-message';
+            messageElement.style.position = 'fixed';
+            messageElement.style.top = '50%';
+            messageElement.style.left = '50%';
+            messageElement.style.transform = 'translate(-50%, -50%)';
+            messageElement.style.backgroundColor = '#151515';
+            messageElement.style.color = 'white';
+            messageElement.style.padding = '20px';
+            messageElement.style.borderRadius = '8px';
+            messageElement.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+            messageElement.style.zIndex = '1000';
+            messageElement.style.textAlign = 'center';
+            messageElement.innerHTML = `
+                <div style="color: #ff3c00; font-size: 2rem; margin-bottom: 10px;">✓</div>
+                <div style="font-weight: 600; margin-bottom: 5px;">Produits ajoutés au panier</div>
+                <div style="font-size: 0.9rem; opacity: 0.8;">Réduction de 10% appliquée</div>
+            `;
+            document.body.appendChild(messageElement);
+        }
+    }
     
     // Initialize
     initUpsellSlider();
