@@ -179,34 +179,42 @@
             // Find product in products data
             const product = products.find(p => p.id === productId);
             
-            if (product) {
+            if (product && stickyCart) {
                 // Populate sticky cart
-                stickyImage.src = product.images[0];
-                stickyTitle.textContent = product.name;
-                stickyPrice.textContent = `${product.price} MAD`;
+                if (stickyImage) stickyImage.src = product.images[0];
+                if (stickyTitle) stickyTitle.textContent = product.name;
+                if (stickyPrice) stickyPrice.textContent = `${product.price} MAD`;
                 
                 // Add click event to sticky add button
-                stickyAddBtn.addEventListener('click', function() {
-                    // Scroll to upsell section
-                    const upsellSection = document.querySelector('.upsell-container');
-                    if (upsellSection) {
-                        upsellSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            }
-            
-            // Show/hide sticky cart based on scroll position
-            window.addEventListener('scroll', function() {
-                const productActions = document.querySelector('.product-actions');
-                if (productActions) {
-                    const rect = productActions.getBoundingClientRect();
-                    if (rect.bottom < 0) {
-                        stickyCart.classList.add('active');
-                    } else {
-                        stickyCart.classList.remove('active');
+                if (stickyAddBtn) {
+                    stickyAddBtn.addEventListener('click', function() {
+                        // Scroll to upsell section
+                        const upsellSection = document.querySelector('.upsell-container');
+                        if (upsellSection) {
+                            upsellSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+                
+                // Show/hide sticky cart based on scroll position
+                function checkScrollPosition() {
+                    const productActions = document.querySelector('.product-actions');
+                    if (productActions) {
+                        const rect = productActions.getBoundingClientRect();
+                        if (rect.bottom < 0) {
+                            stickyCart.classList.add('active');
+                        } else {
+                            stickyCart.classList.remove('active');
+                        }
                     }
                 }
-            });
+                
+                // Initial check
+                checkScrollPosition();
+                
+                // Check on scroll
+                window.addEventListener('scroll', checkScrollPosition);
+            }
         });
     </script>
 </body>

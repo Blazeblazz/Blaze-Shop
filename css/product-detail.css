@@ -221,12 +221,16 @@
 .upsell-slider {
     position: relative;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
 }
 
 .upsell-items {
     display: flex;
     transition: transform 0.3s ease;
+    width: 100%;
+    will-change: transform;
 }
 
 .upsell-item {
@@ -235,6 +239,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .upsell-image {
@@ -299,7 +305,6 @@
 
 /* Mobile sticky add to cart */
 .mobile-sticky-cart {
-    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -308,8 +313,15 @@
     padding: 12px 15px;
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
     z-index: 100;
+    display: flex;
     align-items: center;
     justify-content: space-between;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-sticky-cart.active {
+    transform: translateY(0);
 }
 
 .mobile-sticky-cart .product-info {
@@ -343,6 +355,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 120px;
+    position: static;
+    background-color: transparent;
+    padding: 0;
 }
 
 .mobile-sticky-cart .product-price {

@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Touch handlers for swipe
     function handleTouchStart(e) {
         touchStartX = e.changedTouches[0].screenX;
+        // Stop auto-slide when user interacts
+        stopAutoSlide();
     }
     
     function handleTouchEnd(e) {
@@ -75,7 +77,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Swipe right - previous slide
             prevSlide();
         }
+        
+        // Prevent default behavior to avoid page scrolling during swipe
+        return false;
     }
+    
+    // Add touchmove handler to prevent page scrolling during swipe
+    upsellItems.addEventListener('touchmove', function(e) {
+        if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 10) {
+            e.preventDefault();
+        }
+    }, { passive: false });
     
     // Update slider position
     function updateSliderPosition() {
