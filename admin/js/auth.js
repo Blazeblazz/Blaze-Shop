@@ -11,7 +11,7 @@
             const [username, password] = decoded.split(':');
             
             // Verify credentials (in a real app, this would be server-side)
-            return username === 'admin' && password === 'Blaze03..$';
+            return username === 'admin' && password === 'Blaze2023!';
         } catch (e) {
             return false;
         }
