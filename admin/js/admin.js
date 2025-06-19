@@ -63,8 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
         saveProduct();
     });
     
-    // Add sync button to header
+    // Add sync button to header and mobile quick actions
     function addSyncButton() {
+        // Add to header
         const adminHeader = document.querySelector('.admin-header');
         const syncButton = document.createElement('button');
         syncButton.className = 'btn sync-btn';
@@ -76,6 +77,64 @@ document.addEventListener('DOMContentLoaded', function() {
         // Insert before the admin user div
         const adminUser = document.querySelector('.admin-user');
         adminHeader.insertBefore(syncButton, adminUser);
+        
+        // Add mobile quick actions bar
+        const mobileActions = document.createElement('div');
+        mobileActions.className = 'mobile-quick-actions';
+        
+        // Sync button for mobile
+        const mobileSyncBtn = document.createElement('button');
+        mobileSyncBtn.className = 'btn';
+        mobileSyncBtn.innerHTML = 'Sync Orders';
+        mobileSyncBtn.addEventListener('click', function() {
+            syncMobileOrders();
+        });
+        
+        // Dashboard button for mobile
+        const dashboardBtn = document.createElement('button');
+        dashboardBtn.className = 'btn';
+        dashboardBtn.innerHTML = 'Dashboard';
+        dashboardBtn.addEventListener('click', function() {
+            showSection('dashboard');
+        });
+        
+        // Orders button for mobile
+        const ordersBtn = document.createElement('button');
+        ordersBtn.className = 'btn';
+        ordersBtn.innerHTML = 'Orders';
+        ordersBtn.addEventListener('click', function() {
+            showSection('orders');
+        });
+        
+        // Add buttons to mobile actions
+        mobileActions.appendChild(dashboardBtn);
+        mobileActions.appendChild(ordersBtn);
+        mobileActions.appendChild(mobileSyncBtn);
+        
+        // Add to body
+        document.body.appendChild(mobileActions);
+    }
+    
+    // Helper to show a specific section
+    function showSection(sectionId) {
+        // Update active nav link
+        document.querySelectorAll('.admin-nav a').forEach(link => {
+            if (link.getAttribute('data-section') === sectionId) {
+                link.parentElement.classList.add('active');
+            } else {
+                link.parentElement.classList.remove('active');
+            }
+        });
+        
+        // Show selected section
+        document.querySelectorAll('.admin-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(`${sectionId}-section`).classList.add('active');
+        
+        // Update section title
+        document.getElementById('section-title').textContent = 
+            sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
     }
     
     // Sync mobile orders

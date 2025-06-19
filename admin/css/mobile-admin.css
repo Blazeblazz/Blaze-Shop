@@ -1,0 +1,198 @@
+/* Mobile Admin Styles */
+@media (max-width: 768px) {
+    /* Layout adjustments */
+    .admin-container {
+        flex-direction: column;
+    }
+    
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px 0;
+    }
+    
+    .admin-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    /* Navigation */
+    .admin-nav ul {
+        display: flex;
+        overflow-x: auto;
+        padding: 0 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .admin-nav li {
+        margin: 0 5px;
+        white-space: nowrap;
+    }
+    
+    .admin-nav a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    .admin-nav li.active a, 
+    .admin-nav a:hover {
+        border-left: none;
+        border-bottom: 3px solid var(--primary-color);
+    }
+    
+    .admin-logout {
+        display: none;
+    }
+    
+    /* Header */
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .sync-btn {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    /* Tables */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    th, td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    
+    /* Action buttons */
+    .action-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        max-height: 80vh;
+    }
+    
+    /* Forms */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    /* Order details */
+    .order-items table {
+        font-size: 12px;
+    }
+    
+    /* Notification */
+    .admin-notification {
+        width: 90%;
+        left: 5%;
+        right: 5%;
+    }
+    
+    /* Quick actions */
+    .mobile-quick-actions {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 900;
+    }
+    
+    .mobile-quick-actions button {
+        flex: 1;
+        margin: 0 5px;
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    /* Add padding to bottom to account for quick actions bar */
+    body {
+        padding-bottom: 60px;
+    }
+    
+    /* Pull to refresh indicator */
+    .refresh-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        transform: translateY(-100%);
+        transition: transform 0.3s;
+        z-index: 1000;
+    }
+    
+    .refresh-indicator.active {
+        transform: translateY(0) !important;
+    }
+    
+    .refresh-indicator.ready {
+        color: #fff;
+        font-weight: bold;
+    }
+    
+    /* Responsive tables for mobile */
+    @media (max-width: 576px) {
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+        
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        
+        tr {
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        td {
+            position: relative;
+            padding-left: 50% !important;
+            text-align: right !important;
+            border-bottom: 1px solid #eee;
+        }
+        
+        td:before {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+            content: attr(data-label);
+        }
+        
+        td:last-child {
+            border-bottom: none;
+        }
+    }
+}
