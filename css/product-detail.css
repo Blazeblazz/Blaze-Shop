@@ -71,7 +71,7 @@
 }
 
 .product-rating {
-    color: #ff3c00;
+    color: #FFD700; /* Gold color for stars */
     font-size: 1.2rem;
     margin-bottom: 20px;
 }
@@ -80,8 +80,7 @@
     margin-bottom: 30px;
 }
 
-.product-description h3,
-.product-specs h3 {
+.product-description h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
     color: #ff3c00;
@@ -89,27 +88,6 @@
 
 .product-description p {
     line-height: 1.6;
-}
-
-.product-specs {
-    margin-bottom: 30px;
-}
-
-.product-specs ul {
-    list-style: none;
-}
-
-.product-specs li {
-    margin-bottom: 8px;
-    display: flex;
-    align-items: flex-start;
-}
-
-.product-specs li::before {
-    content: "•";
-    color: #ff3c00;
-    font-weight: bold;
-    margin-right: 10px;
 }
 
 /* Product Variants */
@@ -205,6 +183,120 @@
     color: #ff3c00;
 }
 
+/* Upsell System */
+.upsell-container {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #151515;
+    border-radius: 8px;
+    position: relative;
+}
+
+.upsell-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ff3c00;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.upsell-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ff3c00;
+    text-align: center;
+}
+
+.upsell-description {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.upsell-slider {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.upsell-items {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.upsell-item {
+    min-width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upsell-image {
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.upsell-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.upsell-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.upsell-price {
+    color: #ff3c00;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.upsell-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.upsell-control {
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.upsell-add {
+    background-color: #ff3c00;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    display: block;
+    margin: 0 auto;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .product-container {
@@ -217,5 +309,53 @@
     
     .product-title {
         font-size: 2rem;
+        text-align: center;
+    }
+    
+    .product-price {
+        text-align: center;
+    }
+    
+    .product-rating {
+        text-align: center;
+    }
+    
+    .product-description {
+        text-align: center;
+    }
+    
+    .product-variants {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .variant-selector {
+        text-align: center;
+    }
+    
+    .product-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .quantity-selector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-primary {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .delivery-info {
+        text-align: center;
+    }
+    
+    .delivery-item {
+        justify-content: center;
     }
 }

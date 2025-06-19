@@ -25,7 +25,6 @@
         <div class="nav-menu">
             <ul class="nav-menu-links">
                 <li><a href="index-award.html#produits">Produits</a></li>
-
                 <li><a href="index-award.html#apropos">À Propos</a></li>
                 <li><a href="index-award.html#livraison">Livraison</a></li>
                 <li><a href="index-award.html#temoignages">Témoignages</a></li>
@@ -56,13 +55,6 @@
                     <p id="product-description"></p>
                 </div>
                 
-                <div class="product-specs">
-                    <h3>Spécifications</h3>
-                    <ul id="product-specs">
-                        <!-- Specs will be added dynamically -->
-                    </ul>
-                </div>
-                
                 <div id="product-variants-container">
                     <!-- Variants will be added dynamically -->
                 </div>
@@ -80,7 +72,25 @@
                     <button id="order-now" class="btn btn-primary">Commander maintenant</button>
                 </div>
                 
-
+                <!-- Upsell System -->
+                <div class="upsell-container">
+                    <div class="upsell-badge">-10%</div>
+                    <h3 class="upsell-title">Ajoutez un autre t-shirt et économisez 10%</h3>
+                    <p class="upsell-description">Sélectionnez un t-shirt supplémentaire pour bénéficier d'une réduction de 10% sur votre commande</p>
+                    
+                    <div class="upsell-slider">
+                        <div class="upsell-items" id="upsell-items">
+                            <!-- Upsell items will be added dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="upsell-controls">
+                        <button class="upsell-control" id="upsell-prev">&lt;</button>
+                        <button class="upsell-control" id="upsell-next">&gt;</button>
+                    </div>
+                    
+                    <button class="upsell-add" id="upsell-add">Ajouter au panier</button>
+                </div>
                 
                 <div class="delivery-info">
                     <div class="delivery-item">
@@ -107,7 +117,6 @@
                 <h4>Liens Rapides</h4>
                 <ul class="footer-menu">
                     <li><a href="index-award.html#produits">Produits</a></li>
-
                     <li><a href="index-award.html#apropos">À Propos</a></li>
                     <li><a href="index-award.html#contact">Contact</a></li>
                 </ul>
@@ -138,5 +147,6 @@
 
     <script src="js/main-no-cart.js"></script>
     <script src="js/product-detail.js"></script>
+    <script src="js/upsell.js"></script>
 </body>
 </html>

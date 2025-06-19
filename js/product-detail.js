@@ -20,20 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('product-title').textContent = product.name;
     document.getElementById('product-price').textContent = `${product.price} MAD`;
     
-    // Set rating stars
+    // Set rating stars (gold color is set in CSS)
     const ratingStars = '★'.repeat(product.rating) + '☆'.repeat(5 - product.rating);
     document.getElementById('product-rating').textContent = ratingStars;
     
     // Set description
     document.getElementById('product-description').textContent = product.description;
-    
-    // Set specifications
-    const specsList = document.getElementById('product-specs');
-    product.specs.forEach(spec => {
-        const li = document.createElement('li');
-        li.textContent = spec;
-        specsList.appendChild(li);
-    });
     
     // Set main image
     const mainImage = document.getElementById('main-product-image');
@@ -69,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add color variants if available
     if (product.variants && product.variants.length > 0) {
         const variantContainer = document.createElement('div');
-        variantContainer.className = 'product-variants';
+        variantContainer.className = 'variant-selector';
         
         const variantLabel = document.createElement('p');
         variantLabel.textContent = 'Couleurs disponibles:';
@@ -78,26 +70,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const variantOptions = document.createElement('div');
         variantOptions.className = 'variant-options';
-        variantOptions.style.display = 'flex';
-        variantOptions.style.gap = '10px';
         
-        product.variants.forEach(variant => {
+        product.variants.forEach((variant, index) => {
             const variantBtn = document.createElement('div');
-            variantBtn.className = 'variant-option';
-            variantBtn.style.width = '30px';
-            variantBtn.style.height = '30px';
-            variantBtn.style.borderRadius = '50%';
+            variantBtn.className = 'variant-option' + (index === 0 ? ' active' : '');
+            variantBtn.dataset.variant = variant;
             variantBtn.style.backgroundColor = getColorCode(variant);
-            variantBtn.style.cursor = 'pointer';
-            variantBtn.style.border = '2px solid #ddd';
             variantBtn.title = variant;
             
             variantBtn.addEventListener('click', function() {
                 // Update active variant
                 document.querySelectorAll('.variant-option').forEach(opt => {
-                    opt.style.border = '2px solid #ddd';
+                    opt.classList.remove('active');
                 });
-                this.style.border = '2px solid #ff3c00';
+                this.classList.add('active');
             });
             
             variantOptions.appendChild(variantBtn);
@@ -105,8 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         variantContainer.appendChild(variantOptions);
         
-        // Insert after specs
-        specsList.parentNode.insertBefore(variantContainer, specsList.nextSibling);
+        // Add to variants container
+        document.getElementById('product-variants-container').appendChild(variantContainer);
     }
     
     // Helper function to convert color names to color codes
@@ -138,25 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Order now button
-    document.getElementById('order-now').addEventListener('click', function() {
-        const quantity = parseInt(quantityInput.value);
-        
-        // Create a direct order with this product
-        const orderItem = {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.images[0], // Use first image from images array
-            quantity: quantity
-        };
-        
-        // Store in session storage for checkout
-        sessionStorage.setItem('directOrder', JSON.stringify([orderItem]));
-        
-        // Redirect to checkout
-        window.location.href = 'checkout.html';
-    });
+    // Order now button functionality is now handled in upsell.js
 });
 
 // Products data
@@ -171,13 +139,6 @@ const products = [
         description: "T-shirt inspiré par les rues animées de Casablanca, avec un design urbain unique.",
         inStock: true,
         variants: ["White", "Beige"],
-        specs: [
-            "100% coton premium",
-            "Taille unique adaptable",
-            "Lavable en machine",
-            "Fabriqué au Maroc",
-            "Design exclusif"
-        ],
         images: [
             "images/Products/Lost-in-Casablanca.webp",
             "images/Products/Lost-in-Casablanca.webp",
@@ -194,13 +155,6 @@ const products = [
         description: "T-shirt avec motif inspiré des tapis traditionnels marocains, alliant tradition et modernité.",
         inStock: true,
         variants: ["White", "Black", "Beige"],
-        specs: [
-            "100% coton premium",
-            "Taille unique adaptable",
-            "Lavable en machine",
-            "Fabriqué au Maroc",
-            "Motifs traditionnels"
-        ],
         images: [
             "images/Products/Red-Rug.webp",
             "images/Products/Red-Rug.webp",
@@ -217,13 +171,6 @@ const products = [
         description: "T-shirt sportif avec design de tortue, parfait pour les activités de plein air et le sport.",
         inStock: true,
         variants: ["Black", "White", "Beige"],
-        specs: [
-            "Tissu respirant",
-            "Taille unique adaptable",
-            "Séchage rapide",
-            "Fabriqué au Maroc",
-            "Design exclusif"
-        ],
         images: [
             "images/Products/Turtle-Rush-White.webp",
             "images/Products/Turtle-Rush-White.webp",
@@ -240,13 +187,6 @@ const products = [
         description: "T-shirt avec motif floral élégant, idéal pour un look décontracté et stylé.",
         inStock: true,
         variants: ["Black", "White"],
-        specs: [
-            "100% coton premium",
-            "Taille unique adaptable",
-            "Lavable en machine",
-            "Fabriqué au Maroc",
-            "Motif floral exclusif"
-        ],
         images: [
             "images/Products/Whispering-Wildflowers.webp",
             "images/Products/Whispering-Wildflowers.webp",
@@ -263,13 +203,6 @@ const products = [
         description: "T-shirt avec un design inspirant et élégant, parfait pour toutes les occasions.",
         inStock: true,
         variants: ["White"],
-        specs: [
-            "100% coton premium",
-            "Taille unique adaptable",
-            "Lavable en machine",
-            "Fabriqué au Maroc",
-            "Design exclusif"
-        ],
         images: [
             "images/Products/RISE.webp",
             "images/Products/RISE.webp",
@@ -286,13 +219,6 @@ const products = [
         description: "T-shirt sportif dynamique, idéal pour les activités physiques et le quotidien.",
         inStock: true,
         variants: ["White", "Black"],
-        specs: [
-            "Tissu respirant",
-            "Taille unique adaptable",
-            "Séchage rapide",
-            "Fabriqué au Maroc",
-            "Design sportif"
-        ],
         images: [
             "images/Products/Rush.webp",
             "images/Products/Rush.webp",
