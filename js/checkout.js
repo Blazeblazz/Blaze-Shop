@@ -9,15 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Calculate order totals with pack discount
+    // Calculate order totals
     let subtotal = 0;
     orderItems.forEach(item => {
         subtotal += item.price * item.quantity;
     });
     
-    // Apply pack discount if available
-    const discountInfo = applyPackDiscount(orderItems);
-    const finalTotal = discountInfo.total;
+    // Final total (no discounts)
+    const finalTotal = subtotal;
     
     // Display order items in sidebar
     const sidebarItems = document.querySelector('.sidebar-items');
@@ -54,22 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update sidebar totals
     document.getElementById('sidebar-subtotal').textContent = `${subtotal} MAD`;
-    
-    // Add discount row if applicable
-    if (discountInfo.discountApplied) {
-        const sidebarTotals = document.querySelector('.sidebar-totals');
-        const discountElement = document.createElement('div');
-        discountElement.className = 'sidebar-discount';
-        discountElement.innerHTML = `
-            <span>Réduction (-${discountInfo.discountPercentage}%):</span>
-            <span style="color: #FF0000;">-${discountInfo.discount} MAD</span>
-        `;
-        
-        // Insert before the total
-        const totalElement = document.querySelector('.sidebar-total');
-        sidebarTotals.insertBefore(discountElement, totalElement);
-    }
-    
     document.getElementById('sidebar-total').textContent = `${finalTotal} MAD`;
     
     // Step 1: Customer Information Form
@@ -211,22 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update order totals
         document.getElementById('subtotal-amount').textContent = `${subtotal} MAD`;
-        
-        // Add discount row if applicable
-        if (discountInfo.discountApplied) {
-            const orderTotals = document.querySelector('.order-totals');
-            const discountElement = document.createElement('div');
-            discountElement.className = 'order-discount';
-            discountElement.innerHTML = `
-                <span>Réduction (-${discountInfo.discountPercentage}%):</span>
-                <span style="color: #FF0000;">-${discountInfo.discount} MAD</span>
-            `;
-            
-            // Insert before the total
-            const totalElement = document.querySelector('.order-total');
-            orderTotals.insertBefore(discountElement, totalElement);
-        }
-        
         document.getElementById('total-amount').textContent = `${finalTotal} MAD`;
         
         // Display customer info summary
@@ -270,9 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             items: orderItems,
             subtotal: subtotal,
-            discount: discountInfo.discount,
-            discountApplied: discountInfo.discountApplied,
-            discountPercentage: discountInfo.discountPercentage,
             shipping: 0,
             total: finalTotal,
             paymentMethod: 'cod',
