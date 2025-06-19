@@ -1,0 +1,161 @@
+/* New color scheme: White, Black, Red */
+:root {
+    --primary-color: #FF0000;      /* Red for urgency/CTA */
+    --secondary-color: #000000;    /* Black for text and accents */
+    --background-color: #FFFFFF;   /* White background */
+    --text-color: #000000;         /* Black text */
+    --accent-color: #FF0000;       /* Red accent */
+    --light-bg: #F5F5F5;           /* Light gray background */
+    --border-color: #DDDDDD;       /* Light border */
+    --success-color: #FF0000;      /* Red for success */
+    --warning-color: #FF0000;      /* Red for warnings */
+    --error-color: #FF0000;        /* Red for errors */
+}
+
+/* Global color overrides */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Navigation */
+.nav {
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-logo a {
+    color: var(--secondary-color);
+}
+
+.nav-menu {
+    background-color: var(--background-color);
+}
+
+.nav-menu-links a {
+    color: var(--secondary-color);
+}
+
+.nav-menu-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Buttons */
+.btn, .btn-small, .btn-order {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn:hover, .btn-small:hover, .btn-order:hover {
+    background-color: #CC0000;
+}
+
+/* Hero section */
+.hero-title span {
+    color: var(--secondary-color);
+}
+
+.hero-title-line:first-child span {
+    color: var(--primary-color);
+}
+
+/* Section titles */
+.section-title {
+    color: var(--secondary-color);
+}
+
+.section-title::after {
+    background-color: var(--primary-color);
+}
+
+/* Product cards */
+.product-card, .work-item {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+}
+
+.product-card.selected {
+    border-color: var(--primary-color);
+    background-color: rgba(255, 0, 0, 0.05);
+}
+
+.product-card.selected::before {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.product-card h3, .work-title {
+    color: var(--secondary-color);
+}
+
+.product-card .price, .work-category {
+    color: var(--primary-color);
+}
+
+/* Special offers */
+.offer-badge {
+    background-color: var(--primary-color);
+}
+
+.offer-price .original-price {
+    color: var(--secondary-color);
+}
+
+.offer-price {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.footer-logo {
+    color: white;
+}
+
+.footer-menu a {
+    color: #CCCCCC;
+}
+
+.footer-menu a:hover {
+    color: var(--primary-color);
+}
+
+/* Forms */
+input:focus, textarea:focus, select:focus {
+    border-color: var(--primary-color);
+}
+
+/* Status badges */
+.status-badge {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.status-pending {
+    background-color: var(--primary-color);
+}
+
+/* Admin panel */
+.admin-sidebar {
+    background-color: var(--secondary-color);
+}
+
+.admin-nav li.active a, .admin-nav a:hover {
+    border-left-color: var(--primary-color);
+}
+
+.stat-value {
+    color: var(--primary-color);
+}
+
+/* Mobile menu */
+.nav-toggle-bar {
+    background-color: var(--secondary-color);
+}
+
+.nav-toggle.active .nav-toggle-bar {
+    background-color: var(--primary-color);
+}
