@@ -145,8 +145,17 @@
                 <div class="offer-badge">-20%</div>
                 <h3>Pack de 3 T-shirts</h3>
                 <p class="offer-price"><span class="original-price">387 MAD</span> 309 MAD</p>
-                <p class="offer-description">Achetez 3 t-shirts et économisez 20%. Offre valable sur tous les modèles.</p>
-                <a href="#produits" class="btn">Ajouter au panier</a>
+                <p class="offer-description">Achetez 3 t-shirts et économisez 20%. Réduction appliquée automatiquement.</p>
+                <div id="offer-progress" style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem;">
+                        <span>Votre progression</span>
+                        <span id="offer-count">0/3</span>
+                    </div>
+                    <div style="height: 8px; background-color: #333; border-radius: 4px; overflow: hidden;">
+                        <div id="offer-progress-bar" style="height: 100%; width: 0%; background-color: #ff3c00; transition: width 0.3s ease;"></div>
+                    </div>
+                </div>
+                <a href="#produits" class="btn">Voir les produits</a>
             </div>
             <div class="offer-item">
                 <div class="offer-badge">Nouveau</div>
@@ -156,6 +165,21 @@
             </div>
         </div>
     </section>
+    
+    <script>
+        // Update offer progress based on cart
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            const offerCount = document.getElementById('offer-count');
+            const offerProgressBar = document.getElementById('offer-progress-bar');
+            
+            if (offerCount && offerProgressBar) {
+                offerCount.textContent = `${totalItems}/3`;
+                offerProgressBar.style.width = `${Math.min(100, (totalItems / 3) * 100)}%`;
+            }
+        });
+    </script>
 
     <!-- About Section -->
     <section id="apropos">

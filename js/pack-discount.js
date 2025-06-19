@@ -1,26 +1,23 @@
 /**
- * Pack Discount System
- * Automatically applies 20% discount when 3 t-shirts are added to cart
+ * Pack Discount System - Upsell Version
+ * Shows upsell messages to encourage adding more items to reach discount threshold
  */
 document.addEventListener('DOMContentLoaded', function() {
     // Constants
     const DISCOUNT_THRESHOLD = 3; // Number of items needed for discount
     const DISCOUNT_PERCENTAGE = 20; // 20% discount
     
-    // Check if we're on a page with product selection
-    const productGrid = document.querySelector('.product-grid');
-    if (!productGrid) return;
-    
-    // Add pack discount banner
-    addDiscountBanner();
-    
     // Initialize cart if it doesn't exist
     if (!localStorage.getItem('cart')) {
         localStorage.setItem('cart', JSON.stringify([]));
     }
     
-    // Update UI based on current cart
-    updatePackDiscountUI();
+    // Get current cart
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    
+    // Add upsell banner based on cart contents
+    addUpsellBanner(totalItems);
     
     // Add event listeners to "Add to Cart" buttons
     const addButtons = document.querySelectorAll('.add-to-cart-btn');
@@ -62,11 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 variant: variant
             });
             
-            // Show confirmation
+            // Show confirmation with upsell
             showAddedToCartMessage(productName);
-            
-            // Update UI
-            updatePackDiscountUI();
             
             e.preventDefault();
         });
@@ -96,6 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update cart count in header
         updateCartCount();
+        
+        // Update upsell banner
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        addUpsellBanner(totalItems);
     }
     
     /**
@@ -119,9 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Show added to cart message
+     * Show added to cart message with upsell
      */
     function showAddedToCartMessage(productName) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        
         // Create message element if it doesn't exist
         let messageElement = document.getElementById('cart-message');
         if (!messageElement) {
@@ -130,26 +131,34 @@ document.addEventListener('DOMContentLoaded', function() {
             messageElement.style.position = 'fixed';
             messageElement.style.bottom = '20px';
             messageElement.style.right = '20px';
-            messageElement.style.backgroundColor = '#ff3c00';
+            messageElement.style.backgroundColor = '#151515';
             messageElement.style.color = 'white';
             messageElement.style.padding = '15px 20px';
-            messageElement.style.borderRadius = '4px';
-            messageElement.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            messageElement.style.borderRadius = '8px';
+            messageElement.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
             messageElement.style.zIndex = '1000';
             messageElement.style.transform = 'translateY(100px)';
             messageElement.style.transition = 'transform 0.3s ease';
+            messageElement.style.maxWidth = '350px';
             document.body.appendChild(messageElement);
         }
         
+        // Get upsell message
+        const upsellMessage = getUpsellMessage(totalItems);
+        
         // Update message content
         messageElement.innerHTML = `
-            <div style="display: flex; align-items: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <div style="display: flex; align-items: flex-start;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px; min-width: 24px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                 <div>
-                    <div><strong>${productName}</strong> ajouté au panier</div>
-                    <div style="font-size: 0.9em; margin-top: 5px;">
-                        ${checkPackDiscount()}
+                    <div style="margin-bottom: 5px;"><strong>${productName}</strong> ajouté au panier</div>
+                    <div style="font-size: 0.9em; color: ${totalItems >= DISCOUNT_THRESHOLD ? '#FF0000' : '#aaa'};">
+                        ${upsellMessage}
                     </div>
+                    ${totalItems > 0 && totalItems < DISCOUNT_THRESHOLD ? 
+                        `<a href="#produits" style="color: #FF0000; text-decoration: none; display: inline-block; margin-top: 8px; font-weight: 500;">Ajouter plus de t-shirts</a>` : 
+                        totalItems >= DISCOUNT_THRESHOLD ? 
+                        `<a href="checkout.html" style="color: #FF0000; text-decoration: none; display: inline-block; margin-top: 8px; font-weight: 500;">Passer à la caisse</a>` : ''}
                 </div>
             </div>
         `;
@@ -159,75 +168,115 @@ document.addEventListener('DOMContentLoaded', function() {
             messageElement.style.transform = 'translateY(0)';
         }, 10);
         
-        // Hide message after 3 seconds
+        // Hide message after 5 seconds
         setTimeout(() => {
             messageElement.style.transform = 'translateY(100px)';
-        }, 3000);
+        }, 5000);
     }
     
     /**
-     * Check if pack discount applies and return message
+     * Get upsell message based on cart items
      */
-    function checkPackDiscount() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        
+    function getUpsellMessage(totalItems) {
         if (totalItems >= DISCOUNT_THRESHOLD) {
-            return `<span style="color: #FFFF00;">Réduction de ${DISCOUNT_PERCENTAGE}% appliquée!</span>`;
-        } else if (totalItems > 0) {
+            return `Félicitations! Réduction de ${DISCOUNT_PERCENTAGE}% appliquée!`;
+        } else if (totalItems === 0) {
+            return `Ajoutez ${DISCOUNT_THRESHOLD} t-shirts pour obtenir -${DISCOUNT_PERCENTAGE}%`;
+        } else {
             const remaining = DISCOUNT_THRESHOLD - totalItems;
-            return `Ajoutez ${remaining} t-shirt${remaining > 1 ? 's' : ''} de plus pour obtenir -${DISCOUNT_PERCENTAGE}%`;
+            return `Plus que ${remaining} t-shirt${remaining > 1 ? 's' : ''} pour obtenir -${DISCOUNT_PERCENTAGE}%!`;
         }
-        
-        return '';
     }
     
     /**
-     * Add discount banner to the page
+     * Add upsell banner to the page
      */
-    function addDiscountBanner() {
+    function addUpsellBanner(totalItems) {
+        // Remove existing banner if any
+        const existingBanner = document.getElementById('upsell-banner');
+        if (existingBanner) {
+            existingBanner.remove();
+        }
+        
+        // Create banner element
         const banner = document.createElement('div');
-        banner.className = 'pack-discount-banner';
-        banner.innerHTML = `
-            <div style="background-color: #151515; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
-                <div style="font-weight: 600; color: #ff3c00; margin-bottom: 5px;">OFFRE SPÉCIALE</div>
-                <div style="font-size: 1.2rem; margin-bottom: 5px;">Achetez 3 t-shirts et économisez 20%</div>
-                <div style="font-size: 0.9rem; opacity: 0.8;">Réduction appliquée automatiquement dans votre panier</div>
-                <div id="pack-progress" style="margin-top: 10px;"></div>
-            </div>
-        `;
+        banner.id = 'upsell-banner';
+        banner.style.backgroundColor = '#151515';
+        banner.style.padding = '15px';
+        banner.style.borderRadius = '8px';
+        banner.style.margin = '20px 0';
+        banner.style.textAlign = 'center';
+        banner.style.position = 'relative';
+        banner.style.overflow = 'hidden';
         
-        // Insert after product grid heading
-        const sectionTitle = document.querySelector('.section-title');
-        if (sectionTitle) {
-            sectionTitle.parentNode.insertBefore(banner, sectionTitle.nextSibling);
-        }
-    }
-    
-    /**
-     * Update pack discount UI
-     */
-    function updatePackDiscountUI() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        // Add progress bar background
+        const progressBackground = document.createElement('div');
+        progressBackground.style.position = 'absolute';
+        progressBackground.style.bottom = '0';
+        progressBackground.style.left = '0';
+        progressBackground.style.width = '100%';
+        progressBackground.style.height = '4px';
+        progressBackground.style.backgroundColor = '#333';
+        banner.appendChild(progressBackground);
         
-        // Update progress bar
-        const progressElement = document.getElementById('pack-progress');
-        if (progressElement) {
-            const percentage = Math.min(100, (totalItems / DISCOUNT_THRESHOLD) * 100);
-            
-            progressElement.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <span>Progression:</span>
-                    <span>${totalItems}/${DISCOUNT_THRESHOLD} t-shirts</span>
-                </div>
-                <div style="height: 8px; background-color: #333; border-radius: 4px; overflow: hidden;">
-                    <div style="height: 100%; width: ${percentage}%; background-color: #ff3c00; transition: width 0.3s ease;"></div>
-                </div>
-                ${totalItems >= DISCOUNT_THRESHOLD ? 
-                    '<div style="color: #ff3c00; margin-top: 5px; font-weight: 600;">Réduction de 20% appliquée!</div>' : 
-                    ''}
+        // Add progress bar fill
+        const progressFill = document.createElement('div');
+        progressFill.style.position = 'absolute';
+        progressFill.style.bottom = '0';
+        progressFill.style.left = '0';
+        progressFill.style.height = '4px';
+        progressFill.style.backgroundColor = '#FF0000';
+        progressFill.style.width = `${Math.min(100, (totalItems / DISCOUNT_THRESHOLD) * 100)}%`;
+        progressFill.style.transition = 'width 0.3s ease';
+        banner.appendChild(progressFill);
+        
+        // Add content based on cart items
+        if (totalItems >= DISCOUNT_THRESHOLD) {
+            // Discount achieved
+            banner.innerHTML += `
+                <div style="font-weight: 600; color: #FF0000; margin-bottom: 5px;">RÉDUCTION APPLIQUÉE!</div>
+                <div style="font-size: 1.2rem; margin-bottom: 5px;">Vous bénéficiez de ${DISCOUNT_PERCENTAGE}% de réduction</div>
+                <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px;">Réduction appliquée automatiquement dans votre panier</div>
+                <a href="checkout.html" class="btn" style="display: inline-block; margin-top: 5px;">Passer à la caisse</a>
             `;
+        } else if (totalItems === 0) {
+            // Empty cart
+            banner.innerHTML += `
+                <div style="font-weight: 600; color: #FF0000; margin-bottom: 5px;">OFFRE SPÉCIALE</div>
+                <div style="font-size: 1.2rem; margin-bottom: 5px;">Achetez ${DISCOUNT_THRESHOLD} t-shirts et économisez ${DISCOUNT_PERCENTAGE}%</div>
+                <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px;">Réduction appliquée automatiquement dans votre panier</div>
+            `;
+        } else {
+            // Partial progress
+            const remaining = DISCOUNT_THRESHOLD - totalItems;
+            banner.innerHTML += `
+                <div style="font-weight: 600; color: #FF0000; margin-bottom: 5px;">PRESQUE LÀ!</div>
+                <div style="font-size: 1.2rem; margin-bottom: 5px;">Plus que ${remaining} t-shirt${remaining > 1 ? 's' : ''} pour obtenir -${DISCOUNT_PERCENTAGE}%</div>
+                <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px;">Ajoutez ${remaining} t-shirt${remaining > 1 ? 's' : ''} de plus à votre panier pour bénéficier de la réduction</div>
+            `;
+        }
+        
+        // Insert banner at appropriate location
+        const insertLocation = document.querySelector('.product-grid') || 
+                              document.querySelector('.product-detail') ||
+                              document.querySelector('section');
+        
+        if (insertLocation) {
+            if (insertLocation.classList.contains('product-grid')) {
+                // On product listing page
+                insertLocation.parentNode.insertBefore(banner, insertLocation);
+            } else if (insertLocation.classList.contains('product-detail')) {
+                // On product detail page
+                const productActions = document.querySelector('.product-actions');
+                if (productActions) {
+                    productActions.parentNode.insertBefore(banner, productActions);
+                } else {
+                    insertLocation.appendChild(banner);
+                }
+            } else {
+                // Fallback
+                insertLocation.appendChild(banner);
+            }
         }
     }
 });
