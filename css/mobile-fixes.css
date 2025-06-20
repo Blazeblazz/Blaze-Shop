@@ -24,11 +24,18 @@
         text-align: center;
     }
     
+    /* Consistent section padding */
+    section {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+    
     /* Center section titles */
     .section-title {
         text-align: center;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 30px !important;
     }
     
     /* Center section title line */
@@ -43,6 +50,7 @@
         width: 100%;
         padding: 0;
         justify-items: center;
+        gap: 30px !important;
     }
     
     .work-item, .product-item, .product-card {
@@ -51,11 +59,13 @@
         max-width: 350px;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 0 !important;
     }
     
     /* Center product info */
     .work-info, .product-info {
         text-align: center;
+        padding: 15px !important;
     }
     
     /* Fix for selected items */
@@ -70,6 +80,7 @@
     /* Fix for variant selector */
     .variant-selector {
         width: 100%;
+        margin-bottom: 20px !important;
     }
     
     .variant-select {
@@ -80,6 +91,7 @@
     .product-gallery, .product-info-container {
         width: 100% !important;
         padding: 0 !important;
+        margin-bottom: 30px !important;
     }
     
     /* Fix for checkout page */
@@ -102,53 +114,83 @@
     /* Center about section */
     .about-content {
         text-align: center;
+        gap: 30px !important;
     }
     
     .about-text {
         text-align: center;
+        margin-bottom: 0 !important;
+    }
+    
+    .about-lead {
+        margin-bottom: 20px !important;
     }
     
     /* Center approach grid */
     .approach-grid {
         justify-items: center;
+        gap: 20px !important;
     }
     
     .approach-item {
         text-align: center;
         max-width: 300px;
+        padding: 20px !important;
+        margin: 0 !important;
     }
     
     .approach-number {
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 15px !important;
     }
     
     /* Center testimonials */
+    .testimonials-container {
+        gap: 20px !important;
+    }
+    
     .testimonial-item {
         text-align: center;
         margin-left: auto;
         margin-right: auto;
+        padding: 20px !important;
+        margin-bottom: 0 !important;
     }
     
     /* Center contact form */
+    .contact-content {
+        gap: 30px !important;
+    }
+    
     .contact-text {
         text-align: center;
+        margin-bottom: 0 !important;
     }
     
     .contact-email {
         display: inline-block;
+        margin-bottom: 15px !important;
+    }
+    
+    .form-group {
+        margin-bottom: 20px !important;
+        text-align: left;
     }
     
     /* Fix for footer */
     .footer-content {
         flex-direction: column;
         text-align: center;
+        padding-top: 40px !important;
+        padding-bottom: 20px !important;
     }
     
     .footer-column {
         width: 100%;
         margin-bottom: 30px;
         text-align: center;
+        padding-right: 0 !important;
     }
     
     .footer-column h4::after {
@@ -158,5 +200,41 @@
     
     .footer-social {
         justify-content: center;
+    }
+    
+    .footer-copyright {
+        padding-top: 20px !important;
+    }
+    
+    /* Fix for delivery banner */
+    .delivery-banner {
+        flex-direction: column;
+        padding: 20px !important;
+        margin-bottom: 30px !important;
+    }
+    
+    .delivery-icon {
+        margin-right: 0 !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .delivery-message h3 {
+        margin-bottom: 10px !important;
+    }
+    
+    /* Fix for special offers */
+    .offers-container {
+        gap: 20px !important;
+    }
+    
+    .offer-item {
+        padding: 25px !important;
+        margin: 0 !important;
+    }
+    
+    /* Fix for buttons */
+    .btn, .btn-small {
+        margin: 10px auto !important;
+        display: inline-block;
     }
 }

@@ -1,0 +1,55 @@
+/* Additional alignment fixes for mobile */
+@media (max-width: 768px) {
+    /* Fix list styles in mobile */
+    ul, ol {
+        padding-left: 0;
+        margin-left: 0;
+        list-style-position: inside;
+    }
+    
+    /* Fix form elements alignment */
+    input, textarea, select, button {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Fix image alignment */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Fix button alignment */
+    .btn, .btn-small {
+        display: inline-block;
+        margin: 10px auto;
+    }
+    
+    /* Fix spacing between sections */
+    section + section {
+        margin-top: 0 !important;
+    }
+    
+    /* Fix padding for all containers */
+    .container, .content-container, .section-container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Fix margin for headings */
+    h1, h2, h3, h4, h5, h6 {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    /* Fix padding for product actions */
+    .product-actions {
+        padding: 15px !important;
+    }
+    
+    /* Fix delivery info spacing */
+    .delivery-info {
+        padding: 15px !important;
+    }
+}
