@@ -161,11 +161,16 @@
     /* Center contact form */
     .contact-content {
         gap: 30px !important;
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     .contact-text {
         text-align: center;
-        margin-bottom: 0 !important;
+        margin-bottom: 20px !important;
+        width: 100% !important;
     }
     
     .contact-email {
@@ -173,9 +178,24 @@
         margin-bottom: 15px !important;
     }
     
+    .contact-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px !important;
+        background-color: #151515;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+    
     .form-group {
         margin-bottom: 20px !important;
         text-align: left;
+        width: 100% !important;
+    }
+    
+    #contact {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
     }
     
     /* Fix for footer */
