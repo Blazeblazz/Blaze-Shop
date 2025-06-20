@@ -10,7 +10,7 @@
         padding: 0;
     }
     
-    /* Fix container widths */
+    /* Fix container widths and center content */
     .container, .pack-container, section, footer, .footer-content, 
     .product-container, .checkout-container, .order-sidebar {
         width: 100% !important;
@@ -21,6 +21,20 @@
         overflow-x: hidden !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+        text-align: center;
+    }
+    
+    /* Center section titles */
+    .section-title {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Center section title line */
+    .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     /* Fix for product grid */
@@ -28,13 +42,20 @@
         grid-template-columns: 1fr;
         width: 100%;
         padding: 0;
+        justify-items: center;
     }
     
     .work-item, .product-item, .product-card {
         height: auto;
         width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Center product info */
+    .work-info, .product-info {
+        text-align: center;
     }
     
     /* Fix for selected items */
@@ -78,13 +99,64 @@
         margin-bottom: 20px !important;
     }
     
+    /* Center about section */
+    .about-content {
+        text-align: center;
+    }
+    
+    .about-text {
+        text-align: center;
+    }
+    
+    /* Center approach grid */
+    .approach-grid {
+        justify-items: center;
+    }
+    
+    .approach-item {
+        text-align: center;
+        max-width: 300px;
+    }
+    
+    .approach-number {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Center testimonials */
+    .testimonial-item {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Center contact form */
+    .contact-text {
+        text-align: center;
+    }
+    
+    .contact-email {
+        display: inline-block;
+    }
+    
     /* Fix for footer */
     .footer-content {
         flex-direction: column;
+        text-align: center;
     }
     
     .footer-column {
         width: 100%;
         margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-social {
+        justify-content: center;
     }
 }

@@ -31,7 +31,7 @@
     }
     
     .nav-menu-links li {
-        margin: 15px 0;
+        margin: 8px 0;
         width: 100%;
         text-align: center;
         opacity: 0;
@@ -70,10 +70,10 @@
     }
     
     body.nav-active .nav-toggle-bar:first-child {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: translateY(9px) rotate(45deg);
     }
     
     body.nav-active .nav-toggle-bar:last-child {
-        transform: rotate(-45deg) translate(5px, -5px);
+        transform: translateY(-9px) rotate(-45deg);
     }
 }

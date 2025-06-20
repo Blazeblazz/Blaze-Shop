@@ -12,8 +12,13 @@
     <link rel="stylesheet" href="css/mobile-menu.css">
     <link rel="stylesheet" href="css/mobile-fixes.css">
     <link rel="stylesheet" href="css/mobile-product.css">
+    <link rel="stylesheet" href="css/preloader.css">
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-logo">
@@ -73,26 +78,6 @@
                     <button id="order-now" class="btn btn-primary">Commander maintenant</button>
                 </div>
                 
-                <!-- Upsell System -->
-                <div class="upsell-container">
-                    <div class="upsell-badge">-10%</div>
-                    <h3 class="upsell-title">Ajoutez un autre t-shirt et économisez 10%</h3>
-                    <p class="upsell-description">Sélectionnez un t-shirt supplémentaire pour bénéficier d'une réduction de 10% sur votre commande</p>
-                    
-                    <div class="upsell-slider">
-                        <div class="upsell-items" id="upsell-items">
-                            <!-- Upsell items will be added dynamically -->
-                        </div>
-                    </div>
-                    
-                    <div class="upsell-controls">
-                        <button class="upsell-control" id="upsell-prev">&lt;</button>
-                        <button class="upsell-control" id="upsell-next">&gt;</button>
-                    </div>
-                    
-                    <button class="upsell-add" id="upsell-add">Ajouter au panier</button>
-                </div>
-                
                 <div class="delivery-info">
                     <div class="delivery-item">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
@@ -107,19 +92,7 @@
         </div>
     </section>
     
-    <!-- Mobile Sticky Add to Cart -->
-    <div class="mobile-sticky-cart" id="mobile-sticky-cart">
-        <div class="product-info">
-            <div class="product-image">
-                <img id="sticky-product-image" src="" alt="">
-            </div>
-            <div class="product-details">
-                <div class="product-title" id="sticky-product-title"></div>
-                <div class="product-price" id="sticky-product-price"></div>
-            </div>
-        </div>
-        <button class="btn-add" id="sticky-add-btn">Ajouter</button>
-    </div>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -162,59 +135,10 @@
 
     <script src="js/main-no-cart.js"></script>
     <script src="js/product-detail.js"></script>
-    <script src="js/upsell.js"></script>
     <script>
-        // Mobile sticky cart functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const stickyCart = document.getElementById('mobile-sticky-cart');
-            const stickyImage = document.getElementById('sticky-product-image');
-            const stickyTitle = document.getElementById('sticky-product-title');
-            const stickyPrice = document.getElementById('sticky-product-price');
-            const stickyAddBtn = document.getElementById('sticky-add-btn');
-            
-            // Get product ID from URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = parseInt(urlParams.get('id'));
-            
-            // Find product in products data
-            const product = products.find(p => p.id === productId);
-            
-            if (product && stickyCart) {
-                // Populate sticky cart
-                if (stickyImage) stickyImage.src = product.images[0];
-                if (stickyTitle) stickyTitle.textContent = product.name;
-                if (stickyPrice) stickyPrice.textContent = `${product.price} MAD`;
-                
-                // Add click event to sticky add button
-                if (stickyAddBtn) {
-                    stickyAddBtn.addEventListener('click', function() {
-                        // Scroll to upsell section
-                        const upsellSection = document.querySelector('.upsell-container');
-                        if (upsellSection) {
-                            upsellSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    });
-                }
-                
-                // Show/hide sticky cart based on scroll position
-                function checkScrollPosition() {
-                    const productActions = document.querySelector('.product-actions');
-                    if (productActions) {
-                        const rect = productActions.getBoundingClientRect();
-                        if (rect.bottom < 0) {
-                            stickyCart.classList.add('active');
-                        } else {
-                            stickyCart.classList.remove('active');
-                        }
-                    }
-                }
-                
-                // Initial check
-                checkScrollPosition();
-                
-                // Check on scroll
-                window.addEventListener('scroll', checkScrollPosition);
-            }
+        // Preloader functionality
+        window.addEventListener('load', function() {
+            document.getElementById('preloader').classList.add('hidden');
         });
     </script>
 </body>

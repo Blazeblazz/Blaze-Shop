@@ -43,8 +43,7 @@
     
     /* Floating effect on tap */
     .btn-primary:active,
-    .upsell-add:active,
-    .mobile-sticky-cart .btn-add:active {
+    .upsell-add:active {
         transform: scale(0.95);
     }
     
@@ -100,16 +99,6 @@
         background-color: rgba(21, 21, 21, 0.5);
         padding: 3px 10px;
         border-radius: 12px;
-    }
-    
-    /* Active sticky cart */
-    .mobile-sticky-cart {
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-    }
-    
-    .mobile-sticky-cart.active {
-        transform: translateY(0);
     }
     
     /* Pulse animation for add button */

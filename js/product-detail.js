@@ -124,7 +124,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Order now button functionality is now handled in upsell.js
+    // Order now button functionality
+    const orderNowButton = document.getElementById('order-now');
+    if (orderNowButton) {
+        orderNowButton.addEventListener('click', function() {
+            // Get main product details
+            const mainProduct = products.find(p => p.id === productId);
+            if (!mainProduct) return;
+            
+            const mainVariant = document.querySelector('.variant-option.active')?.dataset.variant || mainProduct.variants[0];
+            const mainQuantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            // Create order with just the main product (no discount)
+            const orderItems = [
+                {
+                    id: mainProduct.id,
+                    name: mainProduct.name,
+                    price: mainProduct.price,
+                    image: mainProduct.images[0],
+                    quantity: mainQuantity,
+                    variant: mainVariant
+                }
+            ];
+            
+            // Store in session storage
+            sessionStorage.setItem('directOrder', JSON.stringify(orderItems));
+            
+            // Redirect to checkout
+            window.location.href = 'checkout.html';
+        });
+    }
 });
 
 // Products data

@@ -11,8 +11,13 @@
     <link rel="stylesheet" href="css/checkout.css">
     <link rel="stylesheet" href="css/mobile-menu.css">
     <link rel="stylesheet" href="css/checkout-variants.css">
+    <link rel="stylesheet" href="css/preloader.css">
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-logo">
@@ -45,12 +50,8 @@
                     <div class="step-number">1</div>
                     <div class="step-title">Informations</div>
                 </div>
-                <div class="step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-title">Récapitulatif</div>
-                </div>
                 <div class="step" data-step="3">
-                    <div class="step-number">3</div>
+                    <div class="step-number">2</div>
                     <div class="step-title">Confirmation</div>
                 </div>
             </div>
@@ -80,7 +81,7 @@
                         </div>
                         
                         <div class="form-actions">
-                            <button type="button" id="to-step-2" class="btn btn-primary">Continuer</button>
+                            <button type="button" id="to-step-2" class="btn btn-primary">Confirmer la commande</button>
                         </div>
                     </form>
                 </div>
@@ -219,5 +220,11 @@
     <script src="js/orders-api.js"></script>
     <script src="js/main-no-cart.js"></script>
     <script src="js/checkout.js"></script>
+    <script>
+        // Preloader functionality
+        window.addEventListener('load', function() {
+            document.getElementById('preloader').classList.add('hidden');
+        });
+    </script>
 </body>
 </html>

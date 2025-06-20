@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     toStep2Button.addEventListener('click', function() {
         if (validateCustomerInfo()) {
-            // Show step 2
-            showStep(2);
+            // Process order directly
+            processOrder();
             
-            // Populate order summary
-            populateOrderSummary();
+            // Skip step 2 and go directly to step 3
+            showStep(3);
         }
     });
     

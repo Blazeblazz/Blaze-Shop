@@ -15,12 +15,19 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
         height: 100vh;
     }
     
     .hero-scroll {
         margin-top: 40px;
+        position: relative;
+        left: auto;
+        bottom: auto;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
     
     .hero-scroll-text {
