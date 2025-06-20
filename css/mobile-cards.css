@@ -1,0 +1,33 @@
+/* Card-based design for better touch interaction */
+@media (max-width: 768px) {
+    .product-item, .testimonial-item, .approach-item, .offer-item {
+        background: rgba(21, 21, 21, 0.95);
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: rgba(255, 60, 0, 0.2);
+        user-select: none;
+    }
+    
+    .product-item:active, .testimonial-item:active, 
+    .approach-item:active, .offer-item:active {
+        transform: scale(0.98);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    .product-image-container {
+        border-radius: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .work-info, .product-info {
+        background: transparent;
+        padding: 0;
+        margin-top: 0;
+        box-shadow: none;
+    }
+}

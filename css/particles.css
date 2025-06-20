@@ -16,18 +16,18 @@
     background-color: #ff3c00;
     border-radius: 50%;
     opacity: 0.6;
-    animation: float 6s infinite linear;
+    animation: float 15s infinite linear;
 }
 
 .particle:nth-child(odd) {
     background-color: rgba(255, 255, 255, 0.3);
-    animation-duration: 8s;
+    animation-duration: 18s;
 }
 
 .particle:nth-child(3n) {
     width: 3px;
     height: 3px;
-    animation-duration: 10s;
+    animation-duration: 20s;
 }
 
 @keyframes float {
@@ -35,14 +35,14 @@
         transform: translateY(100vh) rotate(0deg);
         opacity: 0;
     }
-    10% {
+    5% {
         opacity: 0.6;
     }
-    90% {
+    95% {
         opacity: 0.6;
     }
     100% {
-        transform: translateY(-100px) rotate(360deg);
+        transform: translateY(-100vh) rotate(360deg);
         opacity: 0;
     }
 }
