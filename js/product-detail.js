@@ -135,23 +135,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const mainVariant = document.querySelector('.variant-option.active')?.dataset.variant || mainProduct.variants[0];
             const mainQuantity = parseInt(document.getElementById('quantity').value) || 1;
             
-            // Create order with just the main product (no discount)
-            const orderItems = [
-                {
-                    id: mainProduct.id,
-                    name: mainProduct.name,
-                    price: mainProduct.price,
-                    image: mainProduct.images[0],
-                    quantity: mainQuantity,
-                    variant: mainVariant
-                }
-            ];
-            
-            // Store in session storage
-            sessionStorage.setItem('directOrder', JSON.stringify(orderItems));
-            
-            // Redirect to checkout
-            window.location.href = 'checkout.html';
+            // Add to cart
+            if (window.cart) {
+                window.cart.addItem(mainProduct, mainQuantity, mainVariant);
+                alert('Produit ajouté au panier!');
+            } else {
+                // Fallback to direct checkout if cart is not available
+                const orderItems = [
+                    {
+                        id: mainProduct.id,
+                        name: mainProduct.name,
+                        price: mainProduct.price,
+                        image: mainProduct.images[0],
+                        quantity: mainQuantity,
+                        variant: mainVariant
+                    }
+                ];
+                
+                // Store in session storage
+                sessionStorage.setItem('directOrder', JSON.stringify(orderItems));
+                
+                // Redirect to checkout
+                window.location.href = 'checkout.html';
+            }
         });
     }
 });
