@@ -1,0 +1,34 @@
+/* Additional product styling */
+.product-item {
+    margin-bottom: 20px;
+}
+
+.product-image-container {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-item:hover .product-image-container {
+    transform: translateY(-5px);
+}
+
+.product-info {
+    text-align: center;
+}
+
+.work-title {
+    margin-top: 0;
+}
+
+.work-category {
+    font-weight: 600;
+    color: #ff3c00;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .product-image-container {
+        height: 250px;
+    }
+}
