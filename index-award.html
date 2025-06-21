@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="css/mobile-grid.css">
     <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="css/gallery-enhanced.css">
+    <link rel="stylesheet" href="css/gallery-modern.css">
+    <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/featured-product.css">
     <!-- Meta Pixel Code -->
     <script>
@@ -202,34 +204,66 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="galerie">
-        <h2 class="section-title">Inspiré du Maroc</h2>
-        <p style="text-align: center; color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto;">Découvrez nos designs inspirés des plus belles villes du Maroc</p>
+    <!-- Reviews Section -->
+    <section id="temoignages" class="gallery-section">
+        <div class="gallery-header">
+            <h2 class="section-title">Témoignages Clients</h2>
+            <p class="gallery-subtitle">Ce que disent nos clients</p>
+        </div>
         
-        
-        <div class="gallery-container">
-            <div class="gallery-grid">
-                <div class="gallery-item" data-category="lifestyle" data-aos="fade-up">
-                    <div class="gallery-image-wrapper">
-                        <div class="image-skeleton"></div>
-                        <img data-src="images/Gallery/20250608_1608_Lo-Fi Nighttime Selfie_simple_compose_01jx81amygfhfv5ej0anyqjw5r (1).png" alt="Gallery Image" class="gallery-image lazy-load">
+        <div class="reviews-container">
+            <div class="reviews-grid">
+                <div class="review-card" data-aos="fade-up">
+                    <div class="review-image-box">
+                        <img src="images/Gallery/20250608_1608_Lo-Fi Nighttime Selfie_simple_compose_01jx81amygfhfv5ej0anyqjw5r (1).png" alt="Client Review" class="review-image">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">"Qualité exceptionnelle! Le t-shirt est très confortable et le design est unique."</p>
+                        <div class="review-author">- Ahmed, Casablanca</div>
                     </div>
                 </div>
-                <div class="gallery-item" data-category="lifestyle" data-aos="fade-up" data-aos-delay="100">
-                    <div class="gallery-image-wrapper">
-                        <div class="image-skeleton"></div>
-                        <img data-src="images/Gallery/20250608_1615_Lo-Fi Streetwear Selfie_simple_compose_01jx81p3fmez7t6pshb3kdsr9d.png" alt="Gallery Image" class="gallery-image lazy-load">
+                <div class="review-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="review-image-box">
+                        <img src="images/Gallery/20250608_1615_Lo-Fi Streetwear Selfie_simple_compose_01jx81p3fmez7t6pshb3kdsr9d.png" alt="Client Review" class="review-image">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">"J'adore le style streetwear! Parfait pour un look décontracté."</p>
+                        <div class="review-author">- Fatima, Rabat</div>
                     </div>
                 </div>
-                <div class="gallery-item" data-category="lifestyle" data-aos="fade-up" data-aos-delay="200">
-                    <div class="gallery-image-wrapper">
-                        <div class="image-skeleton"></div>
-                        <img data-src="images/Gallery/PHOTO-2025-06-18-17-22-05.jpg" alt="Gallery Image" class="gallery-image lazy-load">
+                <div class="review-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="review-image-box">
+                        <img src="images/Gallery/PHOTO-2025-06-18-17-22-05.jpg" alt="Client Review" class="review-image">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">"Livraison rapide et produit conforme. Je recommande vivement!"</p>
+                        <div class="review-author">- Youssef, Marrakech</div>
+                    </div>
+                </div>
+                <div class="review-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="review-image-box">
+                        <img src="images/Gallery/9b865709-0060-4aa2-9eec-e938b62b8100.jpeg" alt="Client Review" class="review-image">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">"Style parfait pour mes sorties! Qualité au top."</p>
+                        <div class="review-author">- Nadia, Agadir</div>
+                    </div>
+                </div>
+                <div class="review-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="review-image-box">
+                        <img src="images/Gallery/c4b3f950-4417-4f64-842e-47a66dfc2566.jpeg" alt="Client Review" class="review-image">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">"Design unique et confortable. Je recommande!"</p>
+                        <div class="review-author">- Omar, Tanger</div>
                     </div>
                 </div>
             </div>
-            <div class="gallery-indicators"></div>
         </div>
         
         <!-- Lightbox Modal -->
@@ -293,28 +327,7 @@
             </div>
         </div>
     </section>
-    
-    <!-- Testimonials Section -->
-    <section id="temoignages" class="testimonials">
-        <h2 class="section-title">Témoignages Clients</h2>
-        <div class="testimonials-container">
-            <div class="testimonial-item">
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"Les t-shirts sont d'une qualité exceptionnelle et la livraison a été très rapide. Je recommande vivement!"</p>
-                <div class="testimonial-author">- Mohammed, Casablanca</div>
-            </div>
-            <div class="testimonial-item">
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"J'adore les motifs traditionnels sur les t-shirts. Ils sont uniques et très confortables à porter."</p>
-                <div class="testimonial-author">- Fatima, Marrakech</div>
-            </div>
-            <div class="testimonial-item">
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"Le service client est excellent et les t-shirts sont de bonne qualité. Je suis très satisfait de mon achat."</p>
-                <div class="testimonial-author">- Youssef, Rabat</div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Contact Section -->
     <section id="contact">
