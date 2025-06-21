@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="css/particles.css">
     <link rel="stylesheet" href="css/mobile-cards.css">
     <link rel="stylesheet" href="css/mobile-grid.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/gallery-enhanced.css">
+    <link rel="stylesheet" href="css/featured-product.css">
 </head>
 <body>
     <!-- Preloader -->
@@ -170,6 +173,89 @@
                 <p class="offer-description">Livraison gratuite pour toutes vos commandes, partout au Maroc.</p>
                 <a href="#produits" class="btn">Voir les produits</a>
             </div>
+            <div class="offer-item featured-product">
+                <div class="featured-image">
+                    <img src="images/Products/Lost-in-Casablanca.webp" alt="Lost in Casablanca" class="featured-img">
+                </div>
+                <h3>Produit Vedette</h3>
+                <h4 class="featured-title">LOST IN Casablanca</h4>
+                <p class="featured-price">129 MAD</p>
+                <a href="product-detail.html?id=1" class="btn">Acheter maintenant</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galerie">
+        <h2 class="section-title">Inspiré du Maroc</h2>
+        <p style="text-align: center; color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto;">Découvrez nos designs inspirés des plus belles villes du Maroc</p>
+        
+        
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="centre" data-aos="fade-up">
+                    <div class="gallery-image-wrapper">
+                        <div class="image-skeleton"></div>
+                        <img data-src="images/Products/Lost-in-Casablanca.webp" alt="Casablanca" class="gallery-image lazy-load">
+                    </div>
+                    <h3 class="gallery-title">Casablanca</h3>
+                    <p class="gallery-caption">Capitale économique du Maroc</p>
+                </div>
+                <div class="gallery-item" data-category="centre" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-image-wrapper">
+                        <div class="image-skeleton"></div>
+                        <img data-src="images/Products/Red-Rug.webp" alt="Marrakech" class="gallery-image lazy-load">
+                    </div>
+                    <h3 class="gallery-title">Marrakech</h3>
+                    <p class="gallery-caption">La ville rouge</p>
+                </div>
+                <div class="gallery-item" data-category="centre" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-image-wrapper">
+                        <div class="image-skeleton"></div>
+                        <img data-src="images/Products/Turtle-Rush-White.webp" alt="Essaouira" class="gallery-image lazy-load">
+                    </div>
+                    <h3 class="gallery-title">Essaouira</h3>
+                    <p class="gallery-caption">Perle de l'Atlantique</p>
+                </div>
+                <div class="gallery-item" data-category="nord" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gallery-image-wrapper">
+                        <div class="image-skeleton"></div>
+                        <img data-src="images/Products/RISE.webp" alt="Fès" class="gallery-image lazy-load">
+                    </div>
+                    <h3 class="gallery-title">Fès</h3>
+                    <p class="gallery-caption">Capitale spirituelle</p>
+                </div>
+                <div class="gallery-item" data-category="nord" data-aos="fade-up" data-aos-delay="400">
+                    <div class="gallery-image-wrapper">
+                        <div class="image-skeleton"></div>
+                        <img data-src="images/Products/Whispering-Wildflowers.webp" alt="Chefchaouen" class="gallery-image lazy-load">
+                    </div>
+                    <h3 class="gallery-title">Chefchaouen</h3>
+                    <p class="gallery-caption">La ville bleue</p>
+                </div>
+                <div class="gallery-item" data-category="centre" data-aos="fade-up" data-aos-delay="500">
+                    <div class="gallery-image-wrapper">
+                        <div class="image-skeleton"></div>
+                        <img data-src="images/Products/Rush.webp" alt="Rabat" class="gallery-image lazy-load">
+                    </div>
+                    <h3 class="gallery-title">Rabat</h3>
+                    <p class="gallery-caption">Capitale du royaume</p>
+                </div>
+            </div>
+            <div class="gallery-indicators"></div>
+        </div>
+        
+        <!-- Lightbox Modal -->
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-content">
+                <span class="lightbox-close">&times;</span>
+                <img class="lightbox-image" src="" alt="">
+                <div class="lightbox-caption"></div>
+                <div class="lightbox-nav">
+                    <button class="lightbox-prev">&#8249;</button>
+                    <button class="lightbox-next">&#8250;</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -313,6 +399,7 @@
     <script src="js/contact-form.js"></script>
     <script src="js/parallax.js"></script>
     <script src="js/particles.js"></script>
+    <script src="js/gallery-enhanced.js"></script>
     <script>
         // Preloader functionality
         window.addEventListener('load', function() {
