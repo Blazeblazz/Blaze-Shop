@@ -58,30 +58,17 @@
     font-weight: 500;
 }
 
-/* Mobile: Slider */
+/* Mobile: 2 per row */
 @media (max-width: 768px) {
-    .reviews-container {
-        padding: 0 15px;
-    }
-    
     .reviews-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
-        padding: 0 5px 10px 5px;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
     }
     
-    .reviews-grid::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .review-card {
-        flex: 0 0 220px;
-        scroll-snap-align: start;
-        min-height: auto;
+    .review-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
     }
     
     .review-image-box {
