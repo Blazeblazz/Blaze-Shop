@@ -294,7 +294,7 @@ body.nav-active .nav {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
     opacity: 0.8;
     position: relative;
 }
