@@ -313,7 +313,7 @@ body.nav-active .nav {
 /* Sections */
 section {
     min-height: 100vh;
-    padding: 140px 10%;
+    padding: 80px 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -924,7 +924,7 @@ textarea {
 
 @media (max-width: 768px) {
     section {
-        padding: 60px 20px;
+        padding: 40px 20px;
         min-height: auto;
     }
     
@@ -970,6 +970,9 @@ textarea {
     .about-image {
         height: 250px !important;
         margin: 0 auto;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
     }
     
     .contact-form {
