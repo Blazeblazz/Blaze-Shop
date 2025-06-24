@@ -75,7 +75,7 @@
     .reviews-grid {
         grid-template-columns: 1fr 1fr !important;
         gap: 15px !important;
-        max-width: 600px !important;
+        max-width: 100% !important;
         margin: 0 auto !important;
         padding: 0 20px !important;
     }
