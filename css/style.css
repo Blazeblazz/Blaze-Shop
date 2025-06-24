@@ -924,11 +924,19 @@ textarea {
 
 @media (max-width: 768px) {
     section {
-        padding: 80px 5%;
+        padding: 60px 20px;
+        min-height: auto;
     }
     
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     .work-grid, .product-grid {
