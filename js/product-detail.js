@@ -33,31 +33,33 @@ document.addEventListener('DOMContentLoaded', function() {
     mainImage.src = product.images[0];
     mainImage.alt = product.name;
     
-    // Create thumbnails
+    // Create thumbnails (if container exists)
     const thumbnailContainer = document.querySelector('.thumbnail-images');
-    product.images.forEach((image, index) => {
-        const thumbnail = document.createElement('div');
-        thumbnail.className = 'thumbnail' + (index === 0 ? ' active' : '');
-        
-        const img = document.createElement('img');
-        img.src = image;
-        img.alt = `${product.name} - Image ${index + 1}`;
-        
-        thumbnail.appendChild(img);
-        thumbnailContainer.appendChild(thumbnail);
-        
-        // Add click event to thumbnail
-        thumbnail.addEventListener('click', function() {
-            // Update main image
-            mainImage.src = image;
+    if (thumbnailContainer) {
+        product.images.forEach((image, index) => {
+            const thumbnail = document.createElement('div');
+            thumbnail.className = 'thumbnail' + (index === 0 ? ' active' : '');
             
-            // Update active thumbnail
-            document.querySelectorAll('.thumbnail').forEach(thumb => {
-                thumb.classList.remove('active');
+            const img = document.createElement('img');
+            img.src = image;
+            img.alt = `${product.name} - Image ${index + 1}`;
+            
+            thumbnail.appendChild(img);
+            thumbnailContainer.appendChild(thumbnail);
+            
+            // Add click event to thumbnail
+            thumbnail.addEventListener('click', function() {
+                // Update main image
+                mainImage.src = image;
+                
+                // Update active thumbnail
+                document.querySelectorAll('.thumbnail').forEach(thumb => {
+                    thumb.classList.remove('active');
+                });
+                this.classList.add('active');
             });
-            this.classList.add('active');
         });
-    });
+    }
     
     // Add color variants if available
     if (product.variants && product.variants.length > 0) {
@@ -93,7 +95,10 @@ document.addEventListener('DOMContentLoaded', function() {
         variantContainer.appendChild(variantOptions);
         
         // Add to variants container
-        document.getElementById('product-variants-container').appendChild(variantContainer);
+        const variantsContainer = document.getElementById('product-variants-container');
+        if (variantsContainer) {
+            variantsContainer.appendChild(variantContainer);
+        }
     }
     
     // Helper function to convert color names to color codes
@@ -111,19 +116,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const decreaseBtn = document.getElementById('decrease-quantity');
     const increaseBtn = document.getElementById('increase-quantity');
     
-    decreaseBtn.addEventListener('click', function() {
-        const currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
-    });
+    if (decreaseBtn && quantityInput) {
+        decreaseBtn.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+    }
     
-    increaseBtn.addEventListener('click', function() {
-        const currentValue = parseInt(quantityInput.value);
-        if (currentValue < 10) {
-            quantityInput.value = currentValue + 1;
-        }
-    });
+    if (increaseBtn && quantityInput) {
+        increaseBtn.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+    }
     
     // Order now button functionality
     const orderNowButton = document.getElementById('order-now');
