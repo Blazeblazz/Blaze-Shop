@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!product) {
         // Product not found, redirect to homepage
-        window.location.href = 'index.html';
+        window.location.href = 'index-award.html';
         return;
     }
     
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const mainProduct = products.find(p => p.id === productId);
             if (!mainProduct) return;
             
-            const mainVariant = document.querySelector('.variant-option.active')?.dataset.variant || mainProduct.variants[0];
+            const mainVariant = document.querySelector('.variant-option.active')?.dataset.variant || (mainProduct.variants && mainProduct.variants[0]) || 'Default';
             const mainQuantity = parseInt(document.getElementById('quantity').value) || 1;
             
             // Direct checkout

@@ -360,23 +360,26 @@ section {
 }
 
 .work-item, .product-item {
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     display: flex;
     flex-direction: row;
     width: 100%;
-    min-height: 280px;
-    background: rgba(21, 21, 21, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 320px;
+    background: linear-gradient(135deg, rgba(21, 21, 21, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+    border: 2px solid rgba(255, 60, 0, 0.2);
     align-items: center;
-    padding: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 60, 0, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .work-item:hover, .product-item:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 60, 0, 0.2);
+    border-color: rgba(255, 60, 0, 0.4);
 }
 
 .product-item:hover .product-image {
@@ -388,14 +391,16 @@ section {
 }
 
 .product-image-container {
-    background-color: #151515;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border-radius: 15px;
     overflow: hidden;
-    height: 220px;
-    width: 220px;
+    height: 240px;
+    width: 240px;
     flex-shrink: 0;
-    margin-right: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    margin-right: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 
 .work-info, .product-info {
@@ -440,17 +445,19 @@ section {
 
 .btn-small {
     display: inline-block;
-    padding: 6px 12px;
-    background-color: #ff3c00;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #ff3c00 0%, #ff5722 100%);
     color: #fff;
     border: none;
-    border-radius: 15px;
-    font-size: 0.7rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 8px;
-    box-shadow: 0 2px 8px rgba(255, 60, 0, 0.3);
+    margin-top: 12px;
+    box-shadow: 0 6px 20px rgba(255, 60, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .btn-small:hover {
