@@ -294,10 +294,16 @@ body.nav-active .nav {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    will-change: transform;
+    background-attachment: scroll;
     opacity: 0.8;
     position: relative;
+}
+
+@media (min-width: 769px) {
+    .hero-visual-inner {
+        background-attachment: fixed;
+        will-change: transform;
+    }
 }
 
 .hero-visual-inner::before {
