@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Update page title
-    document.title = `BLAZE | ${product.name}`;
+    document.title = `${product.name} - BLAZE | T-Shirts au Maroc`;
+    document.getElementById('product-page-title').textContent = `${product.name} - BLAZE | T-Shirts au Maroc`;
     
     // Populate product details
     document.getElementById('product-title').textContent = product.name;

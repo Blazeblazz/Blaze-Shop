@@ -346,18 +346,33 @@ section {
 /* Work section */
 .work-grid, .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
-    margin-bottom: 80px;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+.work-item:last-child, .product-item:last-child {
+    grid-column: 1 / -1;
+    max-width: 450px;
+    margin: 0 auto;
 }
 
 .work-item, .product-item {
-    border-radius: 4px;
+    border-radius: 15px;
     overflow: hidden;
     position: relative;
-    transition: transform 0.5s ease;
+    transition: all 0.3s ease;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 100%;
+    min-height: 280px;
+    background: rgba(21, 21, 21, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .work-item:hover, .product-item:hover {
@@ -374,23 +389,24 @@ section {
 
 .product-image-container {
     background-color: #151515;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    height: 300px;
-    width: 100%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    height: 220px;
+    width: 220px;
+    flex-shrink: 0;
+    margin-right: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .work-info, .product-info {
-    padding: 20px;
-    width: 100%;
-    background-color: #151515;
-    margin-top: 15px;
-    border-radius: 4px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.2s;
+    padding: 0;
+    flex: 1;
+    background: transparent;
+    margin-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    text-align: left;
 }
 
 @keyframes fadeInUp {
@@ -424,17 +440,17 @@ section {
 
 .btn-small {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 6px 12px;
     background-color: #ff3c00;
     color: #fff;
     border: none;
-    border-radius: 25px;
-    font-size: 0.9rem;
+    border-radius: 15px;
+    font-size: 0.7rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 15px;
-    box-shadow: 0 4px 15px rgba(255, 60, 0, 0.3);
+    margin-top: 8px;
+    box-shadow: 0 2px 8px rgba(255, 60, 0, 0.3);
 }
 
 .btn-small:hover {
@@ -482,7 +498,7 @@ section {
 }
 
 .work-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 8px;
 }
@@ -491,7 +507,7 @@ section {
     font-size: 1.3rem;
     font-weight: 700;
     color: #ff3c00;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 /* About section */
@@ -947,24 +963,28 @@ textarea {
     }
     
     .work-grid, .product-grid {
-        display: flex !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory !important;
-        gap: 20px !important;
-        padding: 0 15px !important;
-        -webkit-overflow-scrolling: touch !important;
-        grid-template-columns: none !important;
-    }
-    
-    .work-grid::-webkit-scrollbar, .product-grid::-webkit-scrollbar {
-        display: none !important;
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
     }
     
     .work-item, .product-item {
-        flex: 0 0 250px !important;
-        scroll-snap-align: start !important;
-        min-width: 250px !important;
-        height: auto !important;
+        flex-direction: column !important;
+        min-height: auto !important;
+        padding: 15px !important;
+        text-align: center !important;
+    }
+    
+    .work-item:last-child, .product-item:last-child {
+        grid-column: unset !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .product-image-container {
+        height: 200px !important;
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 15px !important;
     }
     
     .about-content,
@@ -980,6 +1000,7 @@ textarea {
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
+        background-attachment: scroll !important;
     }
     
     .contact-form {
