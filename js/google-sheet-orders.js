@@ -14,16 +14,12 @@ function submitOrderToGoogleSheet(order) {
   };
   
   // Google Sheet Web App URL - replace with your actual deployed web app URL
-  const googleSheetUrl = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec";
+  const googleSheetUrl = "https://script.google.com/macros/s/AKfycbyWxvevCiViGanBKaj8zG8r65ikPy75kxVhUifz1AE4kzwKK9iSmFEkVsIHzvNNeEa2-Q/exec";
   
   // Send data to Google Sheet
-  fetch(googleSheetUrl, {
+  fetch(googleSheetUrl + "?data=" + encodeURIComponent(JSON.stringify(orderData)), {
     method: "POST",
-    mode: "no-cors", // Important for cross-origin requests to Google Scripts
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(orderData)
+    mode: "no-cors" // Important for cross-origin requests to Google Scripts
   })
   .then(() => {
     console.log("Order submitted to Google Sheet");

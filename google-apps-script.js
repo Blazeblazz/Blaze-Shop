@@ -8,8 +8,15 @@ const SHEET_NAME = 'Orders';
 // Process incoming requests
 function doPost(e) {
   try {
-    // Parse the incoming data
-    const data = JSON.parse(e.postData.contents);
+    // Parse the incoming data - either from URL parameter or post body
+    let data;
+    if (e.parameter && e.parameter.data) {
+      data = JSON.parse(e.parameter.data);
+    } else if (e.postData && e.postData.contents) {
+      data = JSON.parse(e.postData.contents);
+    } else {
+      throw new Error('No data received');
+    }
     
     // Open the spreadsheet and get the sheet
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -73,9 +80,66 @@ function doPost(e) {
 }
 
 // Handle GET requests (for testing)
-function doGet() {
+function doGet(e) {
+  // If test parameter is provided, add a test order
+  if (e.parameter && e.parameter.test === 'true') {
+    const testData = {
+      orderNumber: 'TEST-' + new Date().getTime(),
+      date: new Date().toISOString(),
+      name: 'Test Customer',
+      phone: '0612345678',
+      city: 'Test City',
+      product: 'Test Product',
+      variant: 'Test Variant',
+      quantity: 1,
+      total: 299
+    };
+    
+    // Process the test order
+    try {
+      const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+      let sheet = spreadsheet.getSheetByName(SHEET_NAME);
+      
+      if (!sheet) {
+        sheet = spreadsheet.insertSheet(SHEET_NAME);
+        sheet.appendRow([
+          'Order Number', 'Date', 'Name', 'Phone', 'City', 
+          'Product', 'Variant', 'Quantity', 'Total (MAD)', 'Status'
+        ]);
+        sheet.getRange(1, 1, 1, 10).setFontWeight('bold');
+      }
+      
+      const formattedDate = Utilities.formatDate(new Date(testData.date), 'GMT', 'yyyy-MM-dd HH:mm:ss');
+      
+      sheet.appendRow([
+        testData.orderNumber,
+        formattedDate,
+        testData.name,
+        testData.phone,
+        testData.city,
+        testData.product,
+        testData.variant,
+        testData.quantity,
+        testData.total,
+        'Test'
+      ]);
+      
+      return ContentService.createTextOutput(JSON.stringify({
+        result: 'success',
+        message: 'Test order added successfully'
+      })).setMimeType(ContentService.MimeType.JSON);
+    } catch (error) {
+      return ContentService.createTextOutput(JSON.stringify({
+        result: 'error',
+        message: error.message
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+  
+  // Default response
   return ContentService.createTextOutput(JSON.stringify({
     result: 'success',
-    message: 'The Google Apps Script is working correctly'
+    message: 'The Google Apps Script is working correctly',
+    usage: 'Add ?test=true to test adding an order'
   })).setMimeType(ContentService.MimeType.JSON);
 }
