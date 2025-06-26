@@ -1,0 +1,78 @@
+/* Accessibility CSS */
+
+/* Skip link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+    background: #000;
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+}
+
+/* Form error messages */
+.error-message {
+    color: #ff3c00;
+    font-size: 0.85em;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Focus styles */
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid #ff3c00;
+    outline-offset: 2px;
+}
+
+/* Improved contrast for form labels */
+label {
+    font-weight: 500;
+}
+
+/* Improved contrast for form placeholders */
+::placeholder {
+    color: #666;
+    opacity: 1;
+}
+
+/* Improved focus for social icons */
+.social-icon:focus {
+    outline: 2px solid #ff3c00;
+    border-radius: 50%;
+}
+
+/* Improved focus for navigation items */
+.nav-menu-links a:focus {
+    text-decoration: underline;
+}
+
+/* Improved focus for buttons */
+.btn:focus, .btn-small:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+    .btn, .btn-small {
+        border: 1px solid currentColor;
+    }
+    
+    .product-badge {
+        border: 1px solid currentColor;
+    }
+}
