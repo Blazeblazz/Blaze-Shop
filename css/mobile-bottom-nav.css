@@ -4,9 +4,9 @@
 }
 
 @media (max-width: 768px) {
-  /* Hide original menu toggle on mobile */
+  /* Keep hamburger menu visible but make bottom nav primary */
   .nav-toggle {
-    display: none;
+    display: block;
   }
   
   /* Add fixed bottom navigation */
@@ -16,8 +16,9 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 10, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 99;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
     justify-content: space-around;
@@ -33,6 +34,8 @@
     color: #fff;
     text-decoration: none;
     font-size: 0.7rem;
+    width: 25%;
+    text-align: center;
   }
   
   .mobile-nav svg {
@@ -45,13 +48,12 @@
     color: #ff3c00;
   }
   
-  /* Add padding to bottom of page to account for nav */
-  body {
-    padding-bottom: 70px;
+  .mobile-nav a.active svg {
+    stroke: #ff3c00;
   }
   
-  /* Hide desktop nav menu */
-  .nav-menu {
-    display: none;
+  /* Add padding to bottom of page to account for nav */
+  body {
+    padding-bottom: 70px !important;
   }
 }
