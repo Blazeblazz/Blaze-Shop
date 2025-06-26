@@ -1,0 +1,55 @@
+/* Mobile Product Grid Layout - Vertical stacked layout for better mobile experience */
+@media (max-width: 768px) {
+    /* Change from horizontal scroll to vertical grid */
+    .work-grid, .product-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        overflow-x: visible;
+        padding: 0 15px;
+    }
+    
+    /* Full width items */
+    .work-item, .product-item {
+        width: 100%;
+        max-width: 100%;
+        scroll-snap-align: unset;
+        flex: unset;
+    }
+    
+    /* Better product card layout */
+    .work-item, .product-item {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    /* Adjust image container */
+    .product-image-container {
+        width: 120px !important;
+        height: 120px !important;
+        margin: 0 !important;
+    }
+    
+    /* Left-align product info */
+    .work-info, .product-info {
+        text-align: left !important;
+        padding: 0 !important;
+    }
+    
+    /* Adjust button position */
+    .btn-small {
+        margin-top: 10px !important;
+        padding: 8px 16px;
+    }
+    
+    /* Ensure touch targets are large enough */
+    .btn-small {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

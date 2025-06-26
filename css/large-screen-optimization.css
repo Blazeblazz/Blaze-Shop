@@ -1,0 +1,42 @@
+/* Large screen optimizations */
+@media (min-width: 1600px) {
+  /* Main container width */
+  .container, section, .footer-content {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Improved content readability */
+  body {
+    font-size: 18px;
+  }
+  
+  /* Better grid layouts */
+  .work-grid, .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  
+  /* Approach grid */
+  .approach-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  
+  /* Reviews grid */
+  .reviews-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Hero title scaling */
+  .hero-title {
+    font-size: 5vw;
+    max-width: 1400px;
+  }
+  
+  /* Section spacing */
+  section {
+    padding: 100px 0;
+  }
+}
