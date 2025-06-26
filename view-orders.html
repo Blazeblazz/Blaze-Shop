@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BLAZE Orders</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>BLAZE Orders</h1>
+    <div id="loading">Loading orders...</div>
+    <table id="orders-table" style="display:none">
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Product</th>
+            <th>Variant</th>
+        </tr>
+    </table>
+
+    <script>
+        // Fetch orders from the text file
+        fetch('orders.txt')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('orders-table').style.display = 'table';
+                
+                const table = document.getElementById('orders-table');
+                
+                if (data && data.trim()) {
+                    // Split by lines
+                    const lines = data.trim().split('\n');
+                    
+                    lines.forEach(line => {
+                        // Split by pipe delimiter
+                        const parts = line.split('|').map(part => part.trim());
+                        
+                        if (parts.length >= 6) {
+                            const row = table.insertRow();
+                            // Date
+                            row.insertCell(0).textContent = parts[0];
+                            // Name
+                            row.insertCell(1).textContent = parts[1];
+                            // Phone
+                            row.insertCell(2).textContent = parts[2];
+                            // City
+                            row.insertCell(3).textContent = parts[3];
+                            // Product
+                            row.insertCell(4).textContent = parts[4];
+                            // Variant
+                            row.insertCell(5).textContent = parts[5];
+                        }
+                    });
+                } else {
+                    const row = table.insertRow();
+                    const cell = row.insertCell(0);
+                    cell.colSpan = 6;
+                    cell.textContent = "No orders found";
+                    cell.style.textAlign = "center";
+                    cell.style.padding = "20px";
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading').textContent = 'Error loading orders: ' + error.message;
+            });
+    </script>
+</body>
+</html>

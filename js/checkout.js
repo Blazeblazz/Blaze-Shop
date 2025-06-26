@@ -257,63 +257,40 @@ document.addEventListener('DOMContentLoaded', function() {
             window.addOrder(order);
         }
         
-        // Store order in BLZ-20240101-test.json
+        // Direct approach to store order in test file
         try {
-            console.log('Storing order in test file:', order);
-            
-            // Create a simplified order object
+            // Create a simple order object with just the essential info
             const simpleOrder = {
-                customer: {
-                    name: order.customer.fullname,
-                    phone: order.customer.phone,
-                    city: order.customer.city
-                },
-                products: order.items.map(item => ({
-                    name: item.name,
-                    variant: item.variant || 'Standard',
-                    quantity: item.quantity
-                })),
-                date: new Date().toISOString(),
-                orderId: order.orderId || order.orderNumber
+                name: order.customer.fullname,
+                phone: order.customer.phone,
+                city: order.customer.city,
+                product: order.items[0].name,
+                variant: order.items[0].variant || 'Standard',
+                date: new Date().toISOString()
             };
             
-            // Get existing orders from the test file
-            fetch('data/orders/BLZ-20240101-test.json')
-                .then(response => response.json())
-                .catch(() => ({ orders: [] })) // If file doesn't exist or is invalid
-                .then(testFile => {
-                    // Add new order to the array
-                    if (!testFile.orders) testFile.orders = [];
-                    testFile.orders.push(simpleOrder);
-                    
-                    // Save back to the file
-                    return fetch('api/update-test-order.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(testFile)
-                    });
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Order saved to test file successfully');
-                    } else {
-                        console.error('Error saving to test file:', data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating test file:', error);
-                });
-                
+            // Send directly to a simple PHP script
+            fetch('store-order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(simpleOrder)
+            })
+            .then(response => {
+                console.log('Order storage response:', response.status);
+            })
+            .catch(error => {
+                console.error('Error storing order:', error);
+            });
+            
             // Also try the regular API paths as fallback
             submitOrderToPath('api/save-order.php', order)
                 .catch(error => submitOrderToPath('/api/save-order.php', order))
                 .catch(error => submitOrderToPath('/save-order.php', order))
-                .catch(error => console.error('All submission attempts failed:', error));
+                .catch(error => console.error('API submission failed:', error));
         } catch (error) {
-            console.error('Error in order submission process:', error);
+            console.error('Error in order process:', error);
         }
         
         // Helper function to submit order to different paths
