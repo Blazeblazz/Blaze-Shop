@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Commandes - Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/mobile-admin.css" media="(max-width: 768px)">
+    <style>
+        /* Additional styles for orders page */
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .orders-title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .order-count {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .orders-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        #device-filter {
+            min-width: 150px;
+        }
+        
+        .orders-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .order-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .order-body {
+            padding: 15px;
+        }
+        
+        .order-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .order-customer-info {
+            margin-bottom: 10px;
+        }
+        
+        .order-footer {
+            padding: 10px 15px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .status-badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .status-processing {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .status-shipped {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .status-delivered {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .status-cancelled {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .loading-spinner {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+        }
+        
+        .no-orders {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 30px;
+            color: #dc3545;
+        }
+        
+        .admin-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transform: translateX(110%);
+            transition: transform 0.3s ease-out;
+        }
+        
+        .admin-notification.active {
+            transform: translateX(0);
+        }
+        
+        .notification-content {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="active"><a href="orders.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+                    <li><a href="customers.php"><i class="fas fa-users"></i> Clients</a></li>
+                </ul>
+            </nav>
+            <div class="admin-logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="admin-header">
+                <h1>Gestion des Commandes</h1>
+            </div>
+            
+            <div class="admin-body">
+                <div class="orders-header">
+                    <div class="orders-title">
+                        <h2>Commandes</h2>
+                        <div class="order-count" id="order-count">0</div>
+                    </div>
+                    <div class="orders-actions">
+                        <select id="order-filter" class="form-control">
+                            <option value="all">Toutes les commandes</option>
+                            <option value="pending">En attente</option>
+                            <option value="processing">En traitement</option>
+                            <option value="shipped">Expédiées</option>
+                            <option value="delivered">Livrées</option>
+                            <option value="cancelled">Annulées</option>
+                        </select>
+                        <select id="device-filter" class="form-control">
+                            <option value="all">Tous les appareils</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="desktop">Desktop</option>
+                        </select>
+                        <button id="refresh-orders" class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i> Actualiser
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="orders-container" class="orders-container">
+                    <!-- Orders will be loaded here -->
+                    <div class="loading-spinner">Chargement des commandes...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Scripts -->
+    <script src="../js/orders-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/update-status.js"></script>
+    <script src="js/view-order.js"></script>
+    <script src="js/receive-orders.js"></script>
+    <script src="js/login-orders.js"></script>
+</body>
+</html>

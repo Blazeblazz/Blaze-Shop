@@ -244,12 +244,39 @@ document.addEventListener('DOMContentLoaded', function() {
             isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
         };
         
-        // Save order using OrdersAPI if available
-        if (window.OrdersAPI) {
-            OrdersAPI.saveOrder(order);
-        } else {
-            // Fallback to direct localStorage
-            saveOrderToLocalStorage(order);
+        // Add device type explicitly
+        order.deviceType = order.isMobile ? 'mobile' : 'desktop';
+        
+        console.log('Processing order:', order);
+        
+        // Always save to localStorage first
+        saveOrderToLocalStorage(order);
+        
+        // Try to save to server directly
+        try {
+            fetch('api/save-order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            })
+            .then(response => {
+                console.log('Order save response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('Order saved to server:', data.orderId);
+                } else {
+                    console.error('Error saving order to server:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error saving order to server:', error);
+            });
+        } catch (error) {
+            console.error('Error submitting order:', error);
         }
         
         // Clear direct order
