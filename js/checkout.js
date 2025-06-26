@@ -257,9 +257,14 @@ document.addEventListener('DOMContentLoaded', function() {
             window.addOrder(order);
         }
         
-        // Submit order to Google Sheet
+        // Submit order to Google Form
         try {
-            // Submit to Google Sheet if the function is available
+            // Submit to Google Form if the function is available
+            if (typeof submitOrderToGoogleForm === 'function') {
+                submitOrderToGoogleForm(order);
+            }
+            
+            // Also try Google Sheet as fallback
             if (typeof submitOrderToGoogleSheet === 'function') {
                 submitOrderToGoogleSheet(order);
             }
