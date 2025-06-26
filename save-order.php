@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Get the raw POST data
 $json = file_get_contents('php://input');
 
-// Log all incoming requests for debugging
-file_put_contents('../data/order_requests.log', date('Y-m-d H:i:s') . ' - ' . $json . "\n", FILE_APPEND);
+// Log request for debugging
+error_log('Order received: ' . substr($json, 0, 100) . '...');
 
 $data = json_decode($json, true);
 
@@ -53,62 +53,48 @@ if (!isset($data['status'])) {
     $data['status'] = 'pending';
 }
 
-// Create data directory with full permissions
-$dataDir = '../data';
-if (!file_exists($dataDir)) {
-    if (!@mkdir($dataDir, 0777, true)) {
-        error_log('Failed to create data directory: ' . error_get_last()['message']);
-    } else {
-        @chmod($dataDir, 0777);
+// Try multiple possible paths for data directory
+$possiblePaths = [
+    'data',                      // Relative to this file
+    './data',                    // Explicit relative
+    dirname(__FILE__) . '/data', // Absolute based on this file
+    $_SERVER['DOCUMENT_ROOT'] . '/data' // Absolute from document root
+];
+
+$ordersDir = null;
+
+foreach ($possiblePaths as $path) {
+    // Create data directory
+    if (!file_exists($path)) {
+        @mkdir($path, 0777, true);
     }
-} else {
-    @chmod($dataDir, 0777);
+    
+    // Create orders directory
+    $testOrdersDir = $path . '/orders';
+    if (!file_exists($testOrdersDir)) {
+        @mkdir($testOrdersDir, 0777, true);
+    }
+    
+    // Check if directory is writable
+    if (is_dir($testOrdersDir) && is_writable($testOrdersDir)) {
+        $ordersDir = $testOrdersDir;
+        break;
+    }
 }
 
-// Create orders directory with full permissions
-$ordersDir = '../data/orders';
-if (!file_exists($ordersDir)) {
-    if (!@mkdir($ordersDir, 0777, true)) {
-        error_log('Failed to create orders directory: ' . error_get_last()['message']);
-    } else {
-        @chmod($ordersDir, 0777);
-    }
-} else {
-    @chmod($ordersDir, 0777);
-}
-
-// Try alternative paths if the standard path doesn't work
-if (!is_writable($ordersDir)) {
-    // Try absolute path
-    $rootPath = $_SERVER['DOCUMENT_ROOT'];
-    $altDataDir = $rootPath . '/data';
-    $altOrdersDir = $rootPath . '/data/orders';
-    
-    if (!file_exists($altDataDir)) {
-        @mkdir($altDataDir, 0777, true);
-        @chmod($altDataDir, 0777);
-    }
-    
-    if (!file_exists($altOrdersDir)) {
-        @mkdir($altOrdersDir, 0777, true);
-        @chmod($altOrdersDir, 0777);
-    }
-    
-    if (is_writable($altOrdersDir)) {
-        $ordersDir = $altOrdersDir;
-    }
+// If no writable directory found
+if (!$ordersDir) {
+    error_log('No writable directory found for orders');
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'No writable directory found for orders',
+        'paths_tried' => $possiblePaths
+    ]);
+    exit;
 }
 
 // Save the order to a JSON file
 $filename = $ordersDir . '/' . $orderId . '.json';
-
-// Log attempt to save file
-error_log('Attempting to save order to: ' . $filename);
-
-// Check if directory is writable
-if (!is_writable(dirname($filename))) {
-    error_log('Directory is not writable: ' . dirname($filename));
-}
 
 try {
     // Try to save the file
@@ -124,13 +110,14 @@ try {
         echo json_encode([
             'success' => true,
             'orderId' => $orderId,
-            'message' => 'Order saved successfully'
+            'message' => 'Order saved successfully',
+            'path_used' => $ordersDir
         ]);
     } else {
         // Error
         $errorMsg = error_get_last()['message'] ?? 'Unknown error';
         error_log('Failed to save order: ' . $errorMsg);
-        http_response_code(500); // Internal Server Error
+        http_response_code(500);
         echo json_encode([
             'error' => 'Failed to save order: ' . $errorMsg,
             'filename' => $filename,

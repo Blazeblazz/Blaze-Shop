@@ -22,14 +22,37 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $ordersDir = '../data/orders';
 
 // Create data directory if it doesn't exist
-if (!file_exists('../data')) {
-    mkdir('../data', 0777, true);
+$dataDir = '../data';
+if (!file_exists($dataDir)) {
+    @mkdir($dataDir, 0777, true);
+    @chmod($dataDir, 0777);
+} else {
+    @chmod($dataDir, 0777);
 }
 
 // Create orders directory if it doesn't exist
 if (!file_exists($ordersDir)) {
-    mkdir($ordersDir, 0777, true);
-    echo json_encode(['orders' => []]);
+    @mkdir($ordersDir, 0777, true);
+    @chmod($ordersDir, 0777);
+} else {
+    @chmod($ordersDir, 0777);
+}
+
+// Try alternative paths if the standard path doesn't work
+if (!is_dir($ordersDir) || !is_readable($ordersDir)) {
+    // Try absolute path
+    $rootPath = $_SERVER['DOCUMENT_ROOT'];
+    $altOrdersDir = $rootPath . '/data/orders';
+    
+    if (is_dir($altOrdersDir) && is_readable($altOrdersDir)) {
+        $ordersDir = $altOrdersDir;
+    }
+}
+
+// If directory still doesn't exist or isn't readable, return empty orders
+if (!is_dir($ordersDir) || !is_readable($ordersDir)) {
+    error_log('Orders directory not accessible: ' . $ordersDir);
+    echo json_encode(['orders' => [], 'error' => 'Orders directory not accessible']);
     exit;
 }
 

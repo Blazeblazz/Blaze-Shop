@@ -252,31 +252,55 @@ document.addEventListener('DOMContentLoaded', function() {
         // Always save to localStorage first
         saveOrderToLocalStorage(order);
         
-        // Try to save to server directly
+        // Try to save to server directly with multiple fallback paths
         try {
-            fetch('api/save-order.php', {
+            console.log('Submitting order to server:', order);
+            
+            // Try main API path
+            submitOrderToPath('api/save-order.php', order)
+                .catch(error => {
+                    console.warn('Failed with main path, trying alternate path:', error);
+                    // Try alternate path
+                    return submitOrderToPath('/api/save-order.php', order);
+                })
+                .catch(error => {
+                    console.warn('Failed with alternate path, trying root path:', error);
+                    // Try root path
+                    return submitOrderToPath('/save-order.php', order);
+                })
+                .catch(error => {
+                    console.error('All submission attempts failed:', error);
+                    alert('Votre commande a été enregistrée localement. Nous vous contacterons bientôt.');
+                });
+        } catch (error) {
+            console.error('Error in order submission process:', error);
+        }
+        
+        // Helper function to submit order to different paths
+        function submitOrderToPath(path, orderData) {
+            return fetch(path, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(order)
+                body: JSON.stringify(orderData)
             })
             .then(response => {
-                console.log('Order save response status:', response.status);
+                console.log(`Order save response from ${path}:`, response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error ${response.status}`);
+                }
                 return response.json();
             })
             .then(data => {
                 if (data.success) {
-                    console.log('Order saved to server:', data.orderId);
+                    console.log('Order saved successfully:', data.orderId);
+                    return data;
                 } else {
-                    console.error('Error saving order to server:', data.error);
+                    console.error('Error in server response:', data.error);
+                    throw new Error(data.error || 'Unknown server error');
                 }
-            })
-            .catch(error => {
-                console.error('Error saving order to server:', error);
             });
-        } catch (error) {
-            console.error('Error submitting order:', error);
         }
         
         // Clear direct order
