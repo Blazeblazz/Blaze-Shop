@@ -252,26 +252,66 @@ document.addEventListener('DOMContentLoaded', function() {
         // Always save to localStorage first
         saveOrderToLocalStorage(order);
         
-        // Try to save to server directly with multiple fallback paths
+        // Save to stored-orders.js if available
+        if (window.addOrder) {
+            window.addOrder(order);
+        }
+        
+        // Store order in BLZ-20240101-test.json
         try {
-            console.log('Submitting order to server:', order);
+            console.log('Storing order in test file:', order);
             
-            // Try main API path
-            submitOrderToPath('api/save-order.php', order)
-                .catch(error => {
-                    console.warn('Failed with main path, trying alternate path:', error);
-                    // Try alternate path
-                    return submitOrderToPath('/api/save-order.php', order);
+            // Create a simplified order object
+            const simpleOrder = {
+                customer: {
+                    name: order.customer.fullname,
+                    phone: order.customer.phone,
+                    city: order.customer.city
+                },
+                products: order.items.map(item => ({
+                    name: item.name,
+                    variant: item.variant || 'Standard',
+                    quantity: item.quantity
+                })),
+                date: new Date().toISOString(),
+                orderId: order.orderId || order.orderNumber
+            };
+            
+            // Get existing orders from the test file
+            fetch('data/orders/BLZ-20240101-test.json')
+                .then(response => response.json())
+                .catch(() => ({ orders: [] })) // If file doesn't exist or is invalid
+                .then(testFile => {
+                    // Add new order to the array
+                    if (!testFile.orders) testFile.orders = [];
+                    testFile.orders.push(simpleOrder);
+                    
+                    // Save back to the file
+                    return fetch('api/update-test-order.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(testFile)
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Order saved to test file successfully');
+                    } else {
+                        console.error('Error saving to test file:', data.error);
+                    }
                 })
                 .catch(error => {
-                    console.warn('Failed with alternate path, trying root path:', error);
-                    // Try root path
-                    return submitOrderToPath('/save-order.php', order);
-                })
-                .catch(error => {
-                    console.error('All submission attempts failed:', error);
-                    alert('Votre commande a été enregistrée localement. Nous vous contacterons bientôt.');
+                    console.error('Error updating test file:', error);
                 });
+                
+            // Also try the regular API paths as fallback
+            submitOrderToPath('api/save-order.php', order)
+                .catch(error => submitOrderToPath('/api/save-order.php', order))
+                .catch(error => submitOrderToPath('/save-order.php', order))
+                .catch(error => console.error('All submission attempts failed:', error));
         } catch (error) {
             console.error('Error in order submission process:', error);
         }

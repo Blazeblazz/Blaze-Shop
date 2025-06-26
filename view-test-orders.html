@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BLAZE Test Orders</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>BLAZE Test Orders</h1>
+    <div id="loading">Loading orders...</div>
+    <table id="orders-table" style="display:none">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Product</th>
+            <th>Variant</th>
+            <th>Date</th>
+        </tr>
+    </table>
+
+    <script>
+        // Fetch orders from the test file
+        fetch('data/orders/BLZ-20240101-test.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('orders-table').style.display = 'table';
+                
+                const table = document.getElementById('orders-table');
+                
+                if (data.orders && data.orders.length > 0) {
+                    data.orders.forEach(order => {
+                        order.products.forEach(product => {
+                            const row = table.insertRow();
+                            row.insertCell(0).textContent = order.customer.name;
+                            row.insertCell(1).textContent = order.customer.phone;
+                            row.insertCell(2).textContent = order.customer.city;
+                            row.insertCell(3).textContent = product.name;
+                            row.insertCell(4).textContent = product.variant;
+                            
+                            const date = new Date(order.date);
+                            row.insertCell(5).textContent = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+                        });
+                    });
+                } else {
+                    const row = table.insertRow();
+                    const cell = row.insertCell(0);
+                    cell.colSpan = 6;
+                    cell.textContent = "No orders found in test file";
+                    cell.style.textAlign = "center";
+                    cell.style.padding = "20px";
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading').textContent = 'Error loading orders: ' + error.message;
+            });
+    </script>
+</body>
+</html>
