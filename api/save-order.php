@@ -32,13 +32,22 @@ $order = [
 
 $dir = __DIR__ . '/../data/orders/';
 if (!is_dir($dir)) {
-    mkdir($dir, 0777, true);
+    if (!mkdir($dir, 0777, true)) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to create orders directory']);
+        exit;
+    }
 }
 
-file_put_contents($dir . $orderId . '.json', json_encode($order, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+$filePath = $dir . $orderId . '.json';
+if (file_put_contents($filePath, json_encode($order, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) === false) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to save order file']);
+    exit;
+}
 
 // Email notification
-$to = ';contactusblazz@gmail.com'; // CHANGE THIS TO YOUR EMAIL
+$to = 'contactusblazz@gmail.com'; // CHANGE THIS TO YOUR EMAIL
 $subject = 'Nouvelle commande reçue: ' . $orderId;
 $message = "Nouvelle commande reçue :\n\n" .
     "Nom: " . $order['customer']['fullname'] . "\n" .
@@ -52,6 +61,11 @@ foreach ($order['items'] as $item) {
         " x" . $item['quantity'] . " - " . $item['price'] . " MAD\n";
 }
 $message .= "\nVoir le dossier: data/orders/" . $orderId . ".json";
-@mail($to, $subject, $message);
+
+if (!mail($to, $subject, $message)) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Order saved, but failed to send email notification']);
+    exit;
+}
 
 echo json_encode(['success' => true, 'orderId' => $orderId]);

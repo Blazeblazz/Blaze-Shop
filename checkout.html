@@ -197,39 +197,43 @@
     <script src="js/main-no-cart.js"></script>
     <script src="js/simple-sheet.js"></script>
     <script>
-        document.getElementById('codForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            // Gather customer info
-            const fullname = document.getElementById('nom').value.trim();
-            const city = document.getElementById('ville').value.trim();
-            const phone = document.getElementById('telephone').value.trim();
-            // Gather product info
-            let orderItems = [];
-            try {
-                orderItems = JSON.parse(sessionStorage.getItem('directOrder')) || [];
-            } catch (e) {}
-            // Calculate total
-            let total = 0;
-            orderItems.forEach(item => { total += (item.price * item.quantity); });
-            // Generate order number (date + random)
-            const orderNumber = 'BLZ-' + new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0,14) + '-' + Math.floor(Math.random()*1000);
-            // Build order object
-            const order = {
-                orderNumber,
-                customer: { fullname, city, phone },
-                items: orderItems,
-                total
-            };
-            // Send to backend
-            if (typeof sendOrderToBackend === 'function') {
-                await sendOrderToBackend(order);
-            }
-            document.getElementById('successMsg').style.display = 'block';
-            this.reset();
-            setTimeout(function() {
-                window.location.href = 'index-award.html';
-            }, 1800);
-        });
+document.getElementById('codForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    // Gather customer info
+    const fullname = document.getElementById('nom').value.trim();
+    const city = document.getElementById('ville').value.trim();
+    const phone = document.getElementById('telephone').value.trim();
+    // Gather product info
+    let orderItems = [];
+    try {
+        orderItems = JSON.parse(sessionStorage.getItem('directOrder')) || [];
+    } catch (e) {}
+    // Calculate total
+    let total = 0;
+    orderItems.forEach(item => { total += (item.price * item.quantity); });
+    // Generate order number (date + random)
+    const orderNumber = 'BLZ-' + new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0,14) + '-' + Math.floor(Math.random()*1000);
+    // Build order object
+    const order = {
+        orderNumber,
+        customer: { fullname, city, phone },
+        items: orderItems,
+        total
+    };
+    // Send to backend
+    if (typeof sendOrderToBackend === 'function') {
+        const res = await sendOrderToBackend(order);
+        if (!res.success) {
+            alert('Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.');
+            return;
+        }
+    }
+    document.getElementById('successMsg').style.display = 'block';
+    this.reset();
+    setTimeout(function() {
+        window.location.href = 'index-award.html';
+    }, 1800);
+});
     </script>
     <script>
 // Show product info from sessionStorage (directOrder)
