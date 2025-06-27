@@ -30,9 +30,15 @@ $order = [
     'source' => 'website',
 ];
 
+function log_error($msg) {
+    $logfile = __DIR__ . '/../data/orders/error.log';
+    file_put_contents($logfile, date('Y-m-d H:i:s') . " - " . $msg . "\n", FILE_APPEND);
+}
+
 $dir = __DIR__ . '/../data/orders/';
 if (!is_dir($dir)) {
     if (!mkdir($dir, 0777, true)) {
+        log_error('Failed to create orders directory: ' . $dir);
         http_response_code(500);
         echo json_encode(['error' => 'Failed to create orders directory']);
         exit;
@@ -41,6 +47,7 @@ if (!is_dir($dir)) {
 
 $filePath = $dir . $orderId . '.json';
 if (file_put_contents($filePath, json_encode($order, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) === false) {
+    log_error('Failed to save order file: ' . $filePath);
     http_response_code(500);
     echo json_encode(['error' => 'Failed to save order file']);
     exit;
@@ -63,6 +70,7 @@ foreach ($order['items'] as $item) {
 $message .= "\nVoir le dossier: data/orders/" . $orderId . ".json";
 
 if (!mail($to, $subject, $message)) {
+    log_error('Order saved but failed to send email for: ' . $orderId);
     http_response_code(500);
     echo json_encode(['error' => 'Order saved, but failed to send email notification']);
     exit;
