@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Gestion des commandes</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/order-storage.js"></script>
     <style>
         * {
             margin: 0;
@@ -174,15 +175,9 @@
             loadOrders();
         });
 
-        function loadOrders() {
-            // Load from server first, fallback to localStorage
-            fetch('api/orders.php')
-                .then(response => response.json())
-                .then(orders => displayOrders(orders))
-                .catch(() => {
-                    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-                    displayOrders(orders);
-                });
+        async function loadOrders() {
+            const orders = await ORDER_STORAGE.getOrders();
+            displayOrders(orders);
         }
         
         function displayOrders(orders) {
