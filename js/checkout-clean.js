@@ -187,14 +187,20 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.removeItem('directOrder');
     }
     
-    // Submit to Google Form
+    // Submit to Google Form silently
     function submitToGoogleForm(order) {
         try {
-            // Create a hidden form
+            // Create a hidden iframe
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            // Create a hidden form that targets the iframe
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = 'https://docs.google.com/forms/u/0/d/1y15n_bv9u-pwRDgECmYBuXXUiUdy77gAmGg7aIO2fJ0/previewResponse';
-            form.target = '_blank';
+            form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfQQXnVTxZTLLt7UHdMZBGXww_UVAygZ9q-OVBHNGFXcRQPrA/formResponse';
+            form.target = 'hidden_iframe'; // Target the hidden iframe
             form.style.display = 'none';
             
             // Add customer name
@@ -215,9 +221,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Submit the form
             document.body.appendChild(form);
             form.submit();
-            setTimeout(() => document.body.removeChild(form), 1000);
             
-            console.log('Order submitted to Google Form');
+            // Clean up after submission
+            setTimeout(() => {
+                document.body.removeChild(form);
+                document.body.removeChild(iframe);
+            }, 1000);
+            
+            console.log('Order submitted to Google Form silently');
         } catch (error) {
             console.error('Error submitting to Google Form:', error);
         }
