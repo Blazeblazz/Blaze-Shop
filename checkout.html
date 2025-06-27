@@ -152,7 +152,8 @@
 
                 <button type="submit">Confirmer la Commande</button>
             </form>
-            <div class="checkout-success" id="successMsg" style="display:none;">Merci ! Votre commande a été reçue. Nous vous contacterons sous peu.</div>
+            <div class="checkout-success" id="successMsg" style="display:none;">Merci ! Votre commande a été reçue. Nous vous contacterons sous peu.<br>
+            <a href="admin-orders.html" style="color:#ff3c00;text-decoration:underline;display:inline-block;margin-top:10px;">Voir les commandes (Admin)</a></div>
         </div>
     </section>
     <!-- Footer -->
@@ -197,6 +198,8 @@
     <script src="js/main-no-cart.js"></script>
     <script src="js/simple-sheet.js"></script>
     <script>
+// Handle checkout form submission and send order to backend
+
 document.getElementById('codForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     // Gather customer info
@@ -221,16 +224,24 @@ document.getElementById('codForm').addEventListener('submit', async function(e) 
         total
     };
     // Send to backend
-    if (typeof sendOrderToBackend === 'function') {
-        const res = await sendOrderToBackend(order);
-        if (!res.success) {
+    try {
+        const res = await fetch('api/save-order.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order)
+        });
+        const data = await res.json();
+        if (!data.success) {
             let msg = 'Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.';
-            if (res.error) {
-                msg += "\nDétail: " + res.error;
+            if (data.error) {
+                msg += "\nDétail: " + data.error;
             }
             alert(msg);
             return;
         }
+    } catch (err) {
+        alert('Erreur lors de la connexion au serveur. Veuillez réessayer.');
+        return;
     }
     document.getElementById('successMsg').style.display = 'block';
     this.reset();
@@ -238,8 +249,6 @@ document.getElementById('codForm').addEventListener('submit', async function(e) 
         window.location.href = 'index-award.html';
     }, 1800);
 });
-    </script>
-    <script>
 // Show product info from sessionStorage (directOrder)
 (function() {
     const orderSummary = document.getElementById('order-summary');
