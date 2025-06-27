@@ -119,6 +119,105 @@
             padding: 50px;
             color: #666;
         }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .admin-container {
+                max-width: 100%;
+            }
+            
+            .admin-header {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 20px;
+            }
+            
+            /* Hide table, show cards instead */
+            .orders-table table {
+                display: none;
+            }
+            
+            .mobile-orders {
+                display: block;
+            }
+            
+            .mobile-order-card {
+                background: white;
+                margin-bottom: 15px;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            
+            .mobile-order-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .mobile-order-id {
+                font-weight: 700;
+                color: #007bff;
+            }
+            
+            .mobile-order-status {
+                padding: 3px 8px;
+                border-radius: 10px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+            
+            .mobile-order-info {
+                margin-bottom: 10px;
+            }
+            
+            .mobile-order-info div {
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+            
+            .mobile-order-actions {
+                display: flex;
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+            
+            .mobile-action-btn {
+                padding: 6px 12px;
+                border: none;
+                border-radius: 5px;
+                font-size: 12px;
+                cursor: pointer;
+                flex: 1;
+                min-width: 70px;
+            }
+        }
+        
+        .mobile-orders {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -168,6 +267,11 @@
                 </tbody>
             </table>
         </div>
+        
+        <!-- Mobile Orders View -->
+        <div class="mobile-orders" id="mobile-orders">
+            <!-- Mobile cards will be inserted here -->
+        </div>
     </div>
 
     <script>
@@ -182,16 +286,23 @@
         
         function displayOrders(orders) {
             const tbody = document.getElementById('orders-tbody');
+            const mobileContainer = document.getElementById('mobile-orders');
             
             if (orders.length === 0) {
                 tbody.innerHTML = '<tr class="no-orders"><td colspan="8">Aucune commande trouvée</td></tr>';
+                mobileContainer.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">Aucune commande trouvée</div>';
                 updateStats(orders);
                 return;
             }
 
+            // Desktop table view
             tbody.innerHTML = '';
             
+            // Mobile cards view
+            mobileContainer.innerHTML = '';
+            
             orders.forEach(order => {
+                // Desktop row
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>#${order.id}</td>
@@ -211,7 +322,7 @@
                 `;
                 tbody.appendChild(row);
 
-                // Add order details row
+                // Desktop details row
                 const detailsRow = document.createElement('tr');
                 detailsRow.innerHTML = `
                     <td colspan="8">
@@ -232,6 +343,39 @@
                     </td>
                 `;
                 tbody.appendChild(detailsRow);
+                
+                // Mobile card
+                const mobileCard = document.createElement('div');
+                mobileCard.className = 'mobile-order-card';
+                mobileCard.innerHTML = `
+                    <div class="mobile-order-header">
+                        <div class="mobile-order-id">#${order.id}</div>
+                        <div class="mobile-order-status status-${order.status}">${getStatusText(order.status)}</div>
+                    </div>
+                    <div class="mobile-order-info">
+                        <div><strong>${order.customer.name}</strong></div>
+                        <div>${order.customer.city} - ${order.customer.phone}</div>
+                        <div><strong>${order.total} MAD</strong></div>
+                        <div style="font-size: 12px; color: #666;">${new Date(order.date).toLocaleDateString('fr-FR')}</div>
+                    </div>
+                    <div class="mobile-order-actions">
+                        <button class="mobile-action-btn btn-view" onclick="toggleOrderDetails(${order.id})">Détails</button>
+                        ${order.status === 'pending' ? `
+                            <button class="mobile-action-btn btn-complete" onclick="updateOrderStatus(${order.id}, 'completed')">Terminer</button>
+                            <button class="mobile-action-btn btn-cancel" onclick="updateOrderStatus(${order.id}, 'cancelled')">Annuler</button>
+                        ` : ''}
+                    </div>
+                    <div class="order-details" id="mobile-details-${order.id}" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <h4>Produits commandés:</h4>
+                        ${order.items.map(item => `
+                            <div style="margin: 8px 0; padding: 8px; background: #f8f9fa; border-radius: 5px; font-size: 13px;">
+                                <strong>${item.name}</strong> (${item.variant})<br>
+                                Quantité: ${item.quantity} - ${item.price * item.quantity} MAD
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                mobileContainer.appendChild(mobileCard);
             });
 
             updateStats(orders);
@@ -260,7 +404,14 @@
 
         function toggleOrderDetails(orderId) {
             const details = document.getElementById(`details-${orderId}`);
-            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+            const mobileDetails = document.getElementById(`mobile-details-${orderId}`);
+            
+            if (details) {
+                details.style.display = details.style.display === 'block' ? 'none' : 'block';
+            }
+            if (mobileDetails) {
+                mobileDetails.style.display = mobileDetails.style.display === 'block' ? 'none' : 'block';
+            }
         }
 
         function updateOrderStatus(orderId, newStatus) {
