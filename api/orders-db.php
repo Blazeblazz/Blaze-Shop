@@ -1,9 +1,16 @@
 <?php
 // SQLite DB connection and helpers
 function get_db() {
+    if (!extension_loaded('pdo_sqlite')) {
+        throw new Exception('PDO_SQLITE extension is not enabled on this server.');
+    }
     $dbFile = __DIR__ . '/../data/orders.db';
     $init = !file_exists($dbFile);
-    $db = new PDO('sqlite:' . $dbFile);
+    try {
+        $db = new PDO('sqlite:' . $dbFile);
+    } catch (Exception $e) {
+        throw new Exception('Failed to create or open SQLite database: ' . $e->getMessage());
+    }
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if ($init) {
         $db->exec('CREATE TABLE orders (
