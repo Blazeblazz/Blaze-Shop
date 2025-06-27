@@ -1,5 +1,5 @@
 <?php
-// api/save-order.php
+require_once __DIR__ . '/orders-db.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
@@ -30,26 +30,11 @@ $order = [
     'source' => 'website',
 ];
 
-function log_error($msg) {
-    $logfile = __DIR__ . '/../data/orders/error.log';
-    file_put_contents($logfile, date('Y-m-d H:i:s') . " - " . $msg . "\n", FILE_APPEND);
-}
-
-$dir = __DIR__ . '/../data/orders/';
-if (!is_dir($dir)) {
-    if (!mkdir($dir, 0777, true)) {
-        log_error('Failed to create orders directory: ' . $dir);
-        http_response_code(500);
-        echo json_encode(['error' => 'Failed to create orders directory']);
-        exit;
-    }
-}
-
-$filePath = $dir . $orderId . '.json';
-if (file_put_contents($filePath, json_encode($order, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) === false) {
-    log_error('Failed to save order file: ' . $filePath);
+try {
+    save_order_db($order);
+} catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Failed to save order file']);
+    echo json_encode(['error' => 'Failed to save order in database: ' . $e->getMessage()]);
     exit;
 }
 
@@ -67,13 +52,8 @@ foreach ($order['items'] as $item) {
         (isset($item['variant']) ? " (" . $item['variant'] . ")" : "") .
         " x" . $item['quantity'] . " - " . $item['price'] . " MAD\n";
 }
-$message .= "\nVoir le dossier: data/orders/" . $orderId . ".json";
+$message .= "\nVoir la commande dans l'admin.";
 
-if (!mail($to, $subject, $message)) {
-    log_error('Order saved but failed to send email for: ' . $orderId);
-    http_response_code(500);
-    echo json_encode(['error' => 'Order saved, but failed to send email notification']);
-    exit;
-}
+@mail($to, $subject, $message);
 
 echo json_encode(['success' => true, 'orderId' => $orderId]);

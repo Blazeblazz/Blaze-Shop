@@ -25,24 +25,22 @@
     <script>
     fetch('api/list-orders.php')
       .then(r => r.json())
-      .then(files => {
-        if (!files.length) {
+      .then(orders => {
+        if (!orders.length) {
           document.getElementById('orders').innerHTML = '<p style="color:#bbb">Aucune commande trouvée.</p>';
           return;
         }
-        Promise.all(files.reverse().map(f => fetch('data/orders/' + f).then(r => r.json()))).then(orders => {
-          document.getElementById('orders').innerHTML = orders.map(order => `
-            <div class='order-block'>
-              <h3>Commande #${order.orderId}</h3>
-              <div class='meta'>${order.timestamp} | ${order.customer.fullname} | ${order.customer.city} | ${order.customer.phone}</div>
-              <ul class='products'>
-                ${order.items.map(item => `<li>${item.name}${item.variant ? " <span style=\"color:#bbb\">(" + item.variant + ")</span>" : ""} x${item.quantity} - <span style=\"color:#ff3c00\">${item.price} MAD</span></li>`).join('')}
-              </ul>
-              <div class='total'>Total: ${order.total} MAD</div>
-              <div class='status'>Statut: ${order.status}</div>
-            </div>
-          `).join('');
-        });
+        document.getElementById('orders').innerHTML = orders.map(order => `
+          <div class='order-block'>
+            <h3>Commande #${order.orderId}</h3>
+            <div class='meta'>${order.timestamp} | ${order.customer_name} | ${order.customer_city} | ${order.customer_phone}</div>
+            <ul class='products'>
+              ${order.items.map(item => `<li>${item.name}${item.variant ? " <span style=\"color:#bbb\">(" + item.variant + ")</span>" : ""} x${item.quantity} - <span style=\"color:#ff3c00\">${item.price} MAD</span></li>`).join('')}
+            </ul>
+            <div class='total'>Total: ${order.total} MAD</div>
+            <div class='status'>Statut: ${order.status}</div>
+          </div>
+        `).join('');
       });
     </script>
 </body>
