@@ -167,6 +167,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display order number
         document.getElementById('order-number').textContent = orderNumber;
         
+        // Create order object
+        const order = {
+            orderNumber: orderNumber,
+            date: new Date().toISOString(),
+            customer: {
+                fullname: document.getElementById('fullname').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                city: document.getElementById('city').value.trim()
+            },
+            items: orderItems,
+            total: finalTotal
+        };
+        
+        // Send order to Google Sheet if function exists
+        if (typeof sendOrderToSheet === 'function') {
+            sendOrderToSheet(order);
+        }
+        
         // Clear direct order
         sessionStorage.removeItem('directOrder');
     }
