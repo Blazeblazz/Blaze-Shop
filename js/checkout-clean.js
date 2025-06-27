@@ -187,46 +187,43 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.removeItem('directOrder');
     }
     
-    // Submit to Google Form silently
+    // Submit to Google Form using fetch API
     function submitToGoogleForm(order) {
         try {
-            // Create a hidden iframe
-            const iframe = document.createElement('iframe');
-            iframe.name = 'hidden_iframe';
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-            
-            // Create a hidden form that targets the iframe
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfQQXnVTxZTLLt7UHdMZBGXww_UVAygZ9q-OVBHNGFXcRQPrA/formResponse';
-            form.target = 'hidden_iframe'; // Target the hidden iframe
-            form.style.display = 'none';
+            // Create form data
+            const formData = new FormData();
             
             // Add customer name
-            addField(form, 'entry.2117440616', order.customer.fullname);
+            formData.append('entry.2117440616', order.customer.fullname);
             
             // Add phone number
-            addField(form, 'entry.2071399157', order.customer.phone);
+            formData.append('entry.2071399157', order.customer.phone);
             
             // Add city
-            addField(form, 'entry.700354757', order.customer.city);
+            formData.append('entry.700354757', order.customer.city);
             
             // Add product info
             const productInfo = order.items.map(item => 
                 `${item.name} (${item.variant || 'Standard'}) x${item.quantity} - ${item.price} MAD`
             ).join(' | ');
-            addField(form, 'entry.741004381', productInfo);
+            formData.append('entry.741004381', productInfo);
             
-            // Submit the form
-            document.body.appendChild(form);
-            form.submit();
+            // Convert FormData to URL parameters
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
             
-            // Clean up after submission
+            // Create image for silent submission
+            const img = document.createElement('img');
+            img.style.display = 'none';
+            img.src = 'https://docs.google.com/forms/d/e/1FAIpQLSfQQXnVTxZTLLt7UHdMZBGXww_UVAygZ9q-OVBHNGFXcRQPrA/formResponse?' + params.toString();
+            document.body.appendChild(img);
+            
+            // Remove the image after a delay
             setTimeout(() => {
-                document.body.removeChild(form);
-                document.body.removeChild(iframe);
-            }, 1000);
+                document.body.removeChild(img);
+            }, 5000);
             
             console.log('Order submitted to Google Form silently');
         } catch (error) {
