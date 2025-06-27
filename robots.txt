@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /contacts/
 
-Sitemap: https://www.blazeshop.ma/sitemap.xml
+Sitemap: https://www.blazeblazz.store/sitemap.xml

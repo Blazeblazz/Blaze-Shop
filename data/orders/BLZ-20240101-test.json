@@ -1,0 +1,24 @@
+{
+    "orderId": "BLZ-20240101-test",
+    "timestamp": "2024-01-01 12:00:00",
+    "status": "pending",
+    "customer": {
+        "fullname": "Test Customer",
+        "phone": "0612345678",
+        "city": "Casablanca"
+    },
+    "items": [
+        {
+            "name": "Test Product",
+            "price": 299,
+            "quantity": 1,
+            "image": "../images/Products/Red-Rug.webp"
+        }
+    ],
+    "subtotal": 299,
+    "shipping": 0,
+    "total": 299,
+    "paymentMethod": "cod",
+    "isMobile": false,
+    "deviceType": "desktop"
+}

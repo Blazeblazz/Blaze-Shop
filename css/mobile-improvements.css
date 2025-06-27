@@ -1,0 +1,63 @@
+/* Mobile Responsiveness Improvements */
+
+/* Add scroll indicators for horizontal scrolling product grid */
+@media (max-width: 768px) {
+  /* Horizontal scroll indicator for product grid */
+  .work-grid:after, .product-grid:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: rgba(255, 60, 0, 0.5);
+    border-radius: 2px;
+    animation: scrollPulse 2s infinite;
+  }
+  
+  /* Make product grid container relative for positioning the indicator */
+  .work-grid, .product-grid {
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  
+  /* Improve approach grid items on mobile */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  
+  .approach-item {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Fix mobile menu animation for consistency */
+  .nav-menu {
+    right: auto;
+    left: 0;
+    transform: translateY(-100%);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  body.nav-active .nav-menu {
+    transform: translateY(0);
+  }
+  
+  /* Fix hero section height on mobile */
+  .hero {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+/* Animation for scroll indicator */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.5; width: 50px; }
+  50% { opacity: 1; width: 70px; }
+}

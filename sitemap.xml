@@ -2,49 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.blazeblazz.store/</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.blazeblazz.store/product-detail.html</loc>
-    <lastmod>2023-06-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blazeblazz.store/pack-offer.html</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.blazeblazz.store/checkout.html</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.blazeblazz.store/conditions-generales.html</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.blazeblazz.store/politique-confidentialite.html</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.blazeblazz.store/livraison-retours.html</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.blazeblazz.store/faq.html</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

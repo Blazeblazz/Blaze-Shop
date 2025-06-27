@@ -1,0 +1,41 @@
+/* Approach grid improvements for mobile */
+@media (max-width: 768px) {
+  /* Make approach items full width on mobile */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .approach-item {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 20px 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Add visual indicator for steps */
+  .approach-item:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(255, 60, 0, 0.5);
+    display: block;
+  }
+  
+  .approach-item:last-child:after {
+    display: none;
+  }
+  
+  /* Make approach items relative for positioning the arrow */
+  .approach-item {
+    position: relative;
+  }
+}

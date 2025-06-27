@@ -1,0 +1,30 @@
+/* Optimizations for large desktop screens */
+@media (min-width: 1440px) {
+    /* Limit maximum width of content containers */
+    .container, .work-grid, .product-grid, .about-content, 
+    .contact-content, .approach-grid, .reviews-container {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Adjust hero title size for large screens */
+    .hero-title {
+        font-size: 6vw;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Improve spacing for large screens */
+    section {
+        padding: 80px 10%;
+    }
+    
+    /* Better footer layout on large screens */
+    .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        gap: 40px;
+    }
+}
