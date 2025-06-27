@@ -1,4 +1,4 @@
-// Minimal checkout functionality
+// Minimal checkout functionality - no order storage
 document.addEventListener('DOMContentLoaded', function() {
     // Get order items from sessionStorage
     const orderItems = JSON.parse(sessionStorage.getItem('directOrder')) || [];
@@ -167,77 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display order number
         document.getElementById('order-number').textContent = orderNumber;
         
-        // Create order object
-        const order = {
-            orderNumber: orderNumber,
-            date: new Date().toISOString(),
-            customer: {
-                fullname: document.getElementById('fullname').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                city: document.getElementById('city').value.trim()
-            },
-            items: orderItems,
-            total: finalTotal
-        };
-        
-        // Submit to Google Form
-        submitToGoogleForm(order);
-        
         // Clear direct order
         sessionStorage.removeItem('directOrder');
-    }
-    
-    // Submit to Google Form using fetch API
-    function submitToGoogleForm(order) {
-        try {
-            // Create form data
-            const formData = new FormData();
-            
-            // Add customer name
-            formData.append('entry.2117440616', order.customer.fullname);
-            
-            // Add phone number
-            formData.append('entry.2071399157', order.customer.phone);
-            
-            // Add city
-            formData.append('entry.700354757', order.customer.city);
-            
-            // Add product info
-            const productInfo = order.items.map(item => 
-                `${item.name} (${item.variant || 'Standard'}) x${item.quantity} - ${item.price} MAD`
-            ).join(' | ');
-            formData.append('entry.741004381', productInfo);
-            
-            // Convert FormData to URL parameters
-            const params = new URLSearchParams();
-            for (const [key, value] of formData.entries()) {
-                params.append(key, value);
-            }
-            
-            // Create image for silent submission
-            const img = document.createElement('img');
-            img.style.display = 'none';
-            img.src = 'https://docs.google.com/forms/d/e/1FAIpQLSfQQXnVTxZTLLt7UHdMZBGXww_UVAygZ9q-OVBHNGFXcRQPrA/formResponse?' + params.toString();
-            document.body.appendChild(img);
-            
-            // Remove the image after a delay
-            setTimeout(() => {
-                document.body.removeChild(img);
-            }, 5000);
-            
-            console.log('Order submitted to Google Form silently');
-        } catch (error) {
-            console.error('Error submitting to Google Form:', error);
-        }
-    }
-    
-    // Helper function to add a field to the form
-    function addField(form, name, value) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        input.value = value;
-        form.appendChild(input);
     }
     
     // Generate order number
