@@ -1,0 +1,19 @@
+All order-related files and the checkout page have been removed by request on 2025-06-27.
+
+Files removed:
+- view-test-orders.html
+- view-stored-orders.html
+- test-orders.html
+- js/simple-order-form.js
+- js/direct-order.js
+- fix-orders.php
+- api/update-order.php
+- api/save-order.php
+- api/orders-db.php
+- api/list-orders.php
+- api/fix-orders.php
+- admin-orders.html
+- checkout.html
+- data/orders/BLZ-20240101-test.json
+
+If you need to restore, please recover from version control or backup.

@@ -3,277 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Showroom</title>
+    <title>Commande - BLAZE | T-Shirts au Maroc</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-override.css">
-    <link rel="stylesheet" href="css/mobile-menu.css">
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1463712731733392');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1463712731733392&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    <style>
-        .checkout-section {
-            padding-top: 120px;
-            min-height: 80vh;
-            background: linear-gradient(135deg, #181818 60%, #0a0a0a 100%);
-        }
-        .checkout-container {
-            max-width: 420px;
-            margin: 0 auto 40px auto;
-            background: #181818;
-            border-radius: 18px;
-            box-shadow: 0 4px 32px rgba(0,0,0,0.5);
-            padding: 40px 28px 32px 28px;
-            position: relative;
-        }
-        .checkout-title {
-            font-size: 2.2rem;
-            color: #ff3c00;
-            margin-bottom: 28px;
-            text-align: center;
-            letter-spacing: 1.5px;
-            font-weight: 700;
-        }
-        .checkout-form label {
-            display: block;
-            margin-bottom: 8px;
-            color: #fff;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .checkout-form input {
-            width: 100%;
-            padding: 12px 14px;
-            margin-bottom: 22px;
-            border: 1.5px solid #333;
-            border-radius: 9px;
-            background: #222;
-            color: #fff;
-            font-size: 1.08rem;
-            transition: border 0.2s;
-        }
-        .checkout-form input:focus {
-            border: 1.5px solid #ff3c00;
-            outline: none;
-        }
-        .checkout-form button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #ff3c00 60%, #ff6a00 100%);
-            color: #fff;
-            border: none;
-            border-radius: 9px;
-            font-size: 1.15rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 2px 8px rgba(255,60,0,0.08);
-        }
-        .checkout-form button:hover {
-            background: linear-gradient(90deg, #d12e00 60%, #ff3c00 100%);
-            transform: translateY(-2px) scale(1.01);
-        }
-        .checkout-success {
-            color: #4caf50;
-            text-align: center;
-            margin-top: 18px;
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-        .checkout-desc {
-            color: #bbb;
-            text-align: center;
-            margin-bottom: 18px;
-            font-size: 1.05rem;
-        }
-        @media (max-width: 600px) {
-            .checkout-container {
-                padding: 24px 8px 20px 8px;
-            }
-            .checkout-title {
-                font-size: 1.4rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-logo">
             <a href="index-award.html">BLAZE</a>
         </div>
-        <div class="nav-toggle">
-            <div class="nav-toggle-bar"></div>
-            <div class="nav-toggle-bar"></div>
-        </div>
-        <div class="nav-menu">
-            <ul class="nav-menu-links">
-                <li><a href="index-award.html#produits">Produits</a></li>
-                <li><a href="index-award.html#offres">Offres</a></li>
-                <li><a href="index-award.html#apropos">À Propos</a></li>
-                <li><a href="index-award.html#livraison">Livraison</a></li>
-                <li><a href="index-award.html#temoignages">Témoignages</a></li>
-                <li><a href="index-award.html#contact">Contact</a></li>
-            </ul>
-        </div>
     </nav>
+
     <section class="checkout-section">
         <div class="checkout-container">
-            <div id="order-summary" class="order-summary" style="display:none; margin-bottom: 28px;"></div>
-            <div class="checkout-delivery-info" style="background:#181818;border-radius:9px;padding:13px 14px 10px 14px;margin-bottom:18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.10)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff3c00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                <span style="font-size:1.08rem;color:#fff;font-weight:500;">Livraison <span style='color:#4caf50;font-weight:700;'>gratuite</span> partout au Maroc</span>
+            <h1 class="section-title">Finaliser votre commande</h1>
+            
+            <div class="checkout-content">
+                <div class="order-summary" id="order-summary">
+                    <h3>Résumé de la commande</h3>
+                    <div id="order-items"></div>
+                    <div class="order-total" id="order-total"></div>
+                </div>
+
+                <form class="checkout-form" id="checkout-form">
+                    <h3>Informations de livraison</h3>
+                    
+                    <div class="form-group">
+                        <label for="customer-name">Nom complet *</label>
+                        <input type="text" id="customer-name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customer-city">Ville *</label>
+                        <input type="text" id="customer-city" name="city" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customer-phone">Numéro de téléphone *</label>
+                        <input type="tel" id="customer-phone" name="phone" required>
+                    </div>
+                    
+                    <div class="delivery-info">
+                        <div class="delivery-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            <span>Livraison gratuite dans tout le Maroc</span>
+                        </div>
+                        <div class="delivery-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <span>Paiement à la livraison</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Confirmer la commande</button>
+                </form>
             </div>
-            <div class="checkout-title">Paiement à la Livraison</div>
-            <div class="checkout-desc">Complétez le formulaire ci-dessous pour finaliser votre commande. Un conseiller vous contactera pour confirmation.</div>
-            <form class="checkout-form" id="codForm" autocomplete="on">
-                <label for="nom">Nom Complet</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom complet" required>
-
-                <label for="ville">Ville</label>
-                <input type="text" id="ville" name="ville" placeholder="Votre ville" required>
-
-                <label for="telephone">Numéro de Téléphone</label>
-                <input type="tel" id="telephone" name="telephone" pattern="[0-9]{10,15}" placeholder="06XXXXXXXX" required>
-
-                <button type="submit">Confirmer la Commande</button>
-            </form>
-            <div class="checkout-success" id="successMsg" style="display:none;">Merci ! Votre commande a été reçue. Nous vous contacterons sous peu.<br>
-            <a href="admin-orders.html" style="color:#ff3c00;text-decoration:underline;display:inline-block;margin-top:10px;">Voir les commandes (Admin)</a></div>
         </div>
     </section>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-column">
-                <div class="footer-logo">BLAZE</div>
-                <p class="footer-description">Votre boutique en ligne de t-shirts de qualité au Maroc.</p>
-            </div>
-            <div class="footer-column">
-                <h4>Liens Rapides</h4>
-                <ul class="footer-menu">
-                    <li><a href="index-award.html#produits">Produits</a></li>
-                    <li><a href="index-award.html#offres">Offres Spéciales</a></li>
-                    <li><a href="index-award.html#apropos">À Propos</a></li>
-                    <li><a href="index-award.html#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Informations</h4>
-                <ul class="footer-menu">
-                    <li><a href="conditions-generales.html">Conditions Générales</a></li>
-                    <li><a href="politique-confidentialite.html">Politique de Confidentialité</a></li>
-                    <li><a href="livraison-retours.html">Livraison et Retours</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Suivez-nous</h4>
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/blazeblazz/" target="_blank" class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61568534665188" target="_blank" class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">© 2023 BLAZE. Tous droits réservés.</div>
-    </footer>
-    <script src="js/main-no-cart.js"></script>
-    <script src="js/simple-sheet.js"></script>
-    <script>
-// Handle checkout form submission and send order to backend
 
-document.getElementById('codForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    // Gather customer info
-    const fullname = document.getElementById('nom').value.trim();
-    const city = document.getElementById('ville').value.trim();
-    const phone = document.getElementById('telephone').value.trim();
-    // Gather product info
-    let orderItems = [];
-    try {
-        orderItems = JSON.parse(sessionStorage.getItem('directOrder')) || [];
-    } catch (e) {}
-    // Calculate total
-    let total = 0;
-    orderItems.forEach(item => { total += (item.price * item.quantity); });
-    // Generate order number (date + random)
-    const orderNumber = 'BLZ-' + new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0,14) + '-' + Math.floor(Math.random()*1000);
-    // Build order object
-    const order = {
-        orderNumber,
-        customer: { fullname, city, phone },
-        items: orderItems,
-        total
-    };
-    // Send to backend
-    try {
-        const res = await fetch('api/save-order.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(order)
-        });
-        const data = await res.json();
-        if (!data.success) {
-            let msg = 'Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.';
-            if (data.error) {
-                msg += "\nDétail: " + data.error;
-            }
-            alert(msg);
-            return;
+    <style>
+        .checkout-section {
+            min-height: 100vh;
+            padding: 150px 10% 60px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #151515 100%);
         }
-    } catch (err) {
-        alert('Erreur lors de la connexion au serveur. Veuillez réessayer.');
-        return;
-    }
-    document.getElementById('successMsg').style.display = 'block';
-    this.reset();
-    setTimeout(function() {
-        window.location.href = 'index-award.html';
-    }, 1800);
-});
-// Show product info from sessionStorage (directOrder)
-(function() {
-    const orderSummary = document.getElementById('order-summary');
-    let orderItems = [];
-    try {
-        orderItems = JSON.parse(sessionStorage.getItem('directOrder')) || [];
-    } catch (e) {}
-    if (orderItems.length > 0) {
-        let total = 0;
-        let html = '<div style="background:#222;padding:18px 14px 10px 14px;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.12)"><div style="font-size:1.15rem;font-weight:600;color:#ff3c00;margin-bottom:10px;">Votre Commande</div>';
-        orderItems.forEach(item => {
-            html += `<div style="display:flex;align-items:center;margin-bottom:12px;">
-                <img src="${item.image}" alt="${item.name}" style="width:54px;height:54px;object-fit:cover;border-radius:7px;margin-right:14px;background:#fff;">
-                <div style="flex:1;">
-                    <div style="font-weight:600;font-size:1.08rem;">${item.name}${item.variant ? ' <span style=\'font-size:0.95em;color:#bbb\'>(' + item.variant + ')</span>' : ''}</div>
-                    <div style="font-size:0.98rem;color:#bbb;">x${item.quantity} &nbsp; <span style=\'color:#ff3c00;font-weight:600\'>${item.price} MAD</span></div>
-                </div>
-            </div>`;
-            total += (item.price * item.quantity);
+        
+        .checkout-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .checkout-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .order-summary {
+            background: rgba(21, 21, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            height: fit-content;
+        }
+        
+        .order-summary h3 {
+            color: #ff3c00;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .order-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 15px;
+            background: white;
+            padding: 10px;
+        }
+        
+        .order-item-info h4 {
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .order-item-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+        
+        .order-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff3c00;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 60, 0, 0.3);
+        }
+        
+        .checkout-form {
+            background: rgba(21, 21, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .checkout-form h3 {
+            color: #ff3c00;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .delivery-info {
+            background: rgba(255, 60, 0, 0.1);
+            border: 1px solid rgba(255, 60, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .delivery-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+        
+        .delivery-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .delivery-item svg {
+            color: #ff3c00;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-section {
+                padding: 100px 20px 40px;
+            }
+            
+            .checkout-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .order-summary,
+            .checkout-form {
+                padding: 20px;
+            }
+            
+            .order-item img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderData = JSON.parse(sessionStorage.getItem('directOrder'));
+            
+            if (!orderData || orderData.length === 0) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            displayOrderSummary(orderData);
+            
+            document.getElementById('checkout-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitOrder(orderData);
+            });
         });
-        html += `<div style="border-top:1px solid #333;margin-top:10px;padding-top:10px;text-align:right;font-size:1.08rem;font-weight:600;">Total: <span style="color:#ff3c00;">${total} MAD</span></div></div>`;
-        orderSummary.innerHTML = html;
-        orderSummary.style.display = '';
-    }
-})();
+
+        function displayOrderSummary(orderData) {
+            const itemsContainer = document.getElementById('order-items');
+            const totalContainer = document.getElementById('order-total');
+            let total = 0;
+
+            orderData.forEach(item => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="order-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Couleur: ${item.variant}</p>
+                        <p>Quantité: ${item.quantity}</p>
+                        <p><strong>${item.price * item.quantity} MAD</strong></p>
+                    </div>
+                `;
+                itemsContainer.appendChild(orderItem);
+                total += item.price * item.quantity;
+            });
+
+            totalContainer.textContent = `Total: ${total} MAD`;
+        }
+
+        function submitOrder(orderData) {
+            const formData = new FormData(document.getElementById('checkout-form'));
+            const customerInfo = {
+                name: formData.get('name'),
+                city: formData.get('city'),
+                phone: formData.get('phone')
+            };
+
+            const order = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                customer: customerInfo,
+                items: orderData,
+                total: orderData.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                status: 'pending'
+            };
+
+            // Store order in localStorage (in production, send to server)
+            const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+            existingOrders.push(order);
+            localStorage.setItem('orders', JSON.stringify(existingOrders));
+
+            // Clear session storage
+            sessionStorage.removeItem('directOrder');
+
+            // Show success message with theme styling
+            showSuccessMessage();
+        }
+        
+        function showSuccessMessage() {
+            const successDiv = document.createElement('div');
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(21, 21, 21, 0.95);
+                backdrop-filter: blur(20px);
+                border: 2px solid #ff3c00;
+                border-radius: 15px;
+                padding: 40px;
+                text-align: center;
+                z-index: 10000;
+                color: white;
+                max-width: 400px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            `;
+            
+            successDiv.innerHTML = `
+                <div style="color: #ff3c00; font-size: 3rem; margin-bottom: 20px;">✓</div>
+                <h3 style="color: #ff3c00; margin-bottom: 15px;">Commande confirmée!</h3>
+                <p style="margin-bottom: 25px; opacity: 0.9;">Nous vous contacterons bientôt pour confirmer votre commande.</p>
+                <button onclick="this.parentElement.remove(); window.location.href='index-award.html';" 
+                        style="background: #ff3c00; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600;">
+                    Retour à l'accueil
+                </button>
+            `;
+            
+            document.body.appendChild(successDiv);
+        }
     </script>
 </body>
 </html>
