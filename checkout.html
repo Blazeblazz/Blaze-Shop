@@ -262,10 +262,17 @@
                 status: 'pending'
             };
 
-            // Store order in localStorage (in production, send to server)
-            const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-            existingOrders.push(order);
-            localStorage.setItem('orders', JSON.stringify(existingOrders));
+            // Store order on server
+            fetch('api/orders.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(order)
+            }).catch(() => {
+                // Fallback to localStorage if server fails
+                const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                existingOrders.push(order);
+                localStorage.setItem('orders', JSON.stringify(existingOrders));
+            });
 
             // Clear session storage
             sessionStorage.removeItem('directOrder');

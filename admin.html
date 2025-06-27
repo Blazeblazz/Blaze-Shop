@@ -175,7 +175,17 @@
         });
 
         function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            // Load from server first, fallback to localStorage
+            fetch('api/orders.php')
+                .then(response => response.json())
+                .then(orders => displayOrders(orders))
+                .catch(() => {
+                    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                    displayOrders(orders);
+                });
+        }
+        
+        function displayOrders(orders) {
             const tbody = document.getElementById('orders-tbody');
             
             if (orders.length === 0) {
