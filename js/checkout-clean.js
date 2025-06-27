@@ -167,8 +167,69 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display order number
         document.getElementById('order-number').textContent = orderNumber;
         
+        // Create order object
+        const order = {
+            orderNumber: orderNumber,
+            date: new Date().toISOString(),
+            customer: {
+                fullname: document.getElementById('fullname').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                city: document.getElementById('city').value.trim()
+            },
+            items: orderItems,
+            total: finalTotal
+        };
+        
+        // Submit to Google Form
+        submitToGoogleForm(order);
+        
         // Clear direct order
         sessionStorage.removeItem('directOrder');
+    }
+    
+    // Submit to Google Form
+    function submitToGoogleForm(order) {
+        try {
+            // Create a hidden form
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://docs.google.com/forms/u/0/d/1y15n_bv9u-pwRDgECmYBuXXUiUdy77gAmGg7aIO2fJ0/previewResponse';
+            form.target = '_blank';
+            form.style.display = 'none';
+            
+            // Add customer name
+            addField(form, 'entry.2117440616', order.customer.fullname);
+            
+            // Add phone number
+            addField(form, 'entry.2071399157', order.customer.phone);
+            
+            // Add city
+            addField(form, 'entry.700354757', order.customer.city);
+            
+            // Add product info
+            const productInfo = order.items.map(item => 
+                `${item.name} (${item.variant || 'Standard'}) x${item.quantity} - ${item.price} MAD`
+            ).join(' | ');
+            addField(form, 'entry.741004381', productInfo);
+            
+            // Submit the form
+            document.body.appendChild(form);
+            form.submit();
+            setTimeout(() => document.body.removeChild(form), 1000);
+            
+            console.log('Order submitted to Google Form');
+        } catch (error) {
+            console.error('Error submitting to Google Form:', error);
+        }
+    }
+    
+    // Helper function to add a field to the form
+    function addField(form, name, value) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
     }
     
     // Generate order number
