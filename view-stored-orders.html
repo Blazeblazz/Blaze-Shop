@@ -23,11 +23,9 @@
         <div id="orders"></div>
     </div>
     <script>
-    fetch('data/orders/')
-      .then(r => r.text())
-      .then(html => {
-        // Parse file names from directory listing (works if directory listing is enabled)
-        const files = Array.from(html.matchAll(/href="([^"]+\.json)"/g)).map(m => m[1]);
+    fetch('api/list-orders.php')
+      .then(r => r.json())
+      .then(files => {
         if (!files.length) {
           document.getElementById('orders').innerHTML = '<p style="color:#bbb">Aucune commande trouvée.</p>';
           return;
@@ -38,7 +36,7 @@
               <h3>Commande #${order.orderId}</h3>
               <div class='meta'>${order.timestamp} | ${order.customer.fullname} | ${order.customer.city} | ${order.customer.phone}</div>
               <ul class='products'>
-                ${order.items.map(item => `<li>${item.name}${item.variant ? ' <span style=\'color:#bbb\'>(' + item.variant + ')</span>' : ''} x${item.quantity} - <span style=\'color:#ff3c00\'>${item.price} MAD</span></li>`).join('')}
+                ${order.items.map(item => `<li>${item.name}${item.variant ? " <span style=\"color:#bbb\">(" + item.variant + ")</span>" : ""} x${item.quantity} - <span style=\"color:#ff3c00\">${item.price} MAD</span></li>`).join('')}
               </ul>
               <div class='total'>Total: ${order.total} MAD</div>
               <div class='status'>Statut: ${order.status}</div>

@@ -224,7 +224,11 @@ document.getElementById('codForm').addEventListener('submit', async function(e) 
     if (typeof sendOrderToBackend === 'function') {
         const res = await sendOrderToBackend(order);
         if (!res.success) {
-            alert('Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.');
+            let msg = 'Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.';
+            if (res.error) {
+                msg += "\nDétail: " + res.error;
+            }
+            alert(msg);
             return;
         }
     }
