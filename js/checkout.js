@@ -257,22 +257,49 @@ document.addEventListener('DOMContentLoaded', function() {
             window.addOrder(order);
         }
         
-        // Submit order to Google Form
+        // Direct submission to Google Form
         try {
-            // Submit to Google Form if the function is available
-            if (typeof submitOrderToGoogleForm === 'function') {
-                submitOrderToGoogleForm(order);
-            }
+            // Create a hidden form to submit to Google Form
+            const hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            // Replace with your actual Google Form URL
+            hiddenForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdQQXnVTxZTLLt7UHdMZBGXww_UVAygZ9q-OVBHNGFXcRQPrA/formResponse';
+            hiddenForm.target = '_blank';
+            hiddenForm.style.display = 'none';
             
-            // Also try Google Sheet as fallback
-            if (typeof submitOrderToGoogleSheet === 'function') {
-                submitOrderToGoogleSheet(order);
-            }
+            // Create and add form fields
+            // Replace entry.XXXXXXX with your actual field IDs
+            const fields = [
+                { name: 'entry.1166974658', value: order.customer.fullname }, // Name
+                { name: 'entry.1718486731', value: order.customer.phone },     // Phone
+                { name: 'entry.1373276665', value: order.customer.city },      // City
+                { name: 'entry.1373276665', value: order.items.map(item => item.name).join(', ') }, // Products
+                { name: 'entry.1373276665', value: order.items.map(item => item.variant || 'Standard').join(', ') }, // Variants
+                { name: 'entry.1373276665', value: order.items.reduce((sum, item) => sum + item.quantity, 0) }, // Quantity
+                { name: 'entry.1373276665', value: order.total }, // Total
+                { name: 'entry.1373276665', value: order.orderNumber } // Order number
+            ];
             
-            // Show success message regardless of submission status
-            console.log('Order processed successfully');
+            fields.forEach(field => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = field.name;
+                input.value = field.value;
+                hiddenForm.appendChild(input);
+            });
+            
+            // Add form to document and submit it
+            document.body.appendChild(hiddenForm);
+            hiddenForm.submit();
+            
+            // Remove form after submission
+            setTimeout(() => {
+                document.body.removeChild(hiddenForm);
+            }, 1000);
+            
+            console.log('Order submitted to Google Form');
         } catch (error) {
-            console.error('Error in order process:', error);
+            console.error('Error submitting to Google Form:', error);
         }
         
         // Helper function to submit order to different paths
