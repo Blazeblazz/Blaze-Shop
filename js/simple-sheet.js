@@ -1,1 +1,1 @@
-// All order systems and storage functions removed as requested.
+// All sheet functions have been removed as requested.
