@@ -1,57 +1,54 @@
-// Simple order storage that works immediately
+// IMPORTANT: Replace this URL with your actual Google Apps Script Web App URL from Step 3 in SIMPLE_SETUP.md
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxCTWbd-Adz3SZnj72UD0ZzcTCEv5aXVVZiGIjQfwfnlcQP_3jbwbN3xlyh6sJ9aN5R1w/exec';
+
 const ORDER_STORAGE = {
-    // Save order (localStorage + email notification)
     async saveOrder(orderData) {
-        // Save to localStorage
+        // 1. Save to localStorage (as a backup)
         this.saveToLocalStorage(orderData);
-        
-        // Send email notification
-        this.sendEmailNotification(orderData);
-        
+
+        // 2. Prepare data for Google Sheet
+        const sheetData = {
+            orderNumber: orderData.id,
+            date: orderData.date,
+            customerName: orderData.customer.name,
+            phone: orderData.customer.phone,
+            city: orderData.customer.city,
+            products: orderData.items,
+            total: orderData.total,
+            status: orderData.status
+        };
+
+        // 3. Send data to Google Sheet
+        try {
+            await fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', // 'no-cors' is used to prevent CORS errors with simple Apps Script deployments
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(sheetData)
+            });
+            console.log('Order submission attempted. Check your Google Sheet.');
+        } catch (error) {
+            console.error('Failed to send order to Google Sheet:', error);
+        }
+
         return true;
     },
-    
+
     // Get all orders from localStorage
     async getOrders() {
         return this.getFromLocalStorage();
     },
-    
+
     // LocalStorage storage
     saveToLocalStorage(orderData) {
         const orders = JSON.parse(localStorage.getItem('orders') || '[]');
         orders.push(orderData);
         localStorage.setItem('orders', JSON.stringify(orders));
     },
-    
+
     getFromLocalStorage() {
         return JSON.parse(localStorage.getItem('orders') || '[]');
-    },
-    
-    // Email notification using mailto
-    sendEmailNotification(order) {
-        const subject = `Nouvelle commande #${order.id}`;
-        const body = `
-Nouvelle commande reçue:
-
-Client: ${order.customer.name}
-Ville: ${order.customer.city}
-Téléphone: ${order.customer.phone}
-
-Produits:
-${order.items.map(item => `- ${item.name} (${item.variant}) x${item.quantity} = ${item.price * item.quantity} MAD`).join('\n')}
-
-Total: ${order.total} MAD
-Date: ${new Date(order.date).toLocaleString('fr-FR')}
-        `;
-        
-        // Auto-open email client
-        const mailtoLink = `mailto:contactusblazz@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Try to open email client silently
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = mailtoLink;
-        document.body.appendChild(iframe);
-        setTimeout(() => document.body.removeChild(iframe), 1000);
     }
 };
