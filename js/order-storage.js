@@ -1,5 +1,5 @@
 // IMPORTANT: Replace this URL with your actual Google Apps Script Web App URL from Step 3 in SIMPLE_SETUP.md
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxCTWbd-Adz3SZnj72UD0ZzcTCEv5aXVVZiGIjQfwfnlcQP_3jbwbN3xlyh6sJ9aN5R1w/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyFLncrJBphTBEQdcYsenUAd4VIfiSCdTesbg1-581w8QLK0Eyq-kIjDJRayPo_ESyf/exec';
 
 const ORDER_STORAGE = {
     async saveOrder(orderData) {

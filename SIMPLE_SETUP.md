@@ -10,7 +10,7 @@ Follow these steps to set up your order management system:
 ## Step 2: Set Up Google Apps Script
 
 1. In your Google Sheet, click on **Extensions** > **Apps Script**
-2. Delete any code in the editor and paste the contents of the `simple-apps-script.js` file
+2. Delete any code in the editor and paste the contents of the `google-apps-script-webapp.js` file
 3. Click **Save** and name the project "BLAZE Orders"
 
 ## Step 3: Deploy as Web App
@@ -27,8 +27,8 @@ Follow these steps to set up your order management system:
 
 ## Step 4: Update Your Website
 
-1. Open the file `js/simple-sheet.js`
-2. Replace the URL in the script with your Web app URL
+1. Open the file `js/order-storage.js`
+2. Replace the placeholder URL in the `WEB_APP_URL` constant with your Web app URL
 3. Save the file and upload it to your website
 
 ## Step 5: Test the Integration
@@ -41,7 +41,7 @@ Follow these steps to set up your order management system:
 If orders are not appearing in your Google Sheet:
 
 1. Make sure your Google Apps Script is deployed as a web app with "Anyone" access
-2. Check that the Web app URL in `simple-sheet.js` is correct
+2. Check that the Web app URL in `js/order-storage.js` is correct
 3. Try opening the Web app URL directly in your browser with test parameters:
    - Example: `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?name=Test&phone=123456789&products=Test%20Product`
    - This should add a test order to your sheet
