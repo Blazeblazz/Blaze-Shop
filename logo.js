@@ -5,21 +5,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update each logo
     logoElements.forEach(logo => {
-        // Clear existing content
-        logo.innerHTML = '';
-        
-        // Create link to homepage
-        const link = document.createElement('a');
-        link.href = 'index.html';
-        
-        // Create logo image
-        const img = document.createElement('img');
-        img.src = 'images/logo.svg';
-        img.alt = 'BLAZE';
-        img.className = 'logo-image';
-        
-        // Append elements
-        link.appendChild(img);
-        logo.appendChild(link);
+        // Check if logo already has content
+        if (logo.querySelector('a') && !logo.querySelector('img')) {
+            // Keep the existing content but ensure it's consistent
+            const link = logo.querySelector('a');
+            if (!link.getAttribute('href')) {
+                link.setAttribute('href', 'index.html');
+            }
+        } else {
+            // Clear existing content
+            logo.innerHTML = '';
+            
+            // Create link to homepage
+            const link = document.createElement('a');
+            link.href = 'index.html';
+            
+            // Create logo content
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-fire';
+            
+            const text = document.createElement('span');
+            text.textContent = 'BLAZE';
+            
+            // Append elements
+            link.appendChild(icon);
+            link.appendChild(text);
+            logo.appendChild(link);
+        }
     });
 });
