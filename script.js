@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const emailInput = this.querySelector('input[type="email"]');
             if (emailInput && emailInput.value) {
-                alert(`Merci de vous être inscrit avec: ${emailInput.value}`);
+                // No alert message
                 emailInput.value = '';
                 // Here you would typically send the email to your backend
             }

@@ -73,7 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const city = document.getElementById('city').value;
         
         if (!name || !phone || !city) {
-            alert('Veuillez remplir tous les champs obligatoires.');
+            // No alert - just highlight the fields
+            if (!name) document.getElementById('name').style.borderColor = 'red';
+            if (!phone) document.getElementById('phone').style.borderColor = 'red';
+            if (!city) document.getElementById('city').style.borderColor = 'red';
             return false;
         }
         
@@ -179,8 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update totals
             updateTotals(newSubtotal);
             
-            // Show confirmation
-            alert('Code promo BLAZE15 appliqué! Réduction de 15%.');
+            // No alert - just update the UI
+            document.getElementById('promo-code').style.borderColor = 'green';
         } else if (promoCode === 'BLAZE40') {
             // Apply 40% discount for first-time customers
             const discount = Math.round(subtotal * 0.4);
@@ -189,11 +192,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update totals
             updateTotals(newSubtotal);
             
-            // Show confirmation
-            alert('Code promo BLAZE40 appliqué! Réduction de 40% pour votre première commande.');
+            // No alert - just update the UI
+            document.getElementById('promo-code').style.borderColor = 'green';
         } else {
-            // Invalid promo code
-            alert('Code promo invalide.');
+            // Invalid promo code - visual indication
+            document.getElementById('promo-code').style.borderColor = 'red';
         }
     });
 });
