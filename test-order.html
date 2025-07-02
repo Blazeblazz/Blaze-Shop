@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Order System</h1>
+    <p>Use this page to test if your order system is working correctly.</p>
+    
+    <button id="createTestOrder">Create Test Order</button>
+    <button id="checkOrders">Check Orders in JSONBin</button>
+    <button id="clearLocalStorage">Clear Local Storage</button>
+    
+    <div class="result">
+        <h2>Result:</h2>
+        <pre id="result">No action taken yet.</pre>
+    </div>
+    
+    <script src="api.js"></script>
+    <script>
+        document.getElementById('createTestOrder').addEventListener('click', async function() {
+            const resultElement = document.getElementById('result');
+            
+            try {
+                // Create a test order
+                const testOrder = {
+                    id: 'TEST-' + Math.floor(10000 + Math.random() * 90000),
+                    date: new Date().toISOString().split('T')[0],
+                    customer: {
+                        name: 'Test Customer',
+                        phone: '(212) 600-000000',
+                        city: 'Test City'
+                    },
+                    items: [
+                        { name: 'TEST PRODUCT', color: 'Black', price: 129, quantity: 1, total: 129 }
+                    ],
+                    subtotal: 129,
+                    shipping: 'Gratuit',
+                    total: 129,
+                    status: 'new',
+                    payment: 'cod'
+                };
+                
+                // Save to localStorage first
+                saveOrderToLocalStorage(testOrder);
+                
+                // Try to save to server
+                const serverResult = await saveOrderToServer(testOrder);
+                
+                resultElement.textContent = `Test order created!\n\nServer save: ${serverResult ? 'SUCCESS' : 'FAILED'}\nLocal storage: SUCCESS\n\nOrder details:\n${JSON.stringify(testOrder, null, 2)}`;
+            } catch (error) {
+                resultElement.textContent = `Error creating test order: ${error.message}`;
+            }
+        });
+        
+        document.getElementById('checkOrders').addEventListener('click', async function() {
+            const resultElement = document.getElementById('result');
+            
+            try {
+                // Get orders from server
+                const data = await getOrdersFromServer();
+                
+                // Get orders from localStorage
+                const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+                
+                resultElement.textContent = `Server orders: ${JSON.stringify(data, null, 2)}\n\nLocal storage orders: ${JSON.stringify(localOrders, null, 2)}`;
+            } catch (error) {
+                resultElement.textContent = `Error checking orders: ${error.message}`;
+            }
+        });
+        
+        document.getElementById('clearLocalStorage').addEventListener('click', function() {
+            const resultElement = document.getElementById('result');
+            
+            localStorage.removeItem('orders');
+            localStorage.removeItem('cart');
+            
+            resultElement.textContent = 'Local storage cleared!';
+        });
+    </script>
+</body>
+</html>

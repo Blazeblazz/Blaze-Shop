@@ -24,7 +24,8 @@ async function saveOrderToServer(order) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Master-Key': API_KEY
+                'X-Master-Key': API_KEY,
+                'X-Bin-Versioning': 'false'
             },
             body: JSON.stringify(data)
         });
@@ -53,7 +54,8 @@ async function getOrdersFromServer() {
         
         const response = await fetch(`${API_URL}/${BIN_ID}`, {
             headers: {
-                'X-Master-Key': API_KEY
+                'X-Master-Key': API_KEY,
+                'X-Bin-Meta': 'false'
             }
         });
         
@@ -73,7 +75,7 @@ async function getOrdersFromServer() {
     } catch (error) {
         console.error('Error fetching orders:', error);
         // Fall back to localStorage if server fails
-        return JSON.parse(localStorage.getItem('orders')) || [];
+        return {orders: JSON.parse(localStorage.getItem('orders')) || []};
     }
 }
 
