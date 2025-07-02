@@ -1,0 +1,40 @@
+/* Checkout Button Styles */
+.btn-add-cart {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    background-color: var(--accent-gold);
+    color: var(--primary-bg);
+    border: none;
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add-cart:hover {
+    background-color: var(--accent-gold-hover);
+}
+
+/* Product Detail Page Button */
+.btn-add-to-cart {
+    flex: 1;
+    padding: 15px 30px;
+    background-color: var(--accent-gold);
+    color: var(--primary-bg);
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-add-to-cart:hover {
+    background-color: var(--accent-gold-hover);
+}

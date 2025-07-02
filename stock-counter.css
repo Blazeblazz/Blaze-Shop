@@ -1,0 +1,43 @@
+/* Stock Counter Styles */
+.stock-counter {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--text-white);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+.stock-counter i {
+    color: var(--accent-gold);
+    margin-right: 5px;
+}
+
+.stock-counter.low {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.stock-counter-bar {
+    position: relative;
+    width: 50px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    margin-left: 5px;
+    overflow: hidden;
+}
+
+.stock-counter-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--accent-gold);
+    border-radius: 2px;
+}

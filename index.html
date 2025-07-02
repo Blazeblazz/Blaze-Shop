@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>BLAZE - Streetwear Marocain Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="slider.css">
+    <link rel="stylesheet" href="product-buttons.css">
+    <link rel="stylesheet" href="logo.css">
+    <link rel="stylesheet" href="marketing-copy.css">
+    <link rel="stylesheet" href="product-badges.css">
+    <link rel="stylesheet" href="countdown.css">
+    <link rel="stylesheet" href="testimonials.css">
+    <link rel="stylesheet" href="promo-popup.css">
+    <link rel="stylesheet" href="stock-counter.css">
+    <link rel="stylesheet" href="hot-deals.css">
+    <link rel="stylesheet" href="mobile-enhancements.css">
+    <link rel="stylesheet" href="install-pwa.css">
+    <link rel="stylesheet" href="menu-close.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffc107' d='M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'/%3E%3C/svg%3E">
+    <!-- Add PWA support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+</head>
+<body>
+    <!-- Marketing Banner -->
+    <div class="marketing-banner">
+        <i class="fas fa-shipping-fast"></i> Livraison gratuite sur toutes les commandes
+    </div>
+    
+    <!-- Navigation Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-fire"></i>
+                <span>BLAZE</span>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-close"><i class="fas fa-times"></i></button>
+                <ul>
+                    <li><a href="#story">Notre Histoire</a></li>
+                    <li><a href="#values">Nos Valeurs</a></li>
+                    <li><a href="#products">Collection</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>CAPTIVATING<br>CITIES</h1>
+                    <p>Découvrez notre collection exclusive inspirée par l'essence des villes marocaines</p>
+                    <button class="btn-explore">ACHETER MAINTENANT</button>
+                </div>
+                <div class="hero-image">
+                    <img src="images/products/Rise.webp" alt="T-shirt RISE">
+                    <div class="glow-effect"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story Section -->
+    <section class="brand-story" id="story">
+        <div class="container">
+            <div class="story-content">
+                <h2>NOUS SOMMES FIERS DE NOS RACINES</h2>
+                <div class="story-image">
+                    <img src="images/Hero.webp" alt="Street Culture">
+                </div>
+                <p>Notre identité est ancrée dans la culture urbaine et l'authenticité des rues marocaines. Chaque pièce raconte une histoire de passion, de créativité et d'héritage. Nous célébrons la fusion entre le style contemporain et l'artisanat traditionnel, créant ainsi une mode qui parle à la nouvelle génération tout en honorant nos racines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values" id="values">
+        <div class="container">
+            <h2>NOUS SOMMES FIERS DE NOS VÊTEMENTS</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>CONÇU PAR DES LOCAUX</h3>
+                    <p>Tous nos designs sont créés par des artistes marocains, s'inspirant de notre riche culture et patrimoine urbain.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>DESIGN UNIVERSEL</h3>
+                    <p>Nos t-shirts en taille unique sont conçus avec une coupe oversize moderne qui s'adapte à différentes morphologies.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>EMBALLAGE ÉCOLOGIQUE</h3>
+                    <p>Nous utilisons uniquement des matériaux d'emballage durables et recyclables pour minimiser notre impact environnemental.</p>
+                </div>
+            </div>
+            <div class="values-slider-controls">
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2>COLLECTION EXCLUSIVE</h2>
+            <p class="section-subtitle">Designs limités à 100 exemplaires par modèle • Expédition sous 24h</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">Nouveau</span>
+                        <img src="images/products/Rise.webp" alt="T-shirt RISE">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <h3>RISE</h3>
+                            <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                        </div>
+                        <div class="product-info-actions">
+                            <a href="product-detail.html?product=RISE" class="btn-detail">Détails</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge sale">-28%</span>
+                        <img src="images/products/SEGRETO.webp" alt="T-shirt SEGRETO">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>SEGRETO</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                        <div class="product-info-actions">
+                            <a href="product-detail.html?product=SEGRETO" class="btn-detail">Détails</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge limited">Limité</span>
+                        <img src="images/products/Wild-Flowers.webp" alt="T-shirt WILDFLOWERS">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>WILDFLOWERS</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                        <div class="product-info-actions">
+                            <a href="product-detail.html?product=WILDFLOWERS" class="btn-detail">Détails</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge bestseller">Bestseller</span>
+                        <img src="images/products/Rush.webp" alt="T-shirt RUSH">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>RUSH</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                        <div class="product-info-actions">
+                            <a href="product-detail.html?product=RUSH" class="btn-detail">Détails</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/Lost in Casablanca.webp" alt="T-shirt LOST IN CASABLANCA">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>LOST IN CASABLANCA</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                        <div class="product-info-actions">
+                            <a href="product-detail.html?product=LOST IN CASABLANCA" class="btn-detail">Détails</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/Trust-The-Process.webp" alt="T-shirt TRUST THE PROCESS">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>TRUST THE PROCESS</h3>
+                        <p class="price">129 MAD</p>
+                        <div class="product-info-actions">
+                            <a href="product-detail.html?product=TRUST THE PROCESS" class="btn-detail">Détails</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hot Deals Section -->
+    <section class="hot-deals">
+        <div class="container">
+            <div class="hot-deals-header">
+                <h2 class="hot-deals-title">OFFRES SPÉCIALES</h2>
+                <p class="hot-deals-subtitle">Profitez de nos réductions limitées dans le temps sur une sélection de produits</p>
+            </div>
+            <div class="hot-deals-grid">
+                <div class="hot-deal-item">
+                    <div class="hot-deal-image">
+                        <img src="images/products/Rise.webp" alt="T-shirt RISE">
+                        <div class="hot-deal-discount">-30%</div>
+                    </div>
+                    <div class="hot-deal-content">
+                        <h3 class="hot-deal-title">RISE</h3>
+                        <div class="hot-deal-price">
+                            <span class="hot-deal-current">129 MAD</span>
+                            <span class="hot-deal-original">179 MAD</span>
+                        </div>
+                        <a href="product-detail.html?product=RISE" class="hot-deal-cta">Acheter Maintenant</a>
+                    </div>
+                </div>
+                <div class="hot-deal-item">
+                    <div class="hot-deal-image">
+                        <img src="images/products/SEGRETO.webp" alt="T-shirt SEGRETO">
+                        <div class="hot-deal-discount">-30%</div>
+                    </div>
+                    <div class="hot-deal-content">
+                        <h3 class="hot-deal-title">SEGRETO</h3>
+                        <div class="hot-deal-price">
+                            <span class="hot-deal-current">129 MAD</span>
+                            <span class="hot-deal-original">179 MAD</span>
+                        </div>
+                        <a href="product-detail.html?product=SEGRETO" class="hot-deal-cta">Acheter Maintenant</a>
+                    </div>
+                </div>
+                <div class="hot-deal-item">
+                    <div class="hot-deal-image">
+                        <img src="images/products/Wild-Flowers.webp" alt="T-shirt WILDFLOWERS">
+                        <div class="hot-deal-discount">-30%</div>
+                    </div>
+                    <div class="hot-deal-content">
+                        <h3 class="hot-deal-title">WILDFLOWERS</h3>
+                        <div class="hot-deal-price">
+                            <span class="hot-deal-current">129 MAD</span>
+                            <span class="hot-deal-original">179 MAD</span>
+                        </div>
+                        <a href="product-detail.html?product=WILDFLOWERS" class="hot-deal-cta">Acheter Maintenant</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketing Section -->
+    <section class="marketing-section">
+        <div class="container">
+            <div class="marketing-countdown">
+                <div class="countdown-title">OFFRE FLASH - SE TERMINE DANS</div>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-hours">24</div>
+                        <div class="countdown-label">HEURES</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-minutes">00</div>
+                        <div class="countdown-label">MINUTES</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-seconds">00</div>
+                        <div class="countdown-label">SECONDES</div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketing-grid">
+                <div class="marketing-item">
+                    <h3>COLLECTION EXCLUSIVE</h3>
+                    <p>Seulement <strong>100 exemplaires</strong> de chaque design. Chaque t-shirt est numéroté individuellement et livré avec un certificat d'authenticité. Une fois épuisés, ces designs ne seront jamais reproduits.</p>
+                    <a href="#products" class="marketing-cta">ACHETER MAINTENANT</a>
+                </div>
+                <div class="marketing-item">
+                    <h3>-30% SUR LE DEUXIÈME T-SHIRT</h3>
+                    <p>Pour une durée limitée, obtenez <strong>30% de réduction</strong> sur votre deuxième t-shirt. Aucun code promo nécessaire, la réduction s'applique automatiquement au panier. Ne manquez pas cette opportunité!</p>
+                    <a href="#products" class="marketing-cta">EN PROFITER</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>ILS PARLENT DE NOUS</h2>
+            <p class="section-subtitle">Découvrez ce que les médias et influenceurs disent de notre marque</p>
+            <div class="testimonial-grid">
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"BLAZE représente l'avenir de la mode urbaine marocaine, fusionnant l'authenticité des rues avec une qualité exceptionnelle et un design innovant. Une marque à suivre absolument."</p>
+                    <div class="testimonial-author">
+                        <img src="images/media/journal-urbain.webp" alt="Le Journal Urbain" class="testimonial-logo">
+                        <cite>— Le Journal Urbain</cite>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Une marque qui célèbre véritablement l'esprit créatif de la jeunesse marocaine tout en établissant de nouvelles normes pour la mode streetwear africaine. Chaque pièce raconte une histoire authentique."</p>
+                    <div class="testimonial-author">
+                        <img src="images/media/style-radar.webp" alt="Style Radar Africa" class="testimonial-logo">
+                        <cite>— Style Radar Africa</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>CONTACTEZ-NOUS</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>TÉLÉPHONE</h3>
+                    <p><i class="fas fa-phone"></i> (212) 456-7890</p>
+                </div>
+                <div class="contact-item">
+                    <h3>EMAIL</h3>
+                    <p><i class="fas fa-envelope"></i> hello@blazestreetline.com</p>
+                </div>
+                <div class="contact-item">
+                    <h3>SOCIAL</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="newsletter">
+                <h3>RESTEZ CONNECTÉ</h3>
+                <p>Inscrivez-vous à notre newsletter pour recevoir les dernières nouvelles et offres exclusives</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit">S'INSCRIRE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>SHOP</h3>
+                        <ul>
+                            <li><a href="#">Nouveautés</a></li>
+                            <li><a href="#">T-shirts</a></li>
+                            <li><a href="#">Accessoires</a></li>
+                            <li><a href="#">Collections</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>AIDE</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="shipping.html">Livraison</a></li>
+                            <li><a href="returns.html">Retours</a></li>
+                            <li><a href="sizes.html">Tailles</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>LÉGAL</h3>
+                        <ul>
+                            <li><a href="terms.html">Conditions</a></li>
+                            <li><a href="privacy.html">Confidentialité</a></li>
+                            <li><a href="cookies.html">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 BLAZE Streetwear. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+    <script src="direct-checkout.js"></script>
+    <script src="logo.js"></script>
+    <script src="product-detail-buttons.js"></script>
+    <script src="rotating-banner.js"></script>
+    <script src="countdown.js"></script>
+    <script src="promo-popup.js"></script>
+    <script src="stock-counter.js"></script>
+    <script src="mobile-nav.js"></script>
+    <script src="pwa.js"></script>
+</body>
+</html>

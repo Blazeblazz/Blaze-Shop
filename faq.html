@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FAQ - BLAZE Streetwear</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffc107' d='M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'/%3E%3C/svg%3E">
+    <style>
+        .page-header {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .faq-section {
+            padding: 60px 0;
+        }
+        
+        .faq-item {
+            margin-bottom: 30px;
+            background-color: rgba(26, 26, 26, 0.5);
+            border: 1px solid var(--border-dark);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(37, 37, 37, 0.7);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .breadcrumb {
+            background-color: var(--secondary-bg);
+            padding: 15px 0;
+        }
+        
+        .breadcrumb ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb li {
+            margin-right: 10px;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            margin-left: 10px;
+            color: var(--text-gray);
+        }
+        
+        .breadcrumb li:last-child:after {
+            display: none;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-gold);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-fire"></i>
+                    <span>BLAZE</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html#story">Notre Histoire</a></li>
+                    <li><a href="index.html#values">Nos Valeurs</a></li>
+                    <li><a href="index.html#products">Collection</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li>FAQ</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Foire Aux Questions</h1>
+            <p>Trouvez des réponses aux questions les plus fréquemment posées</p>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    Comment puis-je connaître ma taille ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Vous pouvez consulter notre guide des tailles dans la section "Tailles" du site. Nous recommandons de prendre vos mesures et de les comparer à notre tableau pour trouver la taille qui vous convient le mieux. Si vous êtes entre deux tailles, nous vous conseillons de prendre la taille supérieure.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Quels sont les délais de livraison ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Les délais de livraison varient selon votre localisation :</p>
+                    <ul>
+                        <li>Maroc : 2-3 jours ouvrables</li>
+                        <li>Europe : 5-7 jours ouvrables</li>
+                        <li>Reste du monde : 7-14 jours ouvrables</li>
+                    </ul>
+                    <p>Ces délais sont indicatifs et peuvent varier en fonction des conditions logistiques.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Comment entretenir mes vêtements BLAZE ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Pour préserver la qualité de vos vêtements BLAZE, nous recommandons :</p>
+                    <ul>
+                        <li>Lavage en machine à 30°C</li>
+                        <li>Ne pas utiliser d'eau de Javel</li>
+                        <li>Séchage à basse température</li>
+                        <li>Repassage à température moyenne</li>
+                        <li>Ne pas nettoyer à sec</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Quelle est votre politique de retour ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Nous acceptons les retours dans les 30 jours suivant la réception de votre commande. Les articles doivent être dans leur état d'origine, non portés et avec toutes les étiquettes attachées. Les frais de retour sont à la charge du client, sauf en cas d'erreur de notre part ou de produit défectueux.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Vos produits sont-ils éthiques et durables ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Oui, nous nous engageons à produire des vêtements de manière éthique et durable. Tous nos t-shirts sont fabriqués au Maroc dans des conditions de travail équitables. Nous utilisons du coton biologique et des méthodes de production respectueuses de l'environnement. Nos emballages sont également écologiques et recyclables.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="quick-links">
+                <div class="quick-link-item">
+                    <a href="index.html#story">
+                        <i class="fas fa-book"></i>
+                        <span>Notre Histoire</span>
+                    </a>
+                </div>
+                <div class="quick-link-item">
+                    <a href="index.html#values">
+                        <i class="fas fa-star"></i>
+                        <span>Nos Valeurs</span>
+                    </a>
+                </div>
+                <div class="quick-link-item">
+                    <a href="index.html#products">
+                        <i class="fas fa-tshirt"></i>
+                        <span>Collection</span>
+                    </a>
+                </div>
+                <div class="quick-link-item">
+                    <a href="index.html#contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>SHOP</h3>
+                        <ul>
+                            <li><a href="#">Nouveautés</a></li>
+                            <li><a href="#">T-shirts</a></li>
+                            <li><a href="#">Accessoires</a></li>
+                            <li><a href="#">Collections</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>AIDE</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="shipping.html">Livraison</a></li>
+                            <li><a href="returns.html">Retours</a></li>
+                            <li><a href="sizes.html">Tailles</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>LÉGAL</h3>
+                        <ul>
+                            <li><a href="terms.html">Conditions</a></li>
+                            <li><a href="privacy.html">Confidentialité</a></li>
+                            <li><a href="cookies.html">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 BLAZE Streetwear. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

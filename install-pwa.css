@@ -1,0 +1,37 @@
+/* PWA Installation Button Styles */
+.install-container {
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 899;
+    padding: 0 20px;
+}
+
+.add-to-home {
+    background-color: var(--accent-gold);
+    color: var(--primary-bg);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: pulse-animation 2s infinite;
+    display: none;
+}
+
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+}

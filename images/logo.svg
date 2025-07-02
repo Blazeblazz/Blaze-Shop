@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Flame Icon -->
+  <g transform="translate(0, 0)">
+    <path d="M20,0 C20,0 22,8 16,14 C10,20 12,24 12,28 C12,32 16,36 20,36 C24,36 28,32 28,28 C28,24 30,20 24,14 C18,8 20,0 20,0 Z" fill="#ffc107"/>
+    <path d="M20,0 C20,0 18,8 24,14 C30,20 28,24 28,28 C28,32 24,36 20,36" fill="none" stroke="#ff4500" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="20" cy="28" r="2" fill="#ff4500"/>
+  </g>
+  
+  <!-- BLAZE Text -->
+  <g transform="translate(40, 24)">
+    <!-- B -->
+    <path d="M0,0 L0,-18 L10,-18 C12,-18 13,-17 14,-16 C15,-15 15,-13 15,-12 C15,-10 14,-8 12,-7 C15,-6 16,-4 16,-2 C16,0 15,1 14,2 C13,3 11,4 9,4 L0,4 Z M4,-10 L9,-10 C10,-10 10,-11 10,-12 C10,-13 10,-14 9,-14 L4,-14 Z M4,-4 L9,-4 C10,-4 11,-5 11,-6 C11,-7 10,-8 9,-8 L4,-8 Z" fill="#ffffff"/>
+    
+    <!-- L -->
+    <path d="M18,0 L18,-18 L22,-18 L22,-4 L32,-4 L32,0 Z" fill="#ffffff"/>
+    
+    <!-- A -->
+    <path d="M34,0 L34,-18 L38,-18 L46,0 L42,0 L40,-4 L34,-4 L32,0 Z M35,-8 L39,-8 L37,-14 Z" fill="#ffffff"/>
+    
+    <!-- Z -->
+    <path d="M48,0 L48,-18 L62,-18 L62,-14 L54,-14 L62,-4 L62,0 L48,0 L48,-4 L56,-4 L48,-14 Z" fill="#ffffff"/>
+    
+    <!-- E -->
+    <path d="M64,0 L64,-18 L78,-18 L78,-14 L68,-14 L68,-11 L76,-11 L76,-7 L68,-7 L68,-4 L78,-4 L78,0 Z" fill="#ffffff"/>
+  </g>
+  
+  <!-- Glow Effect -->
+  <circle cx="20" cy="20" r="18" fill="url(#glow)" opacity="0.3"/>
+  
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="#ffc107"/>
+      <stop offset="100%" stop-color="#ffc107" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

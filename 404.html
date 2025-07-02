@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Page Non Trouvée - BLAZE Streetwear</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="logo.css">
+    <link rel="stylesheet" href="mobile-enhancements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffc107' d='M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'/%3E%3C/svg%3E">
+    <style>
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .error-message {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: var(--text-gray);
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn-home {
+            padding: 15px 30px;
+            background-color: var(--accent-gold);
+            color: var(--primary-bg);
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-home:hover {
+            background-color: var(--accent-gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+        
+        .btn-contact {
+            padding: 15px 30px;
+            background-color: transparent;
+            color: var(--text-white);
+            text-decoration: none;
+            border: 1px solid var(--border-dark);
+            border-radius: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-contact:hover {
+            border-color: var(--text-white);
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+            
+            .error-title {
+                font-size: 1.5rem;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-fire"></i>
+                    <span>BLAZE</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-close"><i class="fas fa-times"></i></button>
+                <ul>
+                    <li><a href="index.html#story">Notre Histoire</a></li>
+                    <li><a href="index.html#values">Nos Valeurs</a></li>
+                    <li><a href="index.html#products">Collection</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Error Page Content -->
+    <div class="error-page">
+        <div class="error-code">404</div>
+        <h1 class="error-title">PAGE NON TROUVÉE</h1>
+        <p class="error-message">La page que vous recherchez n'existe pas ou a été déplacée. Veuillez vérifier l'URL ou retourner à la page d'accueil.</p>
+        <div class="error-actions">
+            <a href="index.html" class="btn-home">Page d'accueil</a>
+            <a href="index.html#contact" class="btn-contact">Contactez-nous</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>SHOP</h3>
+                        <ul>
+                            <li><a href="index.html#products">Nouveautés</a></li>
+                            <li><a href="index.html#products">T-shirts</a></li>
+                            <li><a href="index.html#products">Accessoires</a></li>
+                            <li><a href="index.html#products">Collections</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>AIDE</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="shipping.html">Livraison</a></li>
+                            <li><a href="returns.html">Retours</a></li>
+                            <li><a href="sizes.html">Tailles</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>LÉGAL</h3>
+                        <ul>
+                            <li><a href="terms.html">Conditions</a></li>
+                            <li><a href="privacy.html">Confidentialité</a></li>
+                            <li><a href="cookies.html">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 BLAZE Streetwear. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+/* Color Variants Styles */
+.color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.color-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.color-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.color-swatch {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-dark);
+    transition: all 0.3s ease;
+}
+
+.color-option input:checked + .color-swatch {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 2px var(--accent-gold);
+}
+
+.color-white {
+    background-color: #ffffff;
+}
+
+.color-black {
+    background-color: #000000;
+}
+
+.color-brown {
+    background-color: #a18262; /* dark beige */
+}
+
+.color-name {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.color-option:hover .color-name {
+    opacity: 1;
+}

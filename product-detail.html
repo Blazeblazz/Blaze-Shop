@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RISE - BLAZE Streetwear</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="logo.css">
+    <link rel="stylesheet" href="color-variants.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffc107' d='M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'/%3E%3C/svg%3E">
+    <style>
+        .compare-price {
+            color: var(--text-gray);
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-left: 8px;
+        }
+        
+        .size-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .size-badge {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: var(--primary-bg);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .size-guide-link {
+            color: var(--text-gray);
+            text-decoration: underline;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-fire"></i>
+                    <span>BLAZE</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html#story">Notre Histoire</a></li>
+                    <li><a href="index.html#values">Nos Valeurs</a></li>
+                    <li><a href="index.html#products">Collection</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html#products">Collection</a></li>
+                <li>RISE</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-detail-grid">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="images/products/Rise.webp" alt="T-shirt RISE" id="main-product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" data-image="images/products/Rise.webp">
+                            <img src="images/products/Rise.webp" alt="T-shirt RISE - Vue de face">
+                        </div>
+                        <div class="thumbnail" data-image="images/products/Rise.webp">
+                            <img src="images/products/Rise.webp" alt="T-shirt RISE - Vue de dos">
+                        </div>
+                        <div class="thumbnail" data-image="images/products/Rise.webp">
+                            <img src="images/products/Rise.webp" alt="T-shirt RISE - Détail">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info-detail">
+                    <h1>RISE</h1>
+                    <div class="product-price">129 MAD <span class="compare-price">179 MAD</span></div>
+                    <div class="product-description">
+                        <p>T-shirt premium RISE de notre collection Captivating Cities. Fabriqué au Maroc avec un coton 100% biologique de haute qualité. Le design emblématique représente le lever du soleil sur les villes marocaines, symbolisant l'espoir et le renouveau.</p>
+                    </div>
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label>Couleur</label>
+                            <div class="color-options" id="color-options">
+                                <label class="color-option">
+                                    <input type="radio" name="color" value="white" checked>
+                                    <span class="color-swatch color-white"></span>
+                                    <span class="color-name">Blanc</span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="radio" name="color" value="brown">
+                                    <span class="color-swatch color-brown"></span>
+                                    <span class="color-name">Beige foncé</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <label>Taille</label>
+                            <div class="size-info">
+                                <span class="size-badge">Taille Unique</span>
+                                <a href="sizes.html" class="size-guide-link">Guide des tailles</a>
+                            </div>
+                        </div>
+                        <div class="option-group">
+                            <label>Quantité</label>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" value="1" min="1" max="10" class="quantity-input">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-commandez">COMMANDEZ</button>
+                        <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Livraison gratuite sur toutes les commandes</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-undo"></i>
+                            <span>Retours gratuits sous 30 jours</span>
+                        </div>
+                    </div>
+                    <div class="product-accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3>Détails du produit</h3>
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>100% coton biologique</li>
+                                    <li>Impression sérigraphique de haute qualité</li>
+                                    <li>Col rond renforcé</li>
+                                    <li>Coupe régulière</li>
+                                    <li>Fabriqué au Maroc</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3>Guide des tailles</h3>
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <table class="size-guide">
+                                    <tr>
+                                        <th>Taille</th>
+                                        <th>Poitrine (cm)</th>
+                                        <th>Longueur (cm)</th>
+                                    </tr>
+                                    <tr>
+                                        <td>S</td>
+                                        <td>96-101</td>
+                                        <td>69</td>
+                                    </tr>
+                                    <tr>
+                                        <td>M</td>
+                                        <td>101-106</td>
+                                        <td>71</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L</td>
+                                        <td>106-111</td>
+                                        <td>73</td>
+                                    </tr>
+                                    <tr>
+                                        <td>XL</td>
+                                        <td>111-116</td>
+                                        <td>75</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3>Entretien</h3>
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Lavage en machine à 30°C. Ne pas utiliser d'eau de Javel. Séchage à basse température. Repassage à température moyenne. Ne pas nettoyer à sec.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products Section -->
+    <section class="related-products">
+        <div class="container">
+            <h2>VOUS POURRIEZ AUSSI AIMER</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/SEGRETO.webp" alt="T-shirt SEGRETO">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>SEGRETO</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/Wild-Flowers.webp" alt="T-shirt WILDFLOWERS">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>WILDFLOWERS</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/Rush.webp" alt="T-shirt RUSH">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>RUSH</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/Trust-The-Process.webp" alt="T-shirt TRUST THE PROCESS">
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button class="btn-quick-view">Quick View</button>
+                                <button class="btn-add-cart">Commandez</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>TRUST THE PROCESS</h3>
+                        <p class="price">129 MAD <span class="compare-price">179 MAD</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>SHOP</h3>
+                        <ul>
+                            <li><a href="#">Nouveautés</a></li>
+                            <li><a href="#">T-shirts</a></li>
+                            <li><a href="#">Accessoires</a></li>
+                            <li><a href="#">Collections</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>AIDE</h3>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Livraison</a></li>
+                            <li><a href="#">Retours</a></li>
+                            <li><a href="#">Tailles</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>LÉGAL</h3>
+                        <ul>
+                            <li><a href="#">Conditions</a></li>
+                            <li><a href="#">Confidentialité</a></li>
+                            <li><a href="#">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 BLAZE Streetwear. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="product.js"></script>
+    <script src="product-variants.js"></script>
+    <script src="logo.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

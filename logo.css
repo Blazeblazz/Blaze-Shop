@@ -1,0 +1,22 @@
+/* Logo Styles */
+.logo {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.05);
+}

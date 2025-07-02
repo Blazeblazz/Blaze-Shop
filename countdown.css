@@ -1,0 +1,60 @@
+/* Countdown Timer Styles */
+.marketing-countdown {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.countdown-title {
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.countdown-item {
+    background-color: var(--accent-gold);
+    color: var(--primary-bg);
+    padding: 15px;
+    min-width: 80px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.countdown-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.countdown-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .countdown-timer {
+        gap: 10px;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+        padding: 10px;
+    }
+    
+    .countdown-value {
+        font-size: 1.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.6rem;
+    }
+}

@@ -1,0 +1,85 @@
+/* Product Button Styles */
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-info-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-commander, .btn-add-cart {
+    background-color: transparent;
+    color: var(--text-white);
+    border: 1px solid var(--text-white);
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-commander {
+    background-color: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--primary-bg);
+}
+
+.btn-add-cart {
+    background-color: transparent;
+    border-color: var(--text-white);
+}
+
+.btn-commander:hover {
+    background-color: var(--accent-gold-hover);
+    border-color: var(--accent-gold-hover);
+}
+
+.btn-add-cart:hover {
+    background-color: var(--text-white);
+    color: var(--primary-bg);
+}
+
+.btn-detail {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: transparent;
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.btn-detail:hover {
+    background-color: var(--accent-gold);
+    color: var(--primary-bg);
+}
+
+@media (max-width: 768px) {
+    .product-overlay {
+        background-color: rgba(10, 10, 10, 0.8);
+    }
+    
+    .product-actions {
+        width: 100%;
+        align-items: center;
+    }
+    
+    .btn-commander, .btn-add-cart {
+        width: 80%;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
