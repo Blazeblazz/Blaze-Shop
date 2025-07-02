@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reset Orders</h1>
+    <p>Use this page to reset all orders in the system.</p>
+    <p><strong>Warning:</strong> This will delete all orders from both JSONBin and localStorage.</p>
+    
+    <button id="resetOrders">Reset All Orders</button>
+    
+    <div class="result">
+        <h2>Result:</h2>
+        <pre id="result">No action taken yet.</pre>
+    </div>
+    
+    <script>
+        // API configuration
+        const API_URL = "https://api.jsonbin.io/v3/b";
+        const API_KEY = "$2a$10$W7Y1w05rI7FhqCSUCB/tRuDJYO2fRlTwgv2s3je3OlExS3oOz9UzG";
+        const BIN_ID = "686583bb8561e97a50306adf";
+        
+        document.getElementById('resetOrders').addEventListener('click', async function() {
+            if (!confirm('Are you sure you want to reset all orders? This cannot be undone.')) {
+                return;
+            }
+            
+            const resultElement = document.getElementById('result');
+            
+            try {
+                // Reset JSONBin
+                const response = await fetch(`${API_URL}/${BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY,
+                        'X-Bin-Versioning': 'false'
+                    },
+                    body: JSON.stringify({orders: []})
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to reset JSONBin: ${response.status}`);
+                }
+                
+                // Reset localStorage
+                localStorage.removeItem('orders');
+                
+                resultElement.textContent = 'All orders have been reset successfully!';
+            } catch (error) {
+                resultElement.textContent = `Error resetting orders: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

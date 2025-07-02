@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buyButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.stopPropagation();
-                window.location.href = `product-detail.html?product=${encodeURIComponent(productName)}`;
+                window.location.href = 'checkout.html';
             });
         });
         
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
             
-            // Show confirmation
-            alert(`${productName} ajouté au panier`);
+            // No alert message - redirect to checkout
+            window.location.href = 'checkout.html';
         });
     });
     

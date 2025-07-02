@@ -56,8 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Also save to localStorage as backup
             saveOrder(orderData);
             
-            // Show confirmation
-            alert('Votre commande a été passée avec succès! Vous recevrez un appel pour confirmer.');
+            // No alert message - redirect silently
             
             // Clear cart
             localStorage.removeItem('cart');

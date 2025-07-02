@@ -103,8 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Save updated cart to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
             
-            // Show confirmation
-            alert(`${quantity} × ${productName} (${getColorName(selectedColor)}) commandé avec succès`);
+            // No alert message - redirect silently
             
             // Redirect to checkout page
             window.location.href = 'checkout.html';
@@ -133,12 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add to wishlist
             icon.classList.remove('far');
             icon.classList.add('fas');
-            alert('Produit ajouté aux favoris');
+            // No alert message
         } else {
             // Remove from wishlist
             icon.classList.remove('fas');
             icon.classList.add('far');
-            alert('Produit retiré des favoris');
+            // No alert message
         }
     });
 });

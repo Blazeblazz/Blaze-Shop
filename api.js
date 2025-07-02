@@ -16,6 +16,13 @@ async function saveOrderToServer(order) {
         // First, get existing data
         const data = await getOrdersFromServer();
         
+        // Check if order with same ID already exists to prevent duplicates
+        const orderExists = data.orders.some(existingOrder => existingOrder.id === order.id);
+        if (orderExists) {
+            console.warn('Order already exists, skipping duplicate');
+            return true;
+        }
+        
         // Add new order to the list
         data.orders.push(order);
         
