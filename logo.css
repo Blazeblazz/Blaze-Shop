@@ -1,4 +1,6 @@
 /* Logo Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+
 .logo {
     display: flex;
     align-items: center;
@@ -9,14 +11,29 @@
     display: flex;
     align-items: center;
     text-decoration: none;
+    position: relative;
 }
 
-.logo-image {
-    height: 40px;
-    width: auto;
-    transition: transform 0.3s ease;
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    color: #ffffff;
+    letter-spacing: 1px;
 }
 
-.logo:hover .logo-image {
-    transform: scale(1.05);
+.logo-sparkle {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 14px;
+    animation: sparkle 2s infinite;
+}
+
+@keyframes sparkle {
+    0% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+    100% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
 }

@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="product-badges.css">
     <link rel="stylesheet" href="countdown.css">
     <link rel="stylesheet" href="testimonials.css">
-    <link rel="stylesheet" href="promo-popup.css">
     <link rel="stylesheet" href="stock-counter.css">
     <link rel="stylesheet" href="hot-deals.css">
     <link rel="stylesheet" href="mobile-enhancements.css">
@@ -30,25 +29,41 @@
     <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
 </head>
 <body>
-    <!-- Marketing Banner -->
-    <div class="marketing-banner">
-        <i class="fas fa-shipping-fast"></i> Livraison gratuite sur toutes les commandes
-    </div>
-    
+
     <!-- Navigation Header -->
     <header>
         <div class="container">
             <div class="logo">
-                <i class="fas fa-fire"></i>
-                <span>BLAZE</span>
+                <!-- Logo will be populated by logo.js -->
             </div>
-            <nav class="main-nav">
-                <button class="menu-close"><i class="fas fa-times"></i></button>
+            <nav class="main-nav" aria-label="Navigation principale">
+                <button class="menu-close" aria-label="Fermer le menu"><i class="fas fa-times"></i></button>
                 <ul>
                     <li><a href="#story">Notre Histoire</a></li>
                     <li><a href="#values">Nos Valeurs</a></li>
                     <li><a href="#products">Collection</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <a href="https://www.instagram.com/blazestreetline" target="_blank" rel="noopener" aria-label="Instagram BLAZE">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/blazestreetline" target="_blank" rel="noopener" aria-label="Facebook BLAZE">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" aria-label="Ouvrir le menu">
+                <div class="hamburger" tabindex="0" role="button" aria-pressed="false</div>">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
                     <!-- Cart removed -->
                 </ul>
             </nav>
@@ -67,8 +82,8 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>CAPTIVATING<br>CITIES</h1>
-                    <p>Découvrez notre collection exclusive inspirée par l'essence des villes marocaines</p>
+                    <h1>collection<br>2025</h1>
+                    <p>BLAZE Arrive à Casablanca</p>
                     <button class="btn-explore">ACHETER MAINTENANT</button>
                 </div>
                 <div class="hero-image">
@@ -368,7 +383,7 @@
                     </div>
                     <p>"BLAZE représente l'avenir de la mode urbaine marocaine, fusionnant l'authenticité des rues avec une qualité exceptionnelle et un design innovant. Une marque à suivre absolument."</p>
                     <div class="testimonial-author">
-                        <img src="images/media/journal-urbain.webp" alt="Le Journal Urbain" class="testimonial-logo">
+                        <img src="images/Ju.webp" alt="Le Journal Urbain" class="testimonial-logo">
                         <cite>— Le Journal Urbain</cite>
                     </div>
                 </div>
@@ -382,7 +397,7 @@
                     </div>
                     <p>"Une marque qui célèbre véritablement l'esprit créatif de la jeunesse marocaine tout en établissant de nouvelles normes pour la mode streetwear africaine. Chaque pièce raconte une histoire authentique."</p>
                     <div class="testimonial-author">
-                        <img src="images/media/style-radar.webp" alt="Style Radar Africa" class="testimonial-logo">
+                        <img src="images/images.png" alt="Style Radar Africa" class="testimonial-logo">
                         <cite>— Style Radar Africa</cite>
                     </div>
                 </div>
@@ -467,7 +482,6 @@
     <script src="product-detail-buttons.js"></script>
     <script src="rotating-banner.js"></script>
     <script src="countdown.js"></script>
-    <script src="promo-popup.js"></script>
     <script src="stock-counter.js"></script>
     <script src="mobile-nav.js"></script>
     <script src="pwa.js"></script>

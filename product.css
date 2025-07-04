@@ -245,9 +245,24 @@
 }
 
 .accordion-content {
-    display: none;
-    padding: 0 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
     line-height: 1.6;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px; /* Large enough to fit content */
+    padding: 0 0 20px;
+}
+
+.accordion-item.active .accordion-header i {
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-header i {
+    transform: rotate(45deg);
 }
 
 .accordion-content ul {

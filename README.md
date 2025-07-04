@@ -2,17 +2,22 @@
 
 A modern e-commerce website for BLAZE Streetwear, a premium Moroccan streetwear brand.
 
+## Live Demo
+
+[View Live Demo](https://blazestreetline.com)
+
 ## Features
 
 - Responsive design for all devices
 - Product catalog with filtering options
-- Product detail pages with size selection
+- Product detail pages with color selection
 - Shopping cart functionality
-- Checkout process
+- Checkout process with COD payment
 - Order confirmation
 - Newsletter subscription
 - Contact form
 - Progressive Web App (PWA) support
+- Admin panel for order management
 
 ## Technologies Used
 
@@ -21,7 +26,30 @@ A modern e-commerce website for BLAZE Streetwear, a premium Moroccan streetwear 
 - JavaScript (Vanilla)
 - Font Awesome for icons
 - Google Fonts
-- LocalStorage for cart management
+- LocalStorage for cart management and order storage
+
+## Installation
+
+1. Clone the repository:
+```
+git clone https://github.com/Blazeblazz/Blaze-Shop.git
+```
+
+2. Navigate to the project directory:
+```
+cd Blaze-Shop
+```
+
+3. Open `index.html` in your browser or use a local server.
+
+## Admin Access
+
+To access the admin panel:
+
+1. Navigate to `/admin/login.html`
+2. Use the following credentials:
+   - Username: admin
+   - Password: blaze123
 
 ## Project Structure
 
@@ -51,9 +79,11 @@ A modern e-commerce website for BLAZE Streetwear, a premium Moroccan streetwear 
 ├── cart.css                # Cart page styles
 ├── checkout.css            # Checkout page styles
 ├── confirmation.css        # Confirmation page styles
+├── color-variants.css      # Color variants styles
 ├── script.js               # Main JavaScript file
 ├── cart.js                 # Cart functionality
 ├── product.js              # Product page functionality
+├── product-variants.js     # Product color variants functionality
 ├── checkout.js             # Checkout functionality
 ├── countdown.js            # Countdown timer functionality
 ├── promo-popup.js          # Promotional popup functionality
@@ -63,7 +93,12 @@ A modern e-commerce website for BLAZE Streetwear, a premium Moroccan streetwear 
 ├── service-worker.js       # Service worker for offline support
 ├── robots.txt              # Instructions for search engine crawlers
 ├── sitemap.xml             # Site structure for search engines
-└── .htaccess               # Server configuration
+├── .htaccess               # Server configuration
+└── admin/                  # Admin panel
+    ├── index.html          # Admin dashboard
+    ├── login.html          # Admin login
+    ├── admin.css           # Admin styles
+    └── admin.js            # Admin functionality
 ```
 
 ## Deployment
@@ -81,24 +116,6 @@ A modern e-commerce website for BLAZE Streetwear, a premium Moroccan streetwear 
 - Edge (latest)
 - Opera (latest)
 - Mobile browsers (iOS Safari, Android Chrome)
-
-## Performance Optimizations
-
-- Compressed and optimized images
-- Minified CSS and JavaScript
-- Browser caching enabled
-- GZIP compression
-- Lazy loading for images
-- PWA for offline access
-
-## SEO Optimizations
-
-- Semantic HTML structure
-- Meta tags for SEO
-- Structured data for rich snippets
-- Sitemap.xml for search engines
-- Robots.txt for crawler instructions
-- Optimized page load speed
 
 ## License
 

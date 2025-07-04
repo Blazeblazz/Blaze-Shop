@@ -5,32 +5,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update each logo
     logoElements.forEach(logo => {
-        // Check if logo already has content
-        if (logo.querySelector('a') && !logo.querySelector('img')) {
-            // Keep the existing content but ensure it's consistent
-            const link = logo.querySelector('a');
-            if (!link.getAttribute('href')) {
-                link.setAttribute('href', 'index.html');
-            }
-        } else {
-            // Clear existing content
-            logo.innerHTML = '';
-            
-            // Create link to homepage
-            const link = document.createElement('a');
-            link.href = 'index.html';
-            
-            // Create logo content
-            const icon = document.createElement('i');
-            icon.className = 'fas fa-fire';
-            
-            const text = document.createElement('span');
-            text.textContent = 'BLAZE';
-            
-            // Append elements
-            link.appendChild(icon);
-            link.appendChild(text);
-            logo.appendChild(link);
-        }
+        // Clear existing content
+        logo.innerHTML = '';
+        
+        // Create link to homepage
+        const link = document.createElement('a');
+        link.href = 'index.html';
+        
+        // Create sparkle element
+        const sparkle = document.createElement('span');
+        sparkle.className = 'logo-sparkle';
+        sparkle.innerHTML = '✨';
+        
+        // Create logo text
+        const text = document.createElement('span');
+        text.className = 'logo-text';
+        text.textContent = 'BLAZE';
+        
+        // Append elements
+        link.appendChild(sparkle);
+        link.appendChild(text);
+        logo.appendChild(link);
     });
 });

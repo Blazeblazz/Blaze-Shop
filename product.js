@@ -59,6 +59,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Accordion functionality
     const accordionItems = document.querySelectorAll('.accordion-item');
     
+    // Open first accordion item by default
+    if (accordionItems.length > 0) {
+        const firstItem = accordionItems[0];
+        firstItem.classList.add('active');
+        const firstIcon = firstItem.querySelector('.accordion-header i');
+        if (firstIcon) {
+            firstIcon.classList.remove('fa-plus');
+            firstIcon.classList.add('fa-minus');
+        }
+    }
+    
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
         
@@ -66,16 +77,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Toggle current item
             item.classList.toggle('active');
             
-            // Close other items (uncomment for accordion behavior)
-            // accordionItems.forEach(otherItem => {
-            //     if (otherItem !== item) {
-            //         otherItem.classList.remove('active');
-            //     }
-            // });
+            // Update icon
+            const icon = header.querySelector('i');
+            if (item.classList.contains('active')) {
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+            } else {
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+            }
+            
+            // Close other items (accordion behavior)
+            accordionItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    const otherIcon = otherItem.querySelector('.accordion-header i');
+                    otherIcon.classList.remove('fa-minus');
+                    otherIcon.classList.add('fa-plus');
+                }
+            });
         });
     });
     
-    // Commandez functionality for product detail page
+    // Order Now functionality for product detail page
     const addToCartBtn = document.querySelector('.btn-commandez');
     
     if (addToCartBtn) {
