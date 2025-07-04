@@ -59,17 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Accordion functionality
     const accordionItems = document.querySelectorAll('.accordion-item');
     
-    // Open first accordion item by default
-    if (accordionItems.length > 0) {
-        const firstItem = accordionItems[0];
-        firstItem.classList.add('active');
-        const firstIcon = firstItem.querySelector('.accordion-header i');
-        if (firstIcon) {
-            firstIcon.classList.remove('fa-plus');
-            firstIcon.classList.add('fa-minus');
-        }
-    }
-    
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
         
@@ -77,29 +66,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Toggle current item
             item.classList.toggle('active');
             
-            // Update icon
-            const icon = header.querySelector('i');
-            if (item.classList.contains('active')) {
-                icon.classList.remove('fa-plus');
-                icon.classList.add('fa-minus');
-            } else {
-                icon.classList.remove('fa-minus');
-                icon.classList.add('fa-plus');
-            }
-            
-            // Close other items (accordion behavior)
-            accordionItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                    const otherIcon = otherItem.querySelector('.accordion-header i');
-                    otherIcon.classList.remove('fa-minus');
-                    otherIcon.classList.add('fa-plus');
-                }
-            });
+            // Close other items (uncomment for accordion behavior)
+            // accordionItems.forEach(otherItem => {
+            //     if (otherItem !== item) {
+            //         otherItem.classList.remove('active');
+            //     }
+            // });
         });
     });
     
-    // Order Now functionality for product detail page
+    // Commandez functionality for product detail page
     const addToCartBtn = document.querySelector('.btn-commandez');
     
     if (addToCartBtn) {
@@ -111,6 +87,24 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get selected color
             const selectedColor = document.querySelector('input[name="color"]:checked')?.value || 'white';
+            
+            // Track Facebook Pixel AddToCart event
+            try {
+                fbq('track', 'AddToCart', {
+                    content_name: productName,
+                    content_type: 'product',
+                    content_ids: [productName],
+                    value: productPrice,
+                    currency: 'MAD',
+                    contents: [{
+                        id: productName,
+                        quantity: quantity,
+                        item_price: productPrice
+                    }]
+                });
+            } catch (e) {
+                console.log('Facebook Pixel error:', e);
+            }
             
             // Get current cart from localStorage or initialize empty array
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -127,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Save updated cart to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
             
-            // No alert message - redirect silently
+            // Show confirmation
+            alert(`${quantity} × ${productName} (${getColorName(selectedColor)}) commandé avec succès`);
             
             // Redirect to checkout page
             window.location.href = 'checkout.html';
@@ -156,12 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add to wishlist
             icon.classList.remove('far');
             icon.classList.add('fas');
-            // No alert message
+            alert('Produit ajouté aux favoris');
         } else {
             // Remove from wishlist
             icon.classList.remove('fas');
             icon.classList.add('far');
-            // No alert message
+            alert('Produit retiré des favoris');
         }
     });
 });

@@ -1,9 +1,5 @@
 // Checkout Page Functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Load the API script
-    const apiScript = document.createElement('script');
-    apiScript.src = 'api.js';
-    document.head.appendChild(apiScript);
     // Load cart items
     loadCartItems();
     
@@ -17,18 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (validateForm()) {
             // Get form data
             const formData = new FormData(checkoutForm);
-            // Get cart items and calculate totals
-            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-            let subtotal = 0;
-            
-            // Calculate subtotal
-            cartItems.forEach(item => {
-                const itemTotal = parseInt(item.price) * item.quantity;
-                subtotal += itemTotal;
-                // Add total to each item
-                item.total = itemTotal;
-            });
-            
             const orderData = {
                 customer: {
                     name: formData.get('name'),
@@ -36,27 +20,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     city: formData.get('city')
                 },
                 payment: 'cod',
-                items: cartItems,
-                subtotal: subtotal,
-                shipping: 'Gratuit',
-                total: subtotal,
+                items: JSON.parse(localStorage.getItem('cart')) || [],
+                total: document.getElementById('total').textContent,
                 date: new Date().toISOString().split('T')[0],
                 status: 'new',
                 id: generateOrderId()
             };
             
-            // Try to save order to server first
-            if (typeof saveOrderToServer === 'function') {
-                saveOrderToServer(orderData)
-                    .catch(error => {
-                        console.error('Error saving to server:', error);
-                    });
+            // Send order data to server (simulated)
+            console.log('Order submitted:', orderData);
+            
+            // Track purchase event for Facebook Pixel
+            try {
+                const totalValue = parseInt(orderData.total);
+                fbq('track', 'Purchase', {
+                    value: totalValue,
+                    currency: 'MAD'
+                });
+            } catch (e) {
+                console.log('Facebook Pixel error:', e);
             }
             
-            // Also save to localStorage as backup
+            // Store order in localStorage for admin panel
             saveOrder(orderData);
             
-            // No alert message - redirect silently
+            // Show confirmation
+            alert('Votre commande a été passée avec succès! Vous recevrez un appel pour confirmer.');
             
             // Clear cart
             localStorage.removeItem('cart');
@@ -73,10 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const city = document.getElementById('city').value;
         
         if (!name || !phone || !city) {
-            // No alert - just highlight the fields
-            if (!name) document.getElementById('name').style.borderColor = 'red';
-            if (!phone) document.getElementById('phone').style.borderColor = 'red';
-            if (!city) document.getElementById('city').style.borderColor = 'red';
+            alert('Veuillez remplir tous les champs obligatoires.');
             return false;
         }
         
@@ -182,8 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update totals
             updateTotals(newSubtotal);
             
-            // No alert - just update the UI
-            document.getElementById('promo-code').style.borderColor = 'green';
+            // Show confirmation
+            alert('Code promo BLAZE15 appliqué! Réduction de 15%.');
         } else if (promoCode === 'BLAZE40') {
             // Apply 40% discount for first-time customers
             const discount = Math.round(subtotal * 0.4);
@@ -192,11 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update totals
             updateTotals(newSubtotal);
             
-            // No alert - just update the UI
-            document.getElementById('promo-code').style.borderColor = 'green';
+            // Show confirmation
+            alert('Code promo BLAZE40 appliqué! Réduction de 40% pour votre première commande.');
         } else {
-            // Invalid promo code - visual indication
-            document.getElementById('promo-code').style.borderColor = 'red';
+            // Invalid promo code
+            alert('Code promo invalide.');
         }
     });
 });
